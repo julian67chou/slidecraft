@@ -1,0 +1,42 @@
+# Finance Navy — 金融/保險主題
+version: 1
+theme: finance-navy
+description: "Navy blue with gold accent — banking, finance, insurance"
+slide:
+  wIn: 13.333
+  hIn: 7.5
+colors:
+  bg: '#F8F9FC'
+  surface: '#FFFFFF'
+  text: { p: '#1B1B2F', s: '#5A5A7A' }
+  accent: '#1B2A4A'
+  accent2: '#C9A84C'
+  border: '#E0E4EE'
+typography:
+  family:
+    web: "'Noto Sans TC', 'PingFang TC', system-ui, sans-serif"
+    pptx: "Noto Sans CJK TC"
+  weights: { regular: 400, medium: 500, semibold: 600, bold: 700 }
+  h1: { pt: 44, px: 44, lh: 1.08, ls: -0.01, weight: bold }
+  h2: { pt: 28, px: 28, lh: 1.15, ls: 0, weight: semibold }
+  h3: { pt: 20, px: 20, lh: 1.25, ls: 0, weight: medium }
+  body: { pt: 16, px: 16, lh: 1.55, ls: 0, weight: regular }
+  caption: { pt: 11, px: 11, lh: 1.4, ls: 0.01, weight: regular }
+spacing:
+  xs: { px: 6, in: 0.08 }
+  sm: { px: 12, in: 0.16 }
+  md: { px: 16, in: 0.22 }
+  lg: { px: 24, in: 0.33 }
+  xl: { px: 36, in: 0.50 }
+radii: { card: 4, button: 3, image: 4 }
+shadows: { card: { x: 0, y: 1, blur: 4, spread: 0, color: '#0000000D' } }
+layouts:
+  cover: { titleY: 0.30, subtitleY: 0.42, padX: 0.9 }
+  card-list: { columns: 3, gap: { px: 14, in: 0.19 }, pad: 0.35 }
+  image-text: { imageRatio: 0.45, textRatio: 0.55, gap: { px: 20, in: 0.28 } }
+  grid: { columns: 2, rows: 2, gap: { px: 14, in: 0.19 } }
+  transition: { titleY: 0.5 }
+  content: { titleY: 0.12, padX: 0.75 }
+  two-column: { gap: { px: 18, in: 0.25 }, ratio: [0.5, 0.5] }
+  stat-card: { columns: 4, gap: { px: 12, in: 0.16 } }
+  timeline: { itemSpacing: { px: 22, in: 0.30 } }

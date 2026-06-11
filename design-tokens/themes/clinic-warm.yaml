@@ -1,0 +1,110 @@
+# Clinic Warm — 安生診所品牌主題
+# 暖米色系 + 深藍 accent，專業溫暖
+
+version: 1
+theme: clinic-warm
+description: "Warm beige tones with navy accent — perfect for medical/wellness presentations"
+
+slide:
+  wIn: 13.333
+  hIn: 7.5
+
+colors:
+  bg: '#FDF8F5'
+  surface: '#FFFFFF'
+  text:
+    p: '#2C2522'
+    s: '#6B5F58'
+  accent: '#004A99'
+  border: '#E8DDD5'
+
+typography:
+  family:
+    web: "'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif"
+    pptx: "Noto Sans CJK TC"
+  weights:
+    regular: 400
+    medium: 500
+    semibold: 600
+    bold: 700
+  h1:
+    pt: 44
+    px: 44
+    lh: 1.08
+    ls: -0.02
+    weight: bold
+  h2:
+    pt: 28
+    px: 28
+    lh: 1.15
+    ls: -0.01
+    weight: semibold
+  h3:
+    pt: 22
+    px: 22
+    lh: 1.25
+    ls: 0
+    weight: medium
+  body:
+    pt: 17
+    px: 17
+    lh: 1.55
+    ls: 0
+    weight: regular
+  caption:
+    pt: 12
+    px: 12
+    lh: 1.4
+    ls: 0.01
+    weight: regular
+
+spacing:
+  xs: { px: 8, in: 0.10 }
+  sm: { px: 12, in: 0.16 }
+  md: { px: 16, in: 0.22 }
+  lg: { px: 24, in: 0.33 }
+  xl: { px: 32, in: 0.45 }
+
+radii:
+  card: 6
+  button: 4
+  image: 4
+
+shadows:
+  card:
+    x: 0
+    y: 2
+    blur: 8
+    spread: 0
+    color: '#00000015'
+
+layouts:
+  cover:
+    titleY: 0.30
+    subtitleY: 0.42
+    padX: 0.85
+  card-list:
+    columns: 3
+    gap: { px: 16, in: 0.22 }
+    pad: 0.35
+  image-text:
+    imageRatio: 0.5
+    textRatio: 0.5
+    gap: { px: 24, in: 0.33 }
+  grid:
+    columns: 2
+    rows: 2
+    gap: { px: 16, in: 0.22 }
+  transition:
+    titleY: 0.5
+  content:
+    titleY: 0.12
+    padX: 0.7
+  two-column:
+    gap: { px: 20, in: 0.28 }
+    ratio: [0.5, 0.5]
+  stat-card:
+    columns: 4
+    gap: { px: 12, in: 0.16 }
+  timeline:
+    itemSpacing: { px: 24, in: 0.33 }

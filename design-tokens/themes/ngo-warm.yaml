@@ -1,0 +1,42 @@
+# NGO Warm — 非營利/社福主題
+version: 1
+theme: ngo-warm
+description: "Warm earth tones — non-profit, social welfare, community"
+slide:
+  wIn: 13.333
+  hIn: 7.5
+colors:
+  bg: '#FAF7F2'
+  surface: '#FFFFFF'
+  text: { p: '#2C2420', s: '#6B5F55' }
+  accent: '#D4815A'
+  accent2: '#7AAF6C'
+  border: '#EDE5DC'
+typography:
+  family:
+    web: "'Noto Sans TC', 'PingFang TC', system-ui, sans-serif"
+    pptx: "Noto Sans CJK TC"
+  weights: { regular: 400, medium: 500, semibold: 600, bold: 700 }
+  h1: { pt: 44, px: 44, lh: 1.08, ls: -0.02, weight: bold }
+  h2: { pt: 28, px: 28, lh: 1.15, ls: -0.01, weight: semibold }
+  h3: { pt: 22, px: 22, lh: 1.25, ls: 0, weight: medium }
+  body: { pt: 17, px: 17, lh: 1.55, ls: 0, weight: regular }
+  caption: { pt: 12, px: 12, lh: 1.4, ls: 0.01, weight: regular }
+spacing:
+  xs: { px: 8, in: 0.10 }
+  sm: { px: 12, in: 0.16 }
+  md: { px: 16, in: 0.22 }
+  lg: { px: 24, in: 0.33 }
+  xl: { px: 36, in: 0.50 }
+radii: { card: 8, button: 5, image: 6 }
+shadows: { card: { x: 0, y: 2, blur: 6, spread: 0, color: '#0000000D' } }
+layouts:
+  cover: { titleY: 0.30, subtitleY: 0.42, padX: 0.85 }
+  card-list: { columns: 3, gap: { px: 14, in: 0.19 }, pad: 0.35 }
+  image-text: { imageRatio: 0.5, textRatio: 0.5, gap: { px: 20, in: 0.28 } }
+  grid: { columns: 2, rows: 2, gap: { px: 14, in: 0.19 } }
+  transition: { titleY: 0.5 }
+  content: { titleY: 0.12, padX: 0.75 }
+  two-column: { gap: { px: 18, in: 0.25 }, ratio: [0.5, 0.5] }
+  stat-card: { columns: 4, gap: { px: 12, in: 0.16 } }
+  timeline: { itemSpacing: { px: 22, in: 0.30 } }

@@ -1,0 +1,55 @@
+# Gamma PPT — Unified Design Token Schema
+# This YAML drives BOTH HTML (CSS custom properties) and PPTX (EMU) renderers.
+# Every value uses dual units: px/in for layout, pt/px for typography.
+
+# Schema version
+version: 1
+
+# --- Theme Metadata ---
+# A theme can extend another theme (inherits all values, overrides specific fields)
+# A theme can reference a font definition (family + weights to download)
+
+# --- Token Reference ---
+#
+# slide:
+#   wIn, hIn: slide dimensions in inches (standard 16:9 = 13.333 x 7.5)
+#
+# colors:
+#   bg:        page/slide background
+#   surface:   card/surface background
+#   text:      { p: primary, s: secondary }
+#   accent:    accent/highlight color
+#   border:    border/divider color (optional)
+#
+# typography:
+#   family:    { web: CSS font stack, pptx: font name for python-pptx }
+#   weights:   { regular, medium, semibold, bold } — numeric values
+#   h1, h2, h3, body, caption:
+#     pt:   font size in points (for PPTX)
+#     px:   font size in pixels (for HTML, at 96dpi = 1pt = 1.333px)
+#     lh:   line-height multiplier
+#     ls:   letter-spacing in em (negative = tighter, CJK-friendly)
+#     weight: reference to weights key (e.g. "bold", "regular")
+#
+# spacing:
+#   xs, sm, md, lg, xl:
+#     px:   spacing in pixels (for HTML)
+#     in:   spacing in inches (for PPTX)
+#
+# radii: { card, button, image } — border-radius in px (HTML) / EMU
+#
+# shadows: (optional)
+#   card: { x, y, blur, spread, color } — drop shadow for cards
+#
+# layouts:
+#   <layout_name>:
+#     - layout-specific parameters
+#     - titleY: title Y position as fraction of slide height
+#     - padX: horizontal padding in inches
+#     - gap:  spacing between elements (px + in)
+
+# --- Example minimal schema ---
+# See themes/ directory for complete examples
+
+theme: schema-reference
+description: "This file documents the token schema. See themes/*.yaml for real themes."

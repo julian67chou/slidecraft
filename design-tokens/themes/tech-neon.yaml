@@ -1,0 +1,135 @@
+# Tech Neon — 科技感主題
+# 深藍底 + 螢光青 accent，適合科技/新創簡報
+
+version: 1
+theme: tech-neon
+description: "Dark navy with cyan neon — cutting-edge tech presentations"
+
+slide:
+  wIn: 13.333
+  hIn: 7.5
+
+colors:
+  bg: '#0A0E27'
+  surface: '#12163A'
+  text:
+    p: '#E8EAF6'
+    s: '#9CA3C9'
+  accent: '#00E5FF'
+  accent2: '#7C4DFF'
+  border: '#1E2355'
+
+typography:
+  family:
+    web: "'Inter', 'Noto Sans TC', system-ui, sans-serif"
+    pptx: "Inter"
+  weights:
+    regular: 400
+    medium: 500
+    semibold: 600
+    bold: 700
+  h1:
+    pt: 48
+    px: 48
+    lh: 1.05
+    ls: -0.02
+    weight: bold
+  h2:
+    pt: 30
+    px: 30
+    lh: 1.1
+    ls: -0.01
+    weight: semibold
+  h3:
+    pt: 22
+    px: 22
+    lh: 1.2
+    ls: 0
+    weight: medium
+  body:
+    pt: 17
+    px: 17
+    lh: 1.5
+    ls: 0
+    weight: regular
+  caption:
+    pt: 12
+    px: 12
+    lh: 1.4
+    ls: 0.01
+    weight: regular
+
+spacing:
+  xs:
+    px: 8
+    in: 0.10
+  sm:
+    px: 14
+    in: 0.19
+  md:
+    px: 20
+    in: 0.28
+  lg:
+    px: 28
+    in: 0.39
+  xl:
+    px: 40
+    in: 0.55
+
+radii:
+  card: 8
+  button: 6
+  image: 6
+
+shadows:
+  card:
+    x: 0
+    y: 2
+    blur: 10
+    spread: 0
+    color: '#00000030'
+
+layouts:
+  cover:
+    titleY: 0.28
+    subtitleY: 0.40
+    padX: 0.9
+  card-list:
+    columns: 3
+    gap:
+      px: 16
+      in: 0.22
+    pad: 0.35
+  image-text:
+    imageRatio: 0.5
+    textRatio: 0.5
+    gap:
+      px: 24
+      in: 0.33
+  grid:
+    columns: 2
+    rows: 2
+    gap:
+      px: 16
+      in: 0.22
+  transition:
+    titleY: 0.5
+  content:
+    titleY: 0.10
+    padX: 0.75
+  two-column:
+    gap:
+      px: 22
+      in: 0.30
+    ratio:
+      - 0.5
+      - 0.5
+  stat-card:
+    columns: 4
+    gap:
+      px: 14
+      in: 0.19
+  timeline:
+    itemSpacing:
+      px: 24
+      in: 0.33

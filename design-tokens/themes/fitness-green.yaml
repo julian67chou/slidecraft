@@ -1,0 +1,44 @@
+# Fitness Green — 健康/健身主題
+version: 1
+theme: fitness-green
+description: "Fresh green with white — health, fitness, wellness"
+slide:
+  wIn: 13.333
+  hIn: 7.5
+colors:
+  bg: '#F5FFF5'
+  surface: '#FFFFFF'
+  text:
+    p: '#1A3A1A'
+    s: '#4A7A4A'
+  accent: '#2ECC71'
+  accent2: '#27AE60'
+  border: '#D4ECD4'
+typography:
+  family:
+    web: "'Noto Sans TC', 'PingFang TC', system-ui, sans-serif"
+    pptx: "Noto Sans CJK TC"
+  weights: { regular: 400, medium: 500, semibold: 600, bold: 700 }
+  h1: { pt: 48, px: 48, lh: 1.06, ls: -0.02, weight: bold }
+  h2: { pt: 28, px: 28, lh: 1.15, ls: -0.01, weight: semibold }
+  h3: { pt: 22, px: 22, lh: 1.25, ls: 0, weight: medium }
+  body: { pt: 17, px: 17, lh: 1.55, ls: 0, weight: regular }
+  caption: { pt: 12, px: 12, lh: 1.4, ls: 0.01, weight: regular }
+spacing:
+  xs: { px: 8, in: 0.10 }
+  sm: { px: 14, in: 0.19 }
+  md: { px: 18, in: 0.25 }
+  lg: { px: 28, in: 0.39 }
+  xl: { px: 40, in: 0.55 }
+radii: { card: 10, button: 6, image: 6 }
+shadows: { card: { x: 0, y: 2, blur: 6, spread: 0, color: '#0000000D' } }
+layouts:
+  cover: { titleY: 0.30, subtitleY: 0.42, padX: 0.85 }
+  card-list: { columns: 3, gap: { px: 14, in: 0.19 }, pad: 0.35 }
+  image-text: { imageRatio: 0.5, textRatio: 0.5, gap: { px: 22, in: 0.30 } }
+  grid: { columns: 2, rows: 2, gap: { px: 14, in: 0.19 } }
+  transition: { titleY: 0.5 }
+  content: { titleY: 0.12, padX: 0.75 }
+  two-column: { gap: { px: 18, in: 0.25 }, ratio: [0.5, 0.5] }
+  stat-card: { columns: 4, gap: { px: 12, in: 0.16 } }
+  timeline: { itemSpacing: { px: 22, in: 0.30 } }

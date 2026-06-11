@@ -1,0 +1,111 @@
+# Academic Clean — 學術簡報主題
+# 白色底 + 沉穩藍灰，清晰易讀
+
+version: 1
+theme: academic-clean
+description: "Clean white background with slate accent — academic conferences, research presentations"
+
+slide:
+  wIn: 13.333
+  hIn: 7.5
+
+colors:
+  bg: '#FFFFFF'
+  surface: '#F8F9FA'
+  text:
+    p: '#1A1A2E'
+    s: '#4A4A6A'
+  accent: '#3D5A80'
+  accent2: '#98C1D9'
+  border: '#E0E0E8'
+
+typography:
+  family:
+    web: "'Noto Sans CJK SC', 'Noto Sans TC', 'Source Han Sans', system-ui, sans-serif"
+    pptx: "Noto Sans CJK SC"
+  weights:
+    regular: 400
+    medium: 500
+    semibold: 600
+    bold: 700
+  h1:
+    pt: 40
+    px: 40
+    lh: 1.1
+    ls: -0.01
+    weight: bold
+  h2:
+    pt: 26
+    px: 26
+    lh: 1.2
+    ls: 0
+    weight: semibold
+  h3:
+    pt: 20
+    px: 20
+    lh: 1.3
+    ls: 0
+    weight: medium
+  body:
+    pt: 16
+    px: 16
+    lh: 1.6
+    ls: 0
+    weight: regular
+  caption:
+    pt: 11
+    px: 11
+    lh: 1.4
+    ls: 0.01
+    weight: regular
+
+spacing:
+  xs: { px: 6, in: 0.08 }
+  sm: { px: 12, in: 0.16 }
+  md: { px: 18, in: 0.25 }
+  lg: { px: 28, in: 0.39 }
+  xl: { px: 40, in: 0.55 }
+
+radii:
+  card: 4
+  button: 3
+  image: 2
+
+shadows:
+  card:
+    x: 0
+    y: 1
+    blur: 4
+    spread: 0
+    color: '#0000000D'
+
+layouts:
+  cover:
+    titleY: 0.32
+    subtitleY: 0.44
+    padX: 0.9
+  card-list:
+    columns: 3
+    gap: { px: 14, in: 0.19 }
+    pad: 0.35
+  image-text:
+    imageRatio: 0.45
+    textRatio: 0.55
+    gap: { px: 20, in: 0.28 }
+  grid:
+    columns: 2
+    rows: 2
+    gap: { px: 14, in: 0.19 }
+  transition:
+    titleY: 0.5
+  content:
+    titleY: 0.12
+    padX: 0.75
+  two-column:
+    gap: { px: 18, in: 0.25 }
+    ratio: [0.5, 0.5]
+  stat-card:
+    columns: 4
+    gap: { px: 12, in: 0.16 }
+  timeline:
+    itemSpacing: { px: 22, in: 0.30 }

@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presentation</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+}
+.deck {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 1300px;
+}
+:root {
+  --bg: #0D0D0D;
+  --surface: #1A1A1A;
+  --text-p: #FFFFFF;
+  --text-s: #888888;
+  --accent: #6C5CE7;
+  --border: #2A2A2A;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 52px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.03em;
+  --fs-h2: 32px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.02em;
+  --fs-h3: 24px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 18px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 13px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 4px 12px 0px #00000040;
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<section class="slide layout-cover" data-slide-id="s01" data-layout="cover" data-order="1"><style>
+:root {
+  --bg: #0D0D0D;
+  --surface: #1A1A1A;
+  --text-p: #FFFFFF;
+  --text-s: #888888;
+  --accent: #6C5CE7;
+  --border: #2A2A2A;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 52px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.03em;
+  --fs-h2: 32px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.02em;
+  --fs-h3: 24px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 18px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 13px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 4px 12px 0px #00000040;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+</style><div class="slide-bg-overlay" style="background: linear-gradient(135deg, #6C5CE715 0%, #6C5CE705 100%);"></div><div class="slide-content"><div class="subtitle">Built with Design Tokens</div><h1>Gamma-Level PPT</h1></div></section><section class="slide layout-card-list" data-slide-id="s02" data-layout="card-list" data-order="2"><style>
+:root {
+  --bg: #0D0D0D;
+  --surface: #1A1A1A;
+  --text-p: #FFFFFF;
+  --text-s: #888888;
+  --accent: #6C5CE7;
+  --border: #2A2A2A;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 52px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.03em;
+  --fs-h2: 32px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.02em;
+  --fs-h3: 24px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 18px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 13px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 4px 12px 0px #00000040;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+</style><div class="slide-content"><h2>Key Features</h2><div class="card-grid"><div class="card"><ul><li>Design Token unified layer</li><li>Parallel slide rendering</li></ul></div><div class="card"><ul><li>Grok Draw AI images</li><li>Dual HTML+PPTX output</li></ul></div><div class="card"><ul><li>CJK first-class support</li><li>Local infrastructure</li></ul></div></div></div></section><section class="slide layout-stat-card" data-slide-id="s03" data-layout="stat-card" data-order="3"><style>
+:root {
+  --bg: #0D0D0D;
+  --surface: #1A1A1A;
+  --text-p: #FFFFFF;
+  --text-s: #888888;
+  --accent: #6C5CE7;
+  --border: #2A2A2A;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 52px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.03em;
+  --fs-h2: 32px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.02em;
+  --fs-h3: 24px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 18px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 13px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 4px 12px 0px #00000040;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+</style><div class="slide-content"><h2>Metrics</h2><div class="stat-grid"><div class="stat"><div class="stat-value">30s</div><div class="stat-label">First draft</div></div><div class="stat"><div class="stat-value">9</div><div class="stat-label">Layout types</div></div><div class="stat"><div class="stat-value">3</div><div class="stat-label">Themes</div></div><div class="stat"><div class="stat-value">∞</div><div class="stat-label">Customizable</div></div></div></div></section><section class="slide layout-two-column" data-slide-id="s04" data-layout="two-column" data-order="4"><style>
+:root {
+  --bg: #0D0D0D;
+  --surface: #1A1A1A;
+  --text-p: #FFFFFF;
+  --text-s: #888888;
+  --accent: #6C5CE7;
+  --border: #2A2A2A;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 52px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.03em;
+  --fs-h2: 32px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.02em;
+  --fs-h3: 24px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 18px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 13px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 4px 12px 0px #00000040;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+</style><div class="slide-content"><h2>Comparison</h2><div class="two-col-grid"><div class="col"><h3>Gamma</h3><ul><li>Beautiful web output</li><li>Broken PPTX export</li><li>No CJK support</li></ul></div><div class="col"><h3>Ours</h3><ul><li>Beautiful web output</li><li>Editable PPTX</li><li>Full CJK support</li></ul></div></div></div></section><section class="slide layout-timeline" data-slide-id="s05" data-layout="timeline" data-order="5"><style>
+:root {
+  --bg: #0D0D0D;
+  --surface: #1A1A1A;
+  --text-p: #FFFFFF;
+  --text-s: #888888;
+  --accent: #6C5CE7;
+  --border: #2A2A2A;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 52px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.03em;
+  --fs-h2: 32px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.02em;
+  --fs-h3: 24px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 18px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 13px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 4px 12px 0px #00000040;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+</style><div class="slide-content"><h2>Development Roadmap</h2><div class="timeline"><div class="step"><div class="step-num">1</div><div class="step-text"><h3>Design Tokens</h3><p>Unified YAML schema for both renderers</p></div></div><div class="step"><div class="step-num">2</div><div class="step-text"><h3>Renderers</h3><p>HTML + python-pptx from same tokens</p></div></div><div class="step"><div class="step-num">3</div><div class="step-text"><h3>Orchestrator</h3><p>Plan → Parallel Render → Assemble</p></div></div></div></div></section><section class="slide layout-transition" data-slide-id="s06" data-layout="transition" data-order="6"><style>
+:root {
+  --bg: #0D0D0D;
+  --surface: #1A1A1A;
+  --text-p: #FFFFFF;
+  --text-s: #888888;
+  --accent: #6C5CE7;
+  --border: #2A2A2A;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 52px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.03em;
+  --fs-h2: 32px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.02em;
+  --fs-h3: 24px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 18px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 13px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 4px 12px 0px #00000040;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+</style><div class="slide-bg-overlay" style="background: linear-gradient(135deg, #6C5CE715 0%, #6C5CE705 100%);"></div><div class="slide-content"><h1>Thank You</h1><p class="subtitle">Let us build this together</p></div></section>
+</div>
+</body>
+</html>

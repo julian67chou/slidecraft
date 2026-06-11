@@ -1,0 +1,84 @@
+# Education Warm — 教育/培訓主題
+version: 1
+theme: education-warm
+description: "Warm white with orange accent — education, training, workshops"
+
+slide:
+  wIn: 13.333
+  hIn: 7.5
+
+colors:
+  bg: '#FFFAF5'
+  surface: '#FFFFFF'
+  text:
+    p: '#2D2D2D'
+    s: '#6B6B6B'
+  accent: '#FF6B35'
+  accent2: '#FFB347'
+  border: '#FFE8D6'
+
+typography:
+  family:
+    web: "'Noto Sans TC', 'PingFang TC', system-ui, sans-serif"
+    pptx: "Noto Sans CJK TC"
+  weights:
+    regular: 400
+    medium: 500
+    semibold: 600
+    bold: 700
+  h1:
+    pt: 46
+    px: 46
+    lh: 1.08
+    ls: -0.02
+    weight: bold
+  h2:
+    pt: 30
+    px: 30
+    lh: 1.15
+    ls: -0.01
+    weight: semibold
+  h3:
+    pt: 22
+    px: 22
+    lh: 1.25
+    ls: 0
+    weight: medium
+  body:
+    pt: 18
+    px: 18
+    lh: 1.55
+    ls: 0
+    weight: regular
+  caption:
+    pt: 12
+    px: 12
+    lh: 1.4
+    ls: 0.01
+    weight: regular
+
+spacing:
+  xs: { px: 8, in: 0.10 }
+  sm: { px: 12, in: 0.16 }
+  md: { px: 16, in: 0.22 }
+  lg: { px: 24, in: 0.33 }
+  xl: { px: 36, in: 0.50 }
+
+radii:
+  card: 12
+  button: 8
+  image: 8
+
+shadows:
+  card: { x: 0, y: 2, blur: 6, spread: 0, color: '#0000000D' }
+
+layouts:
+  cover: { titleY: 0.32, subtitleY: 0.44, padX: 0.8 }
+  card-list: { columns: 3, gap: { px: 14, in: 0.19 }, pad: 0.35 }
+  image-text: { imageRatio: 0.5, textRatio: 0.5, gap: { px: 20, in: 0.28 } }
+  grid: { columns: 2, rows: 2, gap: { px: 14, in: 0.19 } }
+  transition: { titleY: 0.5 }
+  content: { titleY: 0.12, padX: 0.7 }
+  two-column: { gap: { px: 18, in: 0.25 }, ratio: [0.5, 0.5] }
+  stat-card: { columns: 4, gap: { px: 12, in: 0.16 } }
+  timeline: { itemSpacing: { px: 22, in: 0.30 } }
