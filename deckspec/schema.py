@@ -79,6 +79,16 @@ class SlideSpec(BaseModel):
         default=None,
         description="Override slide background color (hex) for this slide only"
     )
+    background_image: Optional[str] = Field(
+        default=None,
+        description="Path to full-bleed background image for this slide (e.g. cover or section backgrounds). "
+                    "The orchestrator engine can generate it from background_prompt and populate the final path."
+    )
+    background_prompt: Optional[str] = Field(
+        default=None,
+        description="Prompt used by the engine to generate a full-bleed background image via Grok Draw "
+                    "(if background_image is not already a valid existing path)."
+    )
 
 
 class GlobalDesign(BaseModel):

@@ -13,9 +13,11 @@ import os
 import re
 import yaml
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Union, Any
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
+from copy import deepcopy
+from pathlib import Path  # ensure Path available (already imported in some contexts)
 
 
 # ─── Project paths ─────────────────────────────────────────────────────
@@ -57,28 +59,55 @@ def _generate_images(slides: list[dict]) -> None:
             gen(item)
 
 
+def _generate_background_image(prompt: str, theme_colors: dict = None) -> str:
+    """Generate a full-bleed background image via Grok Draw. Returns path."""
+    from orchestrator.grok_draw import generate_background
+    return generate_background(prompt, theme_colors)
+
+
 # ─── Main Pipeline ─────────────────────────────────────────────────────
 
 def generate(
-    spec: dict,
+    spec: Union[dict, str, Path],
     output_name: str = None,
     build_steps: bool = True,
     standalone: bool = True,
     css_path: Optional[str] = None,
     js_path: Optional[str] = None,
 ) -> dict:
-    """Generate slides from a DeckSpec dict.
+    """Generate slides from a DeckSpec.
 
-    Full pipeline: spec -> deck.
+    Clean public API intended for external callers (e.g. presentation-builder / Hermes layer).
 
-    Args:
-        spec: DeckSpec dict (with 'slides', 'global_design', 'title')
-        output_name: Optional output filename prefix
+    Accepts:
+      - dict conforming to DeckSpec
+      - str or Path to a .json DeckSpec file (will be loaded)
 
-    Returns:
-        Dict with paths to generated files
+    The function:
+      - Validates against the Pydantic schema (best effort)
+      - Deep-copies the input so callers are not mutated
+      - Generates images for both `content.visual.prompt` and background_prompt
+      - Copies all assets (visuals + backgrounds) into a self-contained _images/ folder
+      - Renders HTML + PPTX
+      - Returns artifact paths
+
+    Full pipeline: (DeckSpec | path) -> rendered deck + assets.
     """
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    # --- Clean external API: accept path or dict + validation + no mutation ---
+    if isinstance(spec, (str, Path)):
+        with open(spec, encoding="utf-8") as f:
+            spec = json.load(f)
+
+    # Best-effort schema validation (non-fatal to stay flexible during development)
+    try:
+        from deckspec.schema import DeckSpec
+        DeckSpec.model_validate(spec)
+    except Exception as ve:
+        print(f"⚠️  DeckSpec validation warning: {ve}")
+
+    spec = deepcopy(spec)  # protect the caller's data structure
 
     if not output_name:
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -91,33 +120,68 @@ def generate(
     print(f"📋 Deck: {spec.get('title', 'Untitled')} ({len(slides)} slides)")
     print(f"🎨 Theme: {theme}")
 
-    # Step 1: Generate images (in parallel)
-    image_slides = [s for s in slides if s.get("content", {}).get("visual", {}).get("prompt")]
-    if image_slides:
-        print(f"🎨 Generating {len(image_slides)} images via Grok Draw...")
-        _generate_images(slides)
-
-    # Copy images to output dir for local file:// viewing
-    images_dir = OUTPUT_DIR / f"{output_name}_images"
-    images_dir.mkdir(exist_ok=True)
-    import shutil
-    for s in slides:
-        vis = s.get("content", {}).get("visual", {})
-        gen_path = vis.get("generated_path")
-        if gen_path and os.path.exists(gen_path):
-            ext = os.path.splitext(gen_path)[1] or ".jpg"
-            img_name = f"slide_{s.get('order', 0):02d}{ext}"
-            dest = images_dir / img_name
-            if os.path.abspath(gen_path) != os.path.abspath(str(dest)):
-                shutil.copy2(gen_path, str(dest))
-                vis["generated_path"] = str(dest)  # Relative-safe absolute path
-
-    # Step 2: Load design tokens
+    # Load design tokens early (required for theme-aware background generation)
     token_path = DESIGN_TOKENS_DIR / f"{theme}.yaml"
     if not token_path.exists():
         raise FileNotFoundError(f"Theme not found: {token_path}")
     with open(token_path) as f:
         tokens = yaml.safe_load(f)
+
+    # Step 1: Generate images (visuals + backgrounds)
+    # Visuals (content images)
+    image_slides = [s for s in slides if s.get("content", {}).get("visual", {}).get("prompt")]
+    if image_slides:
+        print(f"🎨 Generating {len(image_slides)} images via Grok Draw...")
+        _generate_images(slides)
+
+    # Backgrounds (full-bleed) - new support
+    bg_needs = []
+    for i, s in enumerate(slides):
+        bp = s.get("background_prompt")
+        bi = s.get("background_image")
+        if bp and not (isinstance(bi, (str, Path)) and Path(str(bi)).exists()):
+            bg_needs.append((i, s))
+    if bg_needs:
+        print(f"🎨 Generating {len(bg_needs)} background images via Grok Draw...")
+        def gen_bg(idx_s):
+            idx, s = idx_s
+            prompt = s.get("background_prompt")
+            colors = (tokens or {}).get("colors", {})
+            try:
+                path = _generate_background_image(prompt, colors)
+                s["background_image"] = path
+                print(f"  🖼️  Slide {s.get('order', '?')} background: {Path(path).name}")
+            except Exception as e:
+                print(f"  ⚠️  Slide {s.get('order', '?')} background failed: {e}")
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            for item in bg_needs:
+                gen_bg(item)
+
+    # Copy all image assets (visuals + backgrounds) to output/<name>_images for self-contained delivery
+    images_dir = OUTPUT_DIR / f"{output_name}_images"
+    images_dir.mkdir(exist_ok=True)
+    import shutil
+    for s in slides:
+        order = s.get("order", 0)
+        # Visual / content image
+        vis = s.get("content", {}).get("visual", {}) or {}
+        gen_path = vis.get("generated_path")
+        if gen_path and os.path.exists(str(gen_path)):
+            ext = os.path.splitext(str(gen_path))[1] or ".jpg"
+            img_name = f"slide_{order:02d}{ext}"
+            dest = images_dir / img_name
+            if os.path.abspath(str(gen_path)) != os.path.abspath(str(dest)):
+                shutil.copy2(str(gen_path), str(dest))
+                vis["generated_path"] = str(dest)
+        # Background image (full-bleed) - now handled uniformly
+        bg_path = s.get("background_image")
+        if bg_path and os.path.exists(str(bg_path)):
+            ext = os.path.splitext(str(bg_path))[1] or ".jpg"
+            bg_name = f"slide_{order:02d}_bg{ext}"
+            dest = images_dir / bg_name
+            if os.path.abspath(str(bg_path)) != os.path.abspath(str(dest)):
+                shutil.copy2(str(bg_path), str(dest))
+                s["background_image"] = str(dest)  # point to packaged copy for relpaths
 
     # Step 3: Render HTML
     print(f"🌐 Rendering HTML...")
@@ -178,3 +242,23 @@ def generate(
         "slides": len(slides),
         "title": spec.get("title", ""),
     }
+
+
+def generate_from_deckspec_file(
+    spec_path: Union[str, Path],
+    output_name: str = None,
+    **kwargs
+) -> dict:
+    """Convenience wrapper: load a DeckSpec JSON file and call generate().
+
+    This makes the new clean API (path support + validation + no-mutation)
+    easily usable from CLI and external tools (e.g. presentation-builder).
+
+    All other kwargs (build_steps, standalone, etc.) are forwarded to generate().
+    """
+    if isinstance(spec_path, (str, Path)):
+        with open(spec_path, encoding="utf-8") as f:
+            spec = json.load(f)
+    else:
+        spec = spec_path
+    return generate(spec, output_name=output_name, **kwargs)

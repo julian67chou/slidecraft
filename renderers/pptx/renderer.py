@@ -506,8 +506,20 @@ def render_slide(prs: Presentation, slide_spec: dict, tokens: dict) -> None:
     slide = prs.slides.add_slide(blank_layout)
 
     # Set background
+    # Support solid hex colors. Gradient or complex overrides (e.g. "linear-gradient(...)")
+    # are gracefully ignored for PPTX (python-pptx has limited gradient bg support).
     bg_override = slide_spec.get("background_override")
-    bg_color = bg_override or _color(tokens, "bg")
+    bg_color = None
+    if bg_override and isinstance(bg_override, str) and bg_override.strip().startswith("#"):
+        candidate = bg_override.strip()
+        if len(candidate) in (4, 7):  # #rgb or #rrggbb
+            try:
+                rgb(candidate)  # validate
+                bg_color = candidate
+            except Exception:
+                bg_color = None
+    if not bg_color:
+        bg_color = _color(tokens, "bg")
     background = slide.background
     fill = background.fill
     fill.solid()

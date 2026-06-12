@@ -53,9 +53,56 @@ This is a lightweight web-only effect (speaker controls the pace). PPTX exports 
 ```
 design-tokens/    ← YAML theme system
   themes/         ← 11 themes
-deckspec/         ← Pydantic schema
+deckspec/         ← Pydantic schema (the contract)
 renderers/
   html/           ← HTML renderer + slider.js
   pptx/           ← python-pptx renderer
 orchestrator/     ← pipeline + Grok Draw
 ```
+
+## DeckSpec Fields (the integration contract)
+
+The `DeckSpec` (see `deckspec/schema.py`) is the stable contract between "planning" layers (e.g. presentation-builder / Hermes) and the SlideCraft engine.
+
+Key fields on each slide (in addition to the classic `layout`, `content`, `visual`, etc.):
+
+- `background_image`: Path to a full-bleed background image (used by the HTML renderer for `<img class="slide-bg">`).
+- `background_prompt`: If present and `background_image` is missing/invalid, the engine will automatically call Grok Draw (via `generate_background`) to create the image and fill in the path. Theme colors are passed for visual consistency.
+- `background_override`: Per-slide background style override. Solid hex colors are supported everywhere. Complex values (e.g. `linear-gradient(...)`) are honored by the HTML renderer (great for dark overlays on photos) and gracefully ignored by the PPTX renderer (falls back to theme bg).
+
+Example slide with background support:
+
+```json
+{
+  "id": "s01",
+  "order": 1,
+  "layout": "cover",
+  "background_image": "output/my-deck_images/slide_01_bg.jpg",
+  "background_prompt": "Minimalist dark navy tech background with subtle circuit lines, 16:9, professional",
+  "background_override": "linear-gradient(135deg, rgba(10,14,39,0.75) 0%, rgba(10,14,39,0.45) 100%)",
+  "content": { "title": "...", ... }
+}
+```
+
+## Using the Engine from Code / CLI (clean public API)
+
+```python
+from orchestrator.engine import generate, generate_from_deckspec_file
+
+# From dict (or from a planning agent)
+result = generate(my_deckspec_dict, output_name="my-deck")
+
+# Preferred for CLI / external tools: load directly from file (validates + deepcopy + no mutation)
+result = generate_from_deckspec_file("path/to/spec.json", output_name="my-deck", build_steps=True)
+
+# generate() itself now also accepts a path:
+result = generate("path/to/spec.json", ...)
+```
+
+The engine automatically:
+- Validates (best-effort) against the Pydantic schema.
+- Generates images for both `visual.prompt` and `background_prompt`.
+- Copies all assets into a self-contained `<name>_images/` folder with stable relative paths.
+- Handles graceful degradation when images are missing (404-safe in HTML).
+
+See `orchestrator/engine.py` for the full `generate(...)` signature and `generate_from_deckspec_file` wrapper.

@@ -4,6 +4,9 @@
 Usage:
     python -m cli.main --spec <spec_json_or_path> [--theme clinic-warm] [--name output_name]
     python -m cli.main --prompt "建立一份關於 AI 醫療的簡報" [--theme pitch-dark]
+
+The --spec argument accepts either a raw JSON string or a path to .json.
+When a path is given, it uses the clean generate_from_deckspec_file() wrapper.
 """
 import sys
 import os
@@ -74,17 +77,29 @@ def main():
         parser.print_help()
         sys.exit(1)
 
-    from orchestrator.engine import generate
+    from orchestrator.engine import generate, generate_from_deckspec_file
 
     build_steps = not args.no_build_steps
-    result = generate(
-        spec,
-        output_name=args.name,
-        build_steps=build_steps,
-        standalone=args.standalone,
-        css_path=getattr(args, "css_path", None),
-        js_path=getattr(args, "js_path", None),
-    )
+
+    # Use the new clean wrapper when we have a file path (preferred for CLI)
+    if args.spec and os.path.exists(args.spec):
+        result = generate_from_deckspec_file(
+            args.spec,
+            output_name=args.name,
+            build_steps=build_steps,
+            standalone=args.standalone,
+            css_path=getattr(args, "css_path", None),
+            js_path=getattr(args, "js_path", None),
+        )
+    else:
+        result = generate(
+            spec,
+            output_name=args.name,
+            build_steps=build_steps,
+            standalone=args.standalone,
+            css_path=getattr(args, "css_path", None),
+            js_path=getattr(args, "js_path", None),
+        )
 
     print(f"\n{'='*50}")
     print(f"  ✅ {result['title']}")
