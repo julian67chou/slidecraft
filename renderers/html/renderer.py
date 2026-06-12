@@ -538,10 +538,12 @@ def render_slide(
     # Auto-detect dark background (no bg image + dark background override).
     # When a slide has custom dark background_override but no photo, the
     # data-has-bg CSS rules won't fire — but dark bg + dark text is unreadable.
-    # Heuristic: check if the override contains dark hex colors (< #333333)
+    # Heuristic: check if the override contains dark colors (hex or rgba).
     has_dark_bg = False
     if bg_override and not img_path:
         import re as _re
+        has_dark_bg = False
+        # Check hex colors
         hex_colors = _re.findall(r'#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})', bg_override)
         for hc in hex_colors:
             if len(hc) == 3:
@@ -554,6 +556,15 @@ def render_slide(
                     break
             except ValueError:
                 pass
+        # Also check rgba — dark with significant opacity = dark bg
+        if not has_dark_bg:
+            rgba_matches = _re.findall(r'rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([\d.]+)', bg_override)
+            for r, g, b, a in rgba_matches:
+                r, g, b = int(r), int(g), int(b)
+                alpha = float(a)
+                if alpha >= 0.35 and (r + g + b) / 3 < 100:
+                    has_dark_bg = True
+                    break
 
     # Speaker notes
     notes_html = ""

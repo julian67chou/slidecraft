@@ -121,9 +121,6 @@ section.slide[data-has-bg] .card h4,
 section.slide[data-has-bg] .card p,
 section.slide[data-has-bg] .card li,
 section.slide[data-has-bg] .card .body-text,
-section.slide[data-has-bg] .stat,
-section.slide[data-has-bg] .stat .stat-value,
-section.slide[data-has-bg] .stat .stat-label,
 section.slide[data-has-dark-bg] .card,
 section.slide[data-has-dark-bg] .card h1,
 section.slide[data-has-dark-bg] .card h2,
@@ -131,12 +128,17 @@ section.slide[data-has-dark-bg] .card h3,
 section.slide[data-has-dark-bg] .card h4,
 section.slide[data-has-dark-bg] .card p,
 section.slide[data-has-dark-bg] .card li,
-section.slide[data-has-dark-bg] .card .body-text,
-section.slide[data-has-dark-bg] .stat,
-section.slide[data-has-dark-bg] .stat .stat-value,
-section.slide[data-has-dark-bg] .stat .stat-label {
+section.slide[data-has-dark-bg] .card .body-text {
     color: revert;
     text-shadow: none;
+}
+
+/* Stat cards on bg slides need white background for accent blue text */
+section.slide[data-has-bg] .stat,
+section.slide[data-has-dark-bg] .stat {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-lg);
 }
 
 /* Text-shadow safety net on bg slides — ensures minimum contrast even

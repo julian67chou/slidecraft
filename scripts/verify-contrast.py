@@ -70,9 +70,12 @@ CHECK_JS = """
             const fw = parseInt(style.fontWeight);
 
             const card = el.closest('.card');
+            const statEl = el.closest('.stat');
             let bgColor;
             if (card) {
                 bgColor = window.getComputedStyle(card).backgroundColor;
+            } else if (statEl) {
+                bgColor = window.getComputedStyle(statEl).backgroundColor;
             } else if (hasBg || hasDarkBg) {
                 bgColor = 'rgb(40,40,45)';  // dark overlay
             } else {
@@ -89,17 +92,18 @@ CHECK_JS = """
             const isWhite = color === 'rgb(255, 255, 255)' || color === 'rgba(255, 255, 255, 0.9)';
             const onBgSlide = hasBg || hasDarkBg;
             const inCard = !!card;
+            const inStat = !!statEl;
 
             let status = 'PASS';
-            // Non-card text on bg slides must be white
-            if (onBgSlide && !inCard && !isWhite && text.length > 3) {
+            // Non-card/non-stat text on bg slides must be white
+            if (onBgSlide && !inCard && !inStat && !isWhite && text.length > 3) {
                 status = 'FAIL';
             }
-            // Element on white card bg: check actual contrast vs card bg
-            if (inCard) {
-                const cardBg = parseRgb(bgColor);
-                const cardRatio = contrastRatio(fg, cardBg);
-                if (cardRatio < required && text.length > 3) {
+            // Element on white card/stat bg: check actual contrast vs its bg
+            if (inCard || inStat) {
+                const itemBg = parseRgb(bgColor);
+                const itemRatio = contrastRatio(fg, itemBg);
+                if (itemRatio < required && text.length > 3) {
                     status = 'FAIL';
                 }
             } else if (!isWhite) {
