@@ -168,7 +168,7 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
     font-size: var(--fs-body);
     line-height: var(--lh-body);
     letter-spacing: var(--ls-body);
-    color: var(--text-s);
+    color: var(--text-p);
 }
 .slide .subtitle {
     font-size: var(--fs-h3);
@@ -221,7 +221,7 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
 .layout-card-list .card-grid .card li {
     font-size: var(--fs-body);
     line-height: var(--lh-body);
-    color: var(--text-s);
+    color: var(--text-p);
     margin-bottom: var(--space-xs);
 }
 
@@ -310,7 +310,7 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
 .layout-two-column .two-col-grid .col li {
     font-size: var(--fs-body);
     line-height: var(--lh-body);
-    color: var(--text-s);
+    color: var(--text-p);
     margin-bottom: var(--space-xs);
 }
 
