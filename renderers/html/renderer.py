@@ -492,7 +492,14 @@ def render_slide(
         # Add overlay for readability — dark enough for bright clinic photos.
         # Minimum floor of 0.55 ensures the bottom-right corner still provides
         # adequate contrast for text placed anywhere on the slide.
-        bg_parts.append('<div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.55) 100%);"></div>')
+        # If the spec has background_override, use it as the overlay gradient
+        # (lets the planner/LLM control overlay strength per photo).
+        bg_override = slide_spec.get("background_override")
+        if bg_override:
+            overlay_bg = bg_override
+        else:
+            overlay_bg = "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.55) 100%)"
+        bg_parts.append(f'<div class="slide-bg-overlay" style="background: {overlay_bg};"></div>')
     elif layout in ("cover", "transition") and "accent" in tokens.get("colors", {}):
         accent = tokens["colors"]["accent"]
         # Subtle gradient background using accent
