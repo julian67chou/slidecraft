@@ -74,6 +74,7 @@ def generate(
     standalone: bool = True,
     css_path: Optional[str] = None,
     js_path: Optional[str] = None,
+    verify: bool = True,
 ) -> dict:
     """Generate slides from a DeckSpec.
 
@@ -233,6 +234,35 @@ def generate(
     spec_path = OUTPUT_DIR / f"{output_name}.spec.json"
     with open(spec_path, "w", encoding="utf-8") as f:
         json.dump(spec, f, ensure_ascii=False, indent=2)
+
+    # Step 5: Contrast verification (post-render QA gate)
+    if verify:
+        print(f"🎨 Running contrast verification...")
+        try:
+            import importlib.util
+            spec_mod = importlib.util.spec_from_file_location(
+                "verify_contrast",
+                str(PROJECT_ROOT / "scripts" / "verify-contrast.py")
+            )
+            if spec_mod:
+                vc_mod = importlib.util.module_from_spec(spec_mod)
+                spec_mod.loader.exec_module(vc_mod)
+                vresult = vc_mod.verify_deck(str(html_path))
+                if vresult["pass"]:
+                    print(f"  ✅ Contrast: {vresult['total']}/{vresult['total']} slides pass")
+                else:
+                    failed = sum(1 for s in vresult["slides"] if not s["pass"])
+                    print(f"  ⚠️  Contrast: {failed}/{vresult['total']} slides FAIL")
+                    for s in vresult["slides"]:
+                        if not s["pass"]:
+                            print(f"    ❌ Slide {s['slide']} [{s['layout']}]")
+                vc_mod.print_report(vresult)
+            else:
+                print(f"  ⚠️  verify-contrast.py not found — skipping QA")
+        except Exception as ve:
+            print(f"  ⚠️  Contrast verification error: {ve}")
+    else:
+        print(f"  ⏭️  Contrast verification skipped (verify=False)")
 
     print(f"\n✨ Done! Output: {OUTPUT_DIR / output_name}.*")
     return {
