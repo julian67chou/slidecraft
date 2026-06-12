@@ -4,6 +4,7 @@ Produces self-contained HTML <section> elements with inline CSS.
 """
 import yaml
 import os
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -774,6 +775,7 @@ def render_slide(
     slide_spec: dict,
     tokens: dict,
     output_dir: Optional[str] = None,
+    build_steps: Optional[bool] = None,
 ) -> str:
     """
     Render a single slide as an HTML <section> string.
@@ -782,9 +784,8 @@ def render_slide(
         slide_spec: SlideSpec dict (from DeckSpec JSON)
         tokens: Design token dict (from load_tokens)
         output_dir: If set, copy/process image assets here
-
-    Returns:
-        Complete HTML string for this slide (<section> with inline <style>)
+        build_steps: Enable build step animations.
+                     Falls back to slide_spec.build_steps, then deck default (True).
     """
     layout = slide_spec.get("layout", "content")
     content = slide_spec.get("content", {})
@@ -827,6 +828,13 @@ def render_slide(
     else:
         content_html = renderer(content)
 
+    # Check build_steps: slide-level overrides deck default
+    if build_steps is None:
+        build_steps = slide_spec.get("build_steps", True)
+    if not build_steps:
+        content_html = content_html.replace('step-item', '')
+        content_html = re.sub(r'\s*data-step="\d+"', '', content_html)
+
     # Background override
     bg_style = ""
     bg_override = slide_spec.get("background_override")
@@ -855,6 +863,7 @@ def render_deck(
     slides: list[dict],
     tokens: dict,
     output_dir: str = None,
+    build_steps: bool = True,
 ) -> str:
     """
     Render all slides as a complete HTML document.
@@ -863,13 +872,11 @@ def render_deck(
         slides: List of SlideSpec dicts
         tokens: Design token dict
         output_dir: Output directory for computing relative image paths
-
-    Returns:
-        Complete HTML document string
+        build_steps: Enable build step animations (default True). Can be overridden per slide.
     """
     slide_htmls = []
     for spec in slides:
-        slide_htmls.append(f'<div class="slide-wrapper">{render_slide(spec, tokens, output_dir)}</div>')
+        slide_htmls.append(f'<div class="slide-wrapper">{render_slide(spec, tokens, output_dir, build_steps)}</div>')
 
     css_vars = tokens_to_css(tokens)
 

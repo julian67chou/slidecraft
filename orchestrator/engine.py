@@ -58,9 +58,10 @@ def _generate_images(slides: list[dict]) -> None:
 
 # ─── Main Pipeline ─────────────────────────────────────────────────────
 
-def generate(spec: dict, output_name: str = None) -> dict:
-    """
-    Full pipeline: spec → deck.
+def generate(spec: dict, output_name: str = None, build_steps: bool = True) -> dict:
+    """Generate slides from a DeckSpec dict.
+
+    Full pipeline: spec -> deck.
 
     Args:
         spec: DeckSpec dict (with 'slides', 'global_design', 'title')
@@ -113,7 +114,9 @@ def generate(spec: dict, output_name: str = None) -> dict:
     # Step 3: Render HTML
     print(f"🌐 Rendering HTML...")
     from renderers.html.renderer import render_deck as html_render
-    html_content = html_render(slides, tokens, output_dir=str(OUTPUT_DIR))
+    # Read build_steps from spec global_design, CLI override wins
+    deck_build_steps = spec.get("global_design", {}).get("build_steps", build_steps)
+    html_content = html_render(slides, tokens, output_dir=str(OUTPUT_DIR), build_steps=deck_build_steps)
     html_path = OUTPUT_DIR / f"{output_name}.html"
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)

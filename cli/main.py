@@ -28,6 +28,8 @@ def main():
                         help="Deploy to GitHub Pages after generation")
     parser.add_argument("--list-themes", action="store_true",
                         help="List available themes")
+    parser.add_argument("--no-build-steps", action="store_true",
+                        help="Disable build step animations (text appears all at once)")
 
     args = parser.parse_args()
 
@@ -64,7 +66,8 @@ def main():
 
     from orchestrator.engine import generate
 
-    result = generate(spec, output_name=args.name)
+    build_steps = not args.no_build_steps
+    result = generate(spec, output_name=args.name, build_steps=build_steps)
 
     print(f"\n{'='*50}")
     print(f"  ✅ {result['title']}")
