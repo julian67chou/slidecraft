@@ -254,6 +254,10 @@
     var absDy = Math.abs(dy);
     var dt = Date.now() - touchStartTime;
     
+    // Skip if the touch was on a nav button — those handle clicks separately.
+    // Otherwise tap + click fire twice and skip slides.
+    if (e.target && e.target.closest && e.target.closest('.gamma-nav')) return;
+    
     // Tap: go next/prev based on which half was tapped
     if (absDx < 30 && absDy < 30 && dt < 300) {
       if (e.changedTouches[0].screenX < window.innerWidth * 0.4) {
