@@ -277,7 +277,7 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0,0,0,0.55);
     border-radius: 0 var(--radius-card, 6px) var(--radius-card, 6px) 0;
 }
 
@@ -456,7 +456,7 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
     flex: 1 !important;
     width: 100% !important;
     padding: var(--space-md) !important;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0,0,0,0.55);
 }
 
 /* Single column for grids */
@@ -564,7 +564,7 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
 }
 .gamma-arrow {
   width: 44px; height: 44px; border-radius: 50%; border: none;
-  background: rgba(0,0,0,0.45); color: #fff; cursor: pointer;
+  background: rgba(0,0,0,0.55); color: #fff; cursor: pointer;
   font-size: 24px; display: flex; align-items: center; justify-content: center;
   backdrop-filter: blur(4px); transition: background 0.2s;
   -webkit-tap-highlight-color: transparent;
