@@ -668,6 +668,7 @@ def render_slide(
 
     # Background image (with relative path support)
     bg_parts = []
+    img_src = None
     img_path = visual.get("generated_path") or slide_spec.get("background_image")
 
     if img_path and os.path.exists(img_path):
@@ -693,7 +694,7 @@ def render_slide(
     # Render content based on layout
     renderer = LAYOUT_RENDERERS.get(layout, _render_content)
     if layout == "image-text":
-        content_html = renderer(content, img_path)
+        content_html = renderer(content, img_src)
     else:
         content_html = renderer(content)
 
@@ -739,7 +740,7 @@ def render_deck(
     """
     slide_htmls = []
     for spec in slides:
-        slide_htmls.append(render_slide(spec, tokens, output_dir))
+        slide_htmls.append(f'<div class="slide-wrapper">{render_slide(spec, tokens, output_dir)}</div>')
 
     css_vars = tokens_to_css(tokens)
 
@@ -756,17 +757,16 @@ body {{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 100vh;
     padding: 20px;
-    overflow: hidden;
 }}
 .deck {{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0;
-    max-width: 1320px;
+    max-width: 100%;
     width: 100%;
 }}
 {css_vars}

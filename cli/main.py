@@ -18,10 +18,32 @@ def main():
     parser.add_argument("--spec", help="DeckSpec JSON string or path to .json file")
     parser.add_argument("--prompt", "-p", help="Topic description (generates spec)")
     parser.add_argument("--theme", "-t", default="clinic-warm",
-                        choices=["clinic-warm", "pitch-dark", "academic-clean"])
+                        choices=["clinic-warm", "pitch-dark", "academic-clean",
+                                  "tech-neon", "education-warm", "fitness-green",
+                                  "finance-navy", "startup-bold", "travel-sunset",
+                                  "government-blue", "ngo-warm"],
+                        help="Slide theme")
     parser.add_argument("--name", "-n", default=None)
+    parser.add_argument("--deploy", "-d", action="store_true",
+                        help="Deploy to GitHub Pages after generation")
+    parser.add_argument("--list-themes", action="store_true",
+                        help="List available themes")
 
     args = parser.parse_args()
+
+    if args.list_themes:
+        import yaml
+        from pathlib import Path
+        themes_dir = Path(__file__).parent.parent / "design-tokens" / "themes"
+        print("Available themes:")
+        for f in sorted(themes_dir.glob("*.yaml")):
+            with open(f) as fh:
+                t = yaml.safe_load(fh)
+            name = f.stem
+            desc = t.get("description", "")
+            accent = t.get("colors", {}).get("accent", "")
+            print(f"  {name:20s} {accent}  {desc}")
+        return
 
     # Get spec
     if args.spec:
@@ -50,6 +72,11 @@ def main():
     print(f"  HTML:  {result['html']}")
     print(f"  PPTX:  {result['pptx']}")
     print(f"{'='*50}")
+
+    if args.deploy:
+        from orchestrator.deploy import deploy
+        url = deploy(deck_names=[args.name or result.get("title", "").lower().replace(" ", "-")])
+        print(f"\n🌐 {url}")
 
 
 if __name__ == "__main__":
