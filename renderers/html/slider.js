@@ -54,7 +54,7 @@
 
   var COMPACT_MAX_W = 620;
   var COMPACT_MIN_W = 300;
-  var COMPACT_THRESHOLD = 540; // when effective scaled W drops below, use intrinsic reflow
+  var COMPACT_THRESHOLD = 540;
 
   function resetSlideSizing(slideEl) {
     if (!slideEl) return;
@@ -66,54 +66,55 @@
   }
 
   function applyCurrentSizing() {
-    var vw = window.innerWidth;
-    var curWrap = wrappers[current];
-    var curSlide = slides[current];
-    if (!curWrap || !curSlide) return;
+    try {
+      var vw = window.innerWidth;
+      var curWrap = wrappers[current];
+      var curSlide = slides[current];
+      if (!curWrap || !curSlide) return;
 
-    var padX = isMobile ? 10 : 32;
-    var padY = isMobile ? 0 : 80;
-    var scaleX = (vw - padX) / SLIDE_W;
-    var scaleY = (window.innerHeight - padY) / SLIDE_H;
-    var scale = Math.min(1, Math.max(0.2, Math.min(scaleX, scaleY)));
-    var effectiveW = SLIDE_W * scale;
+      // Reset the CURRENT slide clean before applying new sizing
+      curSlide.classList.remove('compact');
+      curSlide.style.width = '';
+      curSlide.style.height = '';
+      curSlide.style.transform = '';
+      curSlide.style.transformOrigin = '';
 
-    var useCompact = isMobile || effectiveW < COMPACT_THRESHOLD;
+      var padX = isMobile ? 10 : 32;
+      var padY = isMobile ? 0 : 80;
+      var scaleX = (vw - padX) / SLIDE_W;
+      var scaleY = (window.innerHeight - padY) / SLIDE_H;
+      var scale = Math.min(1, Math.max(0.2, Math.min(scaleX, scaleY)));
+      var effectiveW = SLIDE_W * scale;
+      var useCompact = isMobile || effectiveW < COMPACT_THRESHOLD;
 
-    // Always start from clean for the current (others are hidden)
-    resetSlideSizing(curSlide);
-
-    if (useCompact) {
-      // Intrinsic size mode: give the slide a real narrow box so
-      // grids, cqi units, and flex children reflow naturally.
-      curSlide.classList.add('compact');
-      var avail = Math.max(COMPACT_MIN_W, Math.min(vw - (isMobile ? 8 : 20), COMPACT_MAX_W));
-      var aspect = SLIDE_H / SLIDE_W;
-      var useW = avail;
-      var useH = Math.round(useW * aspect);
-      curSlide.style.width = useW + 'px';
-      curSlide.style.height = useH + 'px';
-      curSlide.style.transform = 'none';
-      // Make wrapper centering simple
-      curWrap.style.setProperty('--slide-scale', '1');
-      curWrap.style.marginTop = isMobile ? '0px' : Math.max(0, (window.innerHeight - useH) / 2) + 'px';
-    } else {
-      // Classic scale-to-fit design fidelity mode
-      curWrap.style.setProperty('--slide-scale', scale);
-      var wrapperH = SLIDE_H * scale;
-      curWrap.style.marginTop = Math.max(0, (window.innerHeight - wrapperH) / 2) + 'px';
+      if (useCompact) {
+        curSlide.classList.add('compact');
+        var avail = Math.max(COMPACT_MIN_W, Math.min(vw - (isMobile ? 8 : 20), COMPACT_MAX_W));
+        var aspect = SLIDE_H / SLIDE_W;
+        var useW = avail;
+        var useH = Math.round(useW * aspect);
+        curSlide.style.width = useW + 'px';
+        curSlide.style.height = useH + 'px';
+        curSlide.style.transform = 'none';
+        curWrap.style.setProperty('--slide-scale', '1');
+        curWrap.style.marginTop = '0px';
+      } else {
+        curWrap.style.setProperty('--slide-scale', scale);
+        var wrapperH = SLIDE_H * scale;
+        curWrap.style.marginTop = Math.max(0, (window.innerHeight - wrapperH) / 2) + 'px';
+      }
+    } catch (e) {
+      console.warn('SlideCraft sizing error:', e);
     }
   }
 
   function fitSlides() {
-    if (rafPending) return;
     rafPending = true;
     requestAnimationFrame(function() {
       rafPending = false;
       var vw = window.innerWidth;
       isMobile = vw < 800;
 
-      // Hide all but current (single active slide presentation model)
       for (var i = 0; i < wrappers.length; i++) {
         wrappers[i].style.display = (i === current) ? 'flex' : 'none';
         wrappers[i].style.justifyContent = 'center';
@@ -121,16 +122,28 @@
       }
 
       document.body.style.padding = '0';
-
-      if (isMobile) {
-        document.body.style.overflow = '';
-      } else {
-        document.body.style.overflow = 'hidden';
-      }
+      document.body.style.overflow = isMobile ? '' : 'hidden';
 
       applyCurrentSizing();
       nav.style.bottom = '0';
     });
+  }
+
+  function fitSlidesNow() {
+    var vw = window.innerWidth;
+    isMobile = vw < 800;
+
+    for (var i = 0; i < wrappers.length; i++) {
+      wrappers[i].style.display = (i === current) ? 'flex' : 'none';
+      wrappers[i].style.justifyContent = 'center';
+      wrappers[i].style.alignItems = 'center';
+    }
+
+    document.body.style.padding = '0';
+    document.body.style.overflow = isMobile ? '' : 'hidden';
+
+    applyCurrentSizing();
+    nav.style.bottom = '0';
   }
 
   var resizeTimer = null;
@@ -145,8 +158,8 @@
     var target = Math.max(0, Math.min(index, slides.length - 1));
     if (target === current) return;
 
-    // Reset any compact/intrinsic overrides on the slide we're leaving
-    resetSlideSizing(slides[current]);
+    // Note: do NOT reset OLD slide here — applyCurrentSizing within
+    // fitSlidesNow() always starts from a clean slate for the new slide.
     
     slides[current].classList.remove('slide-active');
     slides[current].classList.add('slide-exit');
@@ -156,12 +169,10 @@
     current = target;
     updateUI();
     
-    // Update which wrapper is visible
     for (var i = 0; i < wrappers.length; i++) {
       wrappers[i].style.display = (i === current) ? 'flex' : 'none';
     }
-    // Re-apply sizing (may enter/leave compact)
-    fitSlides();
+    fitSlidesNow();
   }
 
   function goNext() { goTo(current + 1); }
