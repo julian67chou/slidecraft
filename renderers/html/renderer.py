@@ -1,6 +1,11 @@
 """
 HTML Renderer — renders slides from design tokens + SlideSpec.
-Produces self-contained HTML <section> elements with inline CSS.
+
+- render_slide: returns a *pure* <section class="slide ..."> (no embedded <style>)
+- render_deck: assembles full HTML document.
+  - standalone=True (default): single-file self-contained (embeds slidecraft.css + slider.js)
+  - standalone=False: external CSS/JS via <link>/<script src> using css_path / js_path (smaller HTML)
+  - template support via templates/default.html (or custom template_path)
 """
 import yaml
 import os
@@ -32,6 +37,8 @@ def tokens_to_css(tokens: dict) -> str:
     lines.append(f"  --text-p: {c.get('text', {}).get('p', '#000000')};")
     lines.append(f"  --text-s: {c.get('text', {}).get('s', '#666666')};")
     lines.append(f"  --accent: {c.get('accent', '#004A99')};")
+    if c.get("accent2"):
+        lines.append(f"  --accent2: {c.get('accent2')};")
     lines.append(f"  --border: {c.get('border', '#E0E0E0')};")
 
     # Typography
@@ -70,367 +77,50 @@ def tokens_to_css(tokens: dict) -> str:
 
 # ─── HTML Components ────────────────────────────────────────────────────
 
-def _style_block(css_vars: str, slide_w: int = 1280, slide_h: int = 720) -> str:
-    """Full CSS for the slide element."""
-    return f"""<style>
-{css_vars}
+# ─── Static CSS (externalized) ─────────────────────────────────────────
 
-section.slide {{
-    position: relative;
-    width: {slide_w}px;
-    height: {slide_h}px;
-    overflow: hidden;
-    font-family: var(--font-sans);
-    color: var(--text-p);
-    background: var(--bg);
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-}}
+_SLIDECRAFT_CSS_PATH = Path(__file__).parent / "slidecraft.css"
+_SLIDER_JS_PATH = Path(__file__).parent / "slider.js"
+_TEMPLATES_DIR = Path(__file__).parent / "templates"
 
-section.slide .slide-bg {{
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    z-index: 0;
-}}
 
-section.slide .slide-bg-overlay {{
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 1;
-}}
+def _get_slidecraft_css() -> str:
+    """Return the contents of slidecraft.css (static rules for slides, layouts, nav)."""
+    if _SLIDECRAFT_CSS_PATH.exists():
+        return _SLIDECRAFT_CSS_PATH.read_text(encoding="utf-8")
+    return "/* slidecraft.css not found — falling back to minimal */ section.slide{width:1280px;height:720px;}"
 
-section.slide .slide-content {{
-    position: relative;
-    z-index: 2;
-    padding: var(--space-xl);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}}
 
-.slide h1 {{
-    font-size: var(--fs-h1);
-    line-height: var(--lh-h1);
-    letter-spacing: var(--ls-h1);
-    margin: 0 0 var(--space-md) 0;
-    font-weight: 700;
-}}
+def _inline_slider() -> str:
+    """Read slider.js and return inline <script> tag (for --standalone)."""
+    if _SLIDER_JS_PATH.exists():
+        js = _SLIDER_JS_PATH.read_text(encoding="utf-8")
+        return f"<script>\n{js}\n</script>"
+    return ""
 
-.slide h2 {{
-    font-size: var(--fs-h2);
-    line-height: var(--lh-h2);
-    letter-spacing: var(--ls-h2);
-    margin: 0 0 var(--space-sm) 0;
-    font-weight: 600;
-}}
 
-.slide h3 {{
-    font-size: var(--fs-h3);
-    line-height: var(--lh-h3);
-    letter-spacing: var(--ls-h3);
-    margin: 0 0 var(--space-xs) 0;
-    font-weight: 500;
-}}
-
-.slide .body-text {{
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
-    letter-spacing: var(--ls-body);
-    color: var(--text-s);
-}}
-
-.slide .subtitle {{
-    font-size: var(--fs-h3);
-    line-height: var(--lh-h3);
-    color: var(--accent);
-    margin-bottom: var(--space-lg);
-}}
-
-.slide .card {{
-    background: var(--surface);
-    border-radius: var(--radius-card);
-    padding: var(--space-md);
-    box-shadow: var(--shadow-card, none);
-    border: 1px solid var(--border);
-}}
-
-/* ─── Layout: Cover ─── */
-.layout-cover {{
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}}
-.layout-cover h1 {{
-    color: var(--text-p);
-    max-width: 80%;
-}}
-.layout-cover .subtitle {{
-    color: var(--text-s);
-}}
-
-/* ─── Layout: Card List ─── */
-.layout-card-list .card-grid {{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: var(--space-md);
-    flex: 1;
-}}
-.layout-card-list .card-grid .card {{
-    display: flex;
-    flex-direction: column;
-}}
-.layout-card-list .card-grid .card ul {{
-    margin: 0;
-    padding-left: var(--space-md);
-    flex: 1;
-}}
-.layout-card-list .card-grid .card li {{
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
-    color: var(--text-s);
-    margin-bottom: var(--space-xs);
-}}
-
-/* ─── Layout: Image + Text ─── */
-.layout-image-text {{
-    flex-direction: row !important;
-}}
-.layout-image-text .image-side {{
-    flex: 0 0 50%;
-    position: relative;
-    overflow: hidden;
-}}
-.layout-image-text .image-side img {{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-}}
-.layout-image-text .text-side {{
-    flex: 0 0 50%;
-    padding: var(--space-xl);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}}
-
-/* ─── Layout: Grid ─── */
-.layout-grid .grid-box {{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    grid-template-rows: none;
-    gap: var(--space-md);
-    flex: 1;
-}}
-
-/* ─── Layout: Transition ─── */
-.layout-transition {{
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}}
-.layout-transition h1 {{
-    font-size: calc(var(--fs-h1) * 1.3);
-}}
-
-/* ─── Layout: Content ─── */
-.layout-content .content-title {{
-    padding-bottom: var(--space-sm);
-    border-bottom: 2px solid var(--accent);
-    margin-bottom: var(--space-lg);
-}}
-.layout-content .content-body {{
-    flex: 1;
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
-}}
-.layout-content .content-body ul {{
-    margin: 0;
-    padding-left: var(--space-lg);
-}}
-.layout-content .content-body li {{
-    margin-bottom: var(--space-sm);
-}}
-
-/* ─── Layout: Two Column ─── */
-.layout-two-column .two-col-grid {{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--space-lg);
-    flex: 1;
-}}
-.layout-two-column .two-col-grid .col {{
-    background: var(--surface);
-    border-radius: var(--radius-card);
-    padding: var(--space-md);
-    border: 1px solid var(--border);
-}}
-.layout-two-column .two-col-grid .col ul {{
-    margin: 0;
-    padding-left: var(--space-md);
-}}
-.layout-two-column .two-col-grid .col li {{
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
-    color: var(--text-s);
-    margin-bottom: var(--space-xs);
-}}
-
-/* ─── Layout: Stat Card ─── */
-.layout-stat-card .stat-grid {{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: var(--space-md);
-    flex: 1;
-    align-items: center;
-}}
-.layout-stat-card .stat-grid .stat {{
-    text-align: center;
-    padding: var(--space-lg);
-}}
-.layout-stat-card .stat-grid .stat .stat-value {{
-    font-size: clamp(22px, 9cqi, 48px);
-    font-weight: 700;
-    color: var(--accent);
-    line-height: 1.1;
-}}
-.layout-stat-card .stat-grid .stat .stat-label {{
-    font-size: var(--fs-body);
-    color: var(--text-s);
-    margin-top: var(--space-xs);
-}}
-
-/* ─── Layout: Timeline ─── */
-.layout-timeline .timeline {{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 0 var(--space-lg);
-}}
-.layout-timeline .timeline .step {{
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-md);
-}}
-.layout-timeline .timeline .step .step-num {{
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: var(--fs-h3);
-}}
-.layout-timeline .timeline .step .step-text {{
-    flex: 1;
-}}
-.layout-timeline .timeline .step .step-text h3 {{
-    margin-bottom: 4px;
-}}
-.layout-timeline .timeline .step .step-text p {{
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
-    color: var(--text-s);
-    margin: 0;
-}}
-
-/* ─── Responsive & Compact Mode ───
-   .compact is applied by slider.js on small viewports.
-   In compact mode the slide element gets a real narrow width so
-   minmax grids + cqi units naturally adapt. These rules tighten
-   spacing and force single-column stacks for complex layouts.
-*/
-.slide.compact .slide-content {{
-    padding: var(--space-md);
-}}
-.slide.compact h1 {{
-    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
-}}
-.slide.compact h2 {{
-    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
-}}
-.slide.compact h3 {{
-    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
-}}
-.slide.compact .body-text,
-.slide.compact .card li,
-.slide.compact .two-col-grid li {{
-    font-size: clamp(14px, 3.8cqi, var(--fs-body));
-}}
-.slide.compact .stat-value {{
-    font-size: clamp(20px, 8cqi, 36px);
-}}
-.slide.compact .step-num {{
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
-}}
-
-/* Image+Text stacks vertically in compact */
-.slide.compact .layout-image-text {{
-    flex-direction: column !important;
-}}
-.slide.compact .layout-image-text .image-side {{
-    flex: none !important;
-    width: 100% !important;
-    height: 220px !important;
-    min-height: 160px;
-}}
-.slide.compact .layout-image-text .text-side {{
-    flex: 1 !important;
-    width: 100% !important;
-    padding: var(--space-md) !important;
-}}
-
-/* Force single column stacks for grids that had 2-4 cols */
-.slide.compact .layout-card-list .card-grid,
-.slide.compact .layout-grid .grid-box {{
-    grid-template-columns: 1fr !important;
-}}
-.slide.compact .layout-two-column .two-col-grid,
-.slide.compact .layout-stat-card .stat-grid,
-.slide.compact .two-col-grid {{
-    grid-template-columns: 1fr !important;
-    gap: var(--space-sm);
-}}
-
-/* Hide or neutralize absolute process-flow connectors on narrow reflow */
-.slide.compact [style*="position:absolute"][style*="height:2px"] {{
-    display: none !important;
-}}
-.slide.compact .layout-process-flow .card-grid {{
-    position: static !important;
-}}
-
-/* Slightly tighter cards and lists */
-.slide.compact .card {{
-    padding: var(--space-sm);
-}}
-.slide.compact .slide-content ul,
-.slide.compact .slide-content ol {{
-    padding-left: var(--space-md);
-}}
-
-/* ─── Build Step Animations ─── */
-.step-item {{
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}}
-.step-item.step-visible {{
-  opacity: 1;
-  transform: translateY(0);
-}}
-</style>"""
+def _load_template(template_path: Optional[str] = None) -> str:
+    """Load a template file from templates/ dir (name or full path).
+    Supports custom templates for different fonts/analytics etc.
+    """
+    if template_path:
+        p = Path(template_path)
+        if not p.is_absolute():
+            cand = _TEMPLATES_DIR / p.name
+            if cand.exists():
+                p = cand
+        if p.exists():
+            return p.read_text(encoding="utf-8")
+    # default
+    p = _TEMPLATES_DIR / "default.html"
+    if p.exists():
+        return p.read_text(encoding="utf-8")
+    # ultimate fallback (legacy placeholders for safety)
+    return """<!DOCTYPE html>
+<html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title}</title>
+<style>*{{margin:0;padding:0;box-sizing:border-box}}body{{background:#1a1a1a;color:#fff}}</style>
+{css_block}
+</head><body><div class="deck">{deck_content}</div>{js_block}</body></html>"""
 
 
 def _img_tag(path: str, css_class: str = "slide-bg") -> str:
@@ -730,18 +420,6 @@ def _render_process_flow(content: dict) -> str:
     return "".join(parts)
 
 
-# ─── Slider Runtime (inlined for self-contained HTML) ───────────────
-
-_SLIDER_JS_PATH = Path(__file__).parent / "slider.js"
-
-
-def _inline_slider() -> str:
-    """Read slider.js and return inline <script> tag."""
-    if _SLIDER_JS_PATH.exists():
-        return f"<script>\n{_SLIDER_JS_PATH.read_text()}\n</script>"
-    return ""
-
-
 def _esc(text: str) -> str:
     """HTML-escape text content."""
     if not text:
@@ -778,12 +456,15 @@ def render_slide(
     build_steps: Optional[bool] = None,
 ) -> str:
     """
-    Render a single slide as an HTML <section> string.
+    Render a single slide as a *pure* HTML <section> string (no embedded <style> or JS).
+
+    The theme CSS vars and slidecraft rules live at document level (see render_deck).
+    This keeps per-slide HTML small and avoids repeating hundreds of CSS rules.
 
     Args:
         slide_spec: SlideSpec dict (from DeckSpec JSON)
-        tokens: Design token dict (from load_tokens)
-        output_dir: If set, copy/process image assets here
+        tokens: Design token dict (still accepted for API compat / future per-slide needs)
+        output_dir: If set, compute relative image paths here
         build_steps: Enable build step animations.
                      Falls back to slide_spec.build_steps, then deck default (True).
     """
@@ -792,17 +473,13 @@ def render_slide(
     visual = content.get("visual", {})
     notes = slide_spec.get("speaker_notes", "")
 
-    # Build CSS
-    css_vars = tokens_to_css(tokens)
-    full_style = _style_block(css_vars)
-
     # Background image (with relative path support)
     bg_parts = []
     img_src = None
     img_path = visual.get("generated_path") or slide_spec.get("background_image")
 
-    if img_path and os.path.exists(img_path):
-        # Compute relative path for browser compatibility
+    if img_path:
+        # Compute relative path for browser compatibility (even if file not present yet)
         if output_dir:
             try:
                 rel = os.path.relpath(img_path, output_dir)
@@ -812,8 +489,8 @@ def render_slide(
         else:
             img_src = img_path
         bg_parts.append(_img_tag(img_src, "slide-bg"))
-        # Add overlay for readability on dark images
-        bg_parts.append('<div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, transparent 100%);"></div>')
+        # Add overlay for readability on dark images (stronger for full-bleed cover use)
+        bg_parts.append('<div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 100%);"></div>')
     elif layout in ("cover", "transition") and "accent" in tokens.get("colors", {}):
         accent = tokens["colors"]["accent"]
         # Subtle gradient background using accent
@@ -835,6 +512,14 @@ def render_slide(
         content_html = content_html.replace('step-item', '')
         content_html = re.sub(r'\s*data-step="\d+"', '', content_html)
 
+    # Append inline SVG from extra.inline_svg if present (self-contained visual per slide)
+    inline_svg = None
+    extra = content.get("extra", {}) if isinstance(content, dict) else {}
+    if isinstance(extra, dict):
+        inline_svg = extra.get("inline_svg")
+    if inline_svg:
+        content_html += f'<div class="inline-visual">{inline_svg}</div>'
+
     # Background override
     bg_style = ""
     bg_override = slide_spec.get("background_override")
@@ -851,7 +536,6 @@ def render_slide(
         f'data-slide-id="{_esc(slide_spec.get("id", ""))}" '
         f'data-layout="{_esc(layout)}" '
         f'data-order="{slide_spec.get("order", 0)}"{bg_style}>'
-        f'{full_style}'
         f'{"".join(bg_parts)}'
         f'{content_html}'
         f'{notes_html}'
@@ -864,57 +548,84 @@ def render_deck(
     tokens: dict,
     output_dir: str = None,
     build_steps: bool = True,
+    standalone: bool = True,
+    css_path: Optional[str] = None,
+    js_path: Optional[str] = None,
+    template_path: Optional[str] = None,
+    title: str = "Presentation",
 ) -> str:
     """
     Render all slides as a complete HTML document.
 
+    - standalone=True (default): self-contained single-file HTML.
+      Embeds theme vars + full slidecraft.css + slider.js inline.
+      Produces larger but portable .html (backward compatible).
+    - standalone=False: external CSS/JS references (smaller HTML output).
+      Uses <link> and <script src>. css_path/js_path control the URLs.
+      Caller is responsible for making assets available (engine auto-copies
+      when defaults used).
+
+    Template:
+      Uses templates/default.html (or custom via template_path).
+      Custom templates can inject extra analytics, different font loading etc.
+
     Args:
         slides: List of SlideSpec dicts
         tokens: Design token dict
-        output_dir: Output directory for computing relative image paths
-        build_steps: Enable build step animations (default True). Can be overridden per slide.
+        output_dir: Output dir for relative image paths (passed to render_slide)
+        build_steps: Enable build step animations (default True). Per-slide override wins.
+        standalone: Embed CSS/JS (True) or link external (False)
+        css_path: href value for <link> when standalone=False (default: "slidecraft.css")
+        js_path: src value for <script> when standalone=False (default: "slider.js")
+        template_path: Custom template file (full path or name in templates/)
+        title: Document <title>
     """
     slide_htmls = []
     for spec in slides:
         slide_htmls.append(f'<div class="slide-wrapper">{render_slide(spec, tokens, output_dir, build_steps)}</div>')
+    deck_content = "".join(slide_htmls)
 
     css_vars = tokens_to_css(tokens)
 
-    return f"""<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Presentation</title>
-<style>
-* {{ margin: 0; padding: 0; box-sizing: border-box; }}
-body {{
-    background: #1a1a1a;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    padding: 20px;
-}}
-.deck {{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    max-width: 100%;
-    width: 100%;
-}}
-@media (max-width: 800px) {{
-  body {{ padding: 0; }}
-  .deck {{ gap: 0; }}
-}}
+    if standalone:
+        slidecraft_css = _get_slidecraft_css()
+        css_block = f"""<style id="theme-vars">
 {css_vars}
 </style>
-</head>
-<body>
-<div class="deck">
-{"".join(slide_htmls)}
-</div>
-{_inline_slider()}
-</body></html>"""
+<style id="slidecraft">
+{slidecraft_css}
+</style>"""
+        js_block = _inline_slider()
+    else:
+        c_href = css_path or "slidecraft.css"
+        j_src = js_path or "slider.js"
+        css_block = f"""<style id="theme-vars">
+{css_vars}
+</style>
+<link rel="stylesheet" href="{c_href}">
+"""
+        js_block = f'<script src="{j_src}"></script>'
+
+    tmpl = _load_template(template_path)
+
+    # Prefer .format; fall back to replace for legacy/custom templates
+    try:
+        return tmpl.format(
+            title=title,
+            css_block=css_block,
+            deck_content=deck_content,
+            js_block=js_block,
+        )
+    except (KeyError, ValueError):
+        # legacy fallback support {css_vars} etc + our new keys
+        c_href = css_path or "slidecraft.css"
+        j_src = js_path or "slider.js"
+        html = tmpl.replace("{title}", title)
+        html = html.replace("{css_block}", css_block)
+        html = html.replace("{deck_content}", deck_content)
+        html = html.replace("{js_block}", js_block)
+        # legacy
+        html = html.replace("{css_vars}", css_vars)
+        html = html.replace("{css_href}", c_href if not standalone else "")
+        html = html.replace("{js_src}", j_src if not standalone else "")
+        return html

@@ -31,6 +31,16 @@ def main():
     parser.add_argument("--no-build-steps", action="store_true",
                         help="Disable build step animations (text appears all at once)")
 
+    # Renderer mode flags (passed to HTML renderer)
+    parser.add_argument("--standalone", dest="standalone", action="store_true", default=True,
+                        help="Self-contained HTML: embed slidecraft.css + slider.js (default, single-file)")
+    parser.add_argument("--external", dest="standalone", action="store_false",
+                        help="External CSS/JS: smaller HTML + slidecraft.css/slider.js copied next to output")
+    parser.add_argument("--css-path", default=None,
+                        help="Custom <link href> when --external (default: slidecraft.css)")
+    parser.add_argument("--js-path", default=None,
+                        help="Custom <script src> when --external (default: slider.js)")
+
     args = parser.parse_args()
 
     if args.list_themes:
@@ -67,7 +77,14 @@ def main():
     from orchestrator.engine import generate
 
     build_steps = not args.no_build_steps
-    result = generate(spec, output_name=args.name, build_steps=build_steps)
+    result = generate(
+        spec,
+        output_name=args.name,
+        build_steps=build_steps,
+        standalone=args.standalone,
+        css_path=getattr(args, "css_path", None),
+        js_path=getattr(args, "js_path", None),
+    )
 
     print(f"\n{'='*50}")
     print(f"  ✅ {result['title']}")

@@ -1,0 +1,43 @@
+{
+  "template_id": "cross-culture",
+  "name": "跨文化溝通簡報",
+  "description": "多元文化職場溝通技巧 — 10頁，含 4 張 Grok Draw 配圖、1 個 build step 動畫頁",
+  "version": "1.0",
+  "defaults": {
+    "theme_id": "tech-neon",
+    "num_slides": 10,
+    "build_steps": true,
+    "images": {
+      "count": 4,
+      "engine": "grok-cli",
+      "style": "cinematic photo",
+      "overlay": true
+    }
+  },
+  "layout_sequence": [
+    { "layout": "cover", "title": true, "bg_image": true, "inline_svg": true },
+    { "layout": "content", "title": "為什麼跨文化溝通如此重要", "bullets": 5 },
+    { "layout": "card-list", "title": "Hofstede 文化差異維度", "bg_image": true, "cards": 2 },
+    { "layout": "two-column", "title": "高情境 vs 低情境溝通風格", "bg_image": true, "cols": 2 },
+    { "layout": "grid", "title": "常見跨文化誤解", "cards": 4 },
+    { "layout": "card-grid", "title": "跨文化溝通實戰五步驟", "build_steps": true, "steps": 5 },
+    { "layout": "stat-card", "title": "數字會說話", "stats": 4 },
+    { "layout": "timeline", "title": "實戰案例：台美半導體協作專案", "bg_image": true, "steps": 4 },
+    { "layout": "content", "title": "跨文化溝通黃金法則", "bullets": 6 },
+    { "layout": "transition", "title": "溝通無國界，理解有深度" }
+  ],
+  "build_step_slides": ["s06"],
+  "image_prompts": {
+    "s01": "Cinematic top view of a diverse team of professionals gathered around a conference table, discussing documents, warm natural lighting, photorealistic, 16:9",
+    "s03": "Diverse team of Asian and Caucasian engineers collaborating in a modern semiconductor office, whiteboards with diagrams, warm professional lighting, photorealistic",
+    "s04": "Split composition: Left side shows Taiwanese business meeting with subtle bowing and tea, right side shows Western handshake and direct eye contact, warm professional lighting",
+    "s08": "Taiwanese and American engineers shaking hands in front of a semiconductor fabrication facility, golden hour lighting, collaborative atmosphere, photorealistic"
+  },
+  "layout_rules": {
+    "max_content_height_px": 640,
+    "card_padding_px": 16,
+    "grid_gap_px": 12,
+    "inline_svg_max_height_px": 95,
+    "mobile_single_column": true
+  }
+}

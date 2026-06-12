@@ -1,0 +1,33 @@
+{
+  "template_id": "_skeleton",
+  "name": "通用簡報骨架",
+  "description": "從零開始，自訂頁數、layout、配圖。填空白就行。",
+  "version": "1.0",
+  "defaults": {
+    "theme_id": "tech-neon",
+    "num_slides": null,
+    "build_steps": true,
+    "images": {
+      "count": 0,
+      "engine": "grok-cli",
+      "style": "cinematic photo",
+      "overlay": true
+    }
+  },
+  "layout_options": [
+    "cover", "content", "card-list", "two-column",
+    "grid", "card-grid", "stat-card", "timeline", "transition"
+  ],
+  "build_step_compatible_layouts": [
+    "card-grid", "grid", "timeline", "two-column"
+  ],
+  "layout_rules": {
+    "max_content_height_px": 640,
+    "card_padding_px": 16,
+    "grid_gap_px": 12,
+    "inline_svg_max_height_px": 95,
+    "mobile_single_column": true,
+    "bg_overlay": "linear-gradient(135deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 100%)"
+  },
+  "prompt_template": "用《{template_id}》範本，做一份 {num_slides} 頁簡報，主題是 {topic}。\n\n主題色系：{theme}\n配圖風格：{image_style}\n\n每頁 layout 如下：\n{layout_sequence}\n\n遵守 SlideCraft Layout Rules：每頁內容 ≤ 640px，card padding ≤ 16px，build step 全開後仍 ≤ 640px。配圖用 Grok CLI 生真實照片，不要 inline SVG。"
+}

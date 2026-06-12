@@ -1,0 +1,356 @@
+{
+  "deck_id": "cross-culture-communication",
+  "title": "多元文化職場溝通技巧",
+  "num_slides": 10,
+  "global_design": {
+    "theme_id": "academic-clean",
+    "accent_override": null
+  },
+  "slides": [
+    {
+      "id": "s01",
+      "order": 1,
+      "layout": "cover",
+      "content": {
+        "title": "多元文化職場溝通技巧",
+        "subtitle": "打造包容、高效的國際化團隊",
+        "bullets": [],
+        "stats": [],
+        "columns": [],
+        "steps": [],
+        "quote": null,
+        "visual": {
+          "type": "background",
+          "generated_path": "/workspace/gamma-ppt/output/cross-culture-v1_images/cover-discussion.jpg",
+          "prompt": "Two professionals from different cultural backgrounds having a warm discussion across a conference table"
+        },
+        "extra": {
+          "inline_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"300\" height=\"150\" viewBox=\"0 0 300 150\"><defs><linearGradient id=\"g1\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"#3D5A80\"/><stop offset=\"100%\" stop-color=\"#98C1D9\"/></linearGradient></defs><circle cx=\"60\" cy=\"45\" r=\"14\" fill=\"#3D5A80\"/><circle cx=\"130\" cy=\"35\" r=\"11\" fill=\"#98C1D9\"/><circle cx=\"210\" cy=\"55\" r=\"15\" fill=\"#3D5A80\"/><circle cx=\"95\" cy=\"105\" r=\"12\" fill=\"#98C1D9\"/><circle cx=\"185\" cy=\"110\" r=\"13\" fill=\"#3D5A80\"/><circle cx=\"260\" cy=\"80\" r=\"10\" fill=\"#98C1D9\"/><line x1=\"60\" y1=\"45\" x2=\"130\" y2=\"35\" stroke=\"#3D5A80\" stroke-width=\"2.5\" opacity=\"0.55\"/><line x1=\"130\" y1=\"35\" x2=\"210\" y2=\"55\" stroke=\"#3D5A80\" stroke-width=\"2.5\" opacity=\"0.55\"/><line x1=\"60\" y1=\"45\" x2=\"95\" y2=\"105\" stroke=\"#3D5A80\" stroke-width=\"2.5\" opacity=\"0.55\"/><line x1=\"95\" y1=\"105\" x2=\"185\" y2=\"110\" stroke=\"#3D5A80\" stroke-width=\"2.5\" opacity=\"0.55\"/><line x1=\"185\" y1=\"110\" x2=\"260\" y2=\"80\" stroke=\"#3D5A80\" stroke-width=\"2.5\" opacity=\"0.55\"/><line x1=\"210\" y1=\"55\" x2=\"260\" y2=\"80\" stroke=\"#3D5A80\" stroke-width=\"2.5\" opacity=\"0.55\"/><line x1=\"130\" y1=\"35\" x2=\"95\" y2=\"105\" stroke=\"#98C1D9\" stroke-width=\"1.8\" opacity=\"0.45\"/><line x1=\"210\" y1=\"55\" x2=\"185\" y2=\"110\" stroke=\"#98C1D9\" stroke-width=\"1.8\" opacity=\"0.45\"/><circle cx=\"150\" cy=\"72\" r=\"6\" fill=\"#3D5A80\"/><text x=\"150\" y=\"145\" font-family=\"system-ui, sans-serif\" font-size=\"10\" fill=\"#4A4A6A\" text-anchor=\"middle\">全球連結 • 多元協作</text></svg>"
+        }
+      },
+      "background_image": "/workspace/gamma-ppt/output/cross-culture-v1_images/cover-discussion.jpg"
+    },
+    {
+      "id": "s02",
+      "order": 2,
+      "layout": "content",
+      "content": {
+        "title": "為什麼跨文化溝通如此重要",
+        "subtitle": null,
+        "bullets": [
+          "• 台灣半導體與科技產業高度依賴全球供應鏈，台積電、聯發科等公司團隊成員來自超過 30 國",
+          "• 跨文化溝通不良是國際專案延遲或失敗的主因之一，平均增加 15% 至 25% 時間與成本",
+          "• 外商在台據點與台商海外投資（越南、印度、美國、歐洲）持續擴張，主管與同事背景多元",
+          "• 有效跨文化溝通能提升團隊信任、減少誤會、加速決策與創新",
+          "• 後疫情遠距工作與跨時區視訊，已成為半導體與科技業日常標準模式"
+        ],
+        "stats": [],
+        "columns": [],
+        "steps": [],
+        "quote": null,
+        "visual": {
+          "type": "none",
+          "prompt": null
+        },
+        "extra": {
+          "inline_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"340\" height=\"155\" viewBox=\"0 0 340 155\"><rect x=\"25\" y=\"22\" width=\"290\" height=\"1.5\" fill=\"#E0E0E8\"/><text x=\"25\" y=\"16\" font-family=\"system-ui, sans-serif\" font-size=\"10\" fill=\"#4A4A6A\">科技業跨文化團隊比例</text><rect x=\"48\" y=\"72\" width=\"38\" height=\"58\" fill=\"#3D5A80\"/><text x=\"67\" y=\"68\" font-family=\"system-ui, sans-serif\" font-size=\"10\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">48%</text><text x=\"67\" y=\"145\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#4A4A6A\" text-anchor=\"middle\">2018</text><rect x=\"108\" y=\"52\" width=\"38\" height=\"78\" fill=\"#3D5A80\"/><text x=\"127\" y=\"48\" font-family=\"system-ui, sans-serif\" font-size=\"10\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">67%</text><text x=\"127\" y=\"145\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#4A4A6A\" text-anchor=\"middle\">2021</text><rect x=\"168\" y=\"36\" width=\"38\" height=\"94\" fill=\"#3D5A80\"/><text x=\"187\" y=\"32\" font-family=\"system-ui, sans-serif\" font-size=\"10\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">82%</text><text x=\"187\" y=\"145\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#4A4A6A\" text-anchor=\"middle\">2024</text><rect x=\"228\" y=\"24\" width=\"38\" height=\"106\" fill=\"#98C1D9\"/><text x=\"247\" y=\"20\" font-family=\"system-ui, sans-serif\" font-size=\"10\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">93%</text><text x=\"247\" y=\"145\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#4A4A6A\" text-anchor=\"middle\">2026</text></svg>"
+        }
+      }
+    },
+    {
+      "id": "s03",
+      "order": 3,
+      "layout": "card-list",
+      "content": {
+        "title": "Hofstede 文化差異維度",
+        "subtitle": null,
+        "bullets": [
+          "權力距離：台灣與許多亞洲文化傾向尊重階層，決策常由資深主管主導",
+          "個人 vs 集體：集體主義文化優先團隊和諧與共識，個人突出較為收斂",
+          "不確定性規避：偏好明確規範、詳細計畫，對突發變動需要更多緩衝",
+          "長期導向：重視耐心投資與未來回報，較能忍受短期成果波動"
+        ],
+        "stats": [],
+        "columns": [],
+        "steps": [],
+        "quote": null,
+        "visual": {
+          "type": "none",
+          "prompt": null
+        },
+        "extra": {
+          "inline_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"320\" height=\"140\" viewBox=\"0 0 320 140\"><text x=\"160\" y=\"14\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#4A4A6A\" text-anchor=\"middle\">四大維度相對強度（台灣參照）</text><rect x=\"35\" y=\"95\" width=\"42\" height=\"28\" fill=\"#3D5A80\"/><text x=\"56\" y=\"90\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\">58</text><text x=\"56\" y=\"125\" font-family=\"system-ui, sans-serif\" font-size=\"8\" fill=\"#4A4A6A\" text-anchor=\"middle\">權力距離</text><rect x=\"95\" y=\"68\" width=\"42\" height=\"55\" fill=\"#98C1D9\"/><text x=\"116\" y=\"63\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\">17</text><text x=\"116\" y=\"125\" font-family=\"system-ui, sans-serif\" font-size=\"8\" fill=\"#4A4A6A\" text-anchor=\"middle\">個人主義</text><rect x=\"155\" y=\"58\" width=\"42\" height=\"65\" fill=\"#3D5A80\"/><text x=\"176\" y=\"53\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\">69</text><text x=\"176\" y=\"125\" font-family=\"system-ui, sans-serif\" font-size=\"8\" fill=\"#4A4A6A\" text-anchor=\"middle\">不確定規避</text><rect x=\"215\" y=\"32\" width=\"42\" height=\"91\" fill=\"#98C1D9\"/><text x=\"236\" y=\"27\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\">93</text><text x=\"236\" y=\"125\" font-family=\"system-ui, sans-serif\" font-size=\"8\" fill=\"#4A4A6A\" text-anchor=\"middle\">長期導向</text></svg>"
+        }
+      }
+    },
+    {
+      "id": "s04",
+      "order": 4,
+      "layout": "comparison",
+      "content": {
+        "title": "高情境 vs 低情境溝通風格",
+        "subtitle": null,
+        "bullets": [],
+        "stats": [],
+        "columns": [
+          {
+            "heading": "高情境文化（台灣、亞洲）",
+            "items": [
+              "表達間接，依賴脈絡與暗示",
+              "重視關係與和諧建立",
+              "避免當面直接否定",
+              "決策前需時間達成共識"
+            ]
+          },
+          {
+            "heading": "低情境文化（歐美）",
+            "items": [
+              "表達直接、清楚、明確",
+              "重視任務與時間效率",
+              "會議中公開討論異議",
+              "快速做出具體決定"
+            ]
+          }
+        ],
+        "steps": [],
+        "quote": null,
+        "visual": {
+          "type": "none",
+          "prompt": null
+        },
+        "extra": {
+          "inline_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"300\" height=\"130\" viewBox=\"0 0 300 130\"><rect x=\"18\" y=\"18\" width=\"115\" height=\"78\" rx=\"4\" fill=\"#F8F9FA\" stroke=\"#3D5A80\" stroke-width=\"1.5\"/><text x=\"75\" y=\"34\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">高情境</text><path d=\"M35 48 Q55 58 75 50 Q95 60 115 52\" fill=\"none\" stroke=\"#98C1D9\" stroke-width=\"2.5\"/><circle cx=\"38\" cy=\"70\" r=\"3\" fill=\"#3D5A80\"/><circle cx=\"58\" cy=\"70\" r=\"3\" fill=\"#3D5A80\"/><circle cx=\"78\" cy=\"70\" r=\"3\" fill=\"#3D5A80\"/><text x=\"75\" y=\"95\" font-family=\"system-ui, sans-serif\" font-size=\"8\" fill=\"#4A4A6A\" text-anchor=\"middle\">間接 關係 含蓄</text><rect x=\"158\" y=\"18\" width=\"115\" height=\"78\" rx=\"4\" fill=\"#F8F9FA\" stroke=\"#3D5A80\" stroke-width=\"1.5\"/><text x=\"215\" y=\"34\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">低情境</text><line x1=\"175\" y1=\"50\" x2=\"255\" y2=\"50\" stroke=\"#3D5A80\" stroke-width=\"3\"/><polygon points=\"255,45 265,50 255,55\" fill=\"#3D5A80\"/><text x=\"215\" y=\"95\" font-family=\"system-ui, sans-serif\" font-size=\"8\" fill=\"#4A4A6A\" text-anchor=\"middle\">直接 任務 明確</text></svg>"
+        }
+      }
+    },
+    {
+      "id": "s05",
+      "order": 5,
+      "layout": "grid",
+      "content": {
+        "title": "常見跨文化誤解",
+        "subtitle": null,
+        "bullets": [],
+        "stats": [],
+        "columns": [
+          {
+            "heading": "語言障礙",
+            "items": [
+              "專業術語與語速差異，即使使用英文仍造成誤解"
+            ]
+          },
+          {
+            "heading": "非語言誤讀",
+            "items": [
+              "台灣點頭常代表「聽見」而非「同意」，沉默意義不同"
+            ]
+          },
+          {
+            "heading": "刻板印象",
+            "items": [
+              "預設「亞洲人保守、西洋人直率」，忽略個人差異"
+            ]
+          },
+          {
+            "heading": "價值觀衝突",
+            "items": [
+              "加班文化 vs 生活平衡、階層 vs 平等決策"
+            ]
+          }
+        ],
+        "steps": [],
+        "quote": null,
+        "visual": {
+          "type": "none",
+          "prompt": null
+        },
+        "extra": {
+          "inline_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"300\" height=\"125\" viewBox=\"0 0 300 125\"><rect x=\"12\" y=\"10\" width=\"130\" height=\"48\" rx=\"3\" fill=\"#F8F9FA\" stroke=\"#E0E0E8\"/><text x=\"77\" y=\"26\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">語言障礙</text><path d=\"M25 38 L35 44 L45 36\" fill=\"none\" stroke=\"#3D5A80\" stroke-width=\"1.8\"/><rect x=\"158\" y=\"10\" width=\"130\" height=\"48\" rx=\"3\" fill=\"#F8F9FA\" stroke=\"#E0E0E8\"/><text x=\"223\" y=\"26\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">非語言誤讀</text><circle cx=\"190\" cy=\"40\" r=\"5\" fill=\"none\" stroke=\"#3D5A80\" stroke-width=\"1.8\"/><line x1=\"187\" y1=\"37\" x2=\"193\" y2=\"43\" stroke=\"#3D5A80\" stroke-width=\"1.8\"/><rect x=\"12\" y=\"66\" width=\"130\" height=\"48\" rx=\"3\" fill=\"#F8F9FA\" stroke=\"#E0E0E8\"/><text x=\"77\" y=\"82\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">刻板印象</text><circle cx=\"50\" cy=\"95\" r=\"6\" fill=\"#98C1D9\"/><circle cx=\"70\" cy=\"95\" r=\"6\" fill=\"#3D5A80\"/><text x=\"60\" y=\"98\" font-family=\"system-ui, sans-serif\" font-size=\"7\" fill=\"#fff\" text-anchor=\"middle\">?</text><rect x=\"158\" y=\"66\" width=\"130\" height=\"48\" rx=\"3\" fill=\"#F8F9FA\" stroke=\"#E0E0E8\"/><text x=\"223\" y=\"82\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">價值觀衝突</text><line x1=\"180\" y1=\"88\" x2=\"200\" y2=\"100\" stroke=\"#3D5A80\" stroke-width=\"2\"/><line x1=\"200\" y1=\"88\" x2=\"180\" y2=\"100\" stroke=\"#3D5A80\" stroke-width=\"2\"/></svg>"
+        }
+      }
+    },
+    {
+      "id": "s06",
+      "order": 6,
+      "layout": "process-flow",
+      "content": {
+        "title": "跨文化溝通實戰五步驟",
+        "subtitle": null,
+        "bullets": [],
+        "stats": [],
+        "columns": [
+          {
+            "heading": "觀察",
+            "items": [
+              "留意語氣節奏與非語言訊號"
+            ]
+          },
+          {
+            "heading": "傾聽",
+            "items": [
+              "給予完整空間接收觀點"
+            ]
+          },
+          {
+            "heading": "確認",
+            "items": [
+              "重述理解避免假設"
+            ]
+          },
+          {
+            "heading": "調整",
+            "items": [
+              "彈性改變表達與流程"
+            ]
+          },
+          {
+            "heading": "反饋",
+            "items": [
+              "書面確認共識行動"
+            ]
+          }
+        ],
+        "steps": [],
+        "quote": null,
+        "visual": {
+          "type": "none",
+          "prompt": null
+        },
+        "extra": {
+          "inline_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"320\" height=\"95\" viewBox=\"0 0 320 95\"><text x=\"160\" y=\"12\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#4A4A6A\" text-anchor=\"middle\">觀察 → 傾聽 → 確認 → 調整 → 反饋</text><circle cx=\"40\" cy=\"55\" r=\"14\" fill=\"#3D5A80\"/><text x=\"40\" y=\"59\" font-family=\"system-ui, sans-serif\" font-size=\"11\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">1</text><circle cx=\"100\" cy=\"55\" r=\"14\" fill=\"#3D5A80\"/><text x=\"100\" y=\"59\" font-family=\"system-ui, sans-serif\" font-size=\"11\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">2</text><circle cx=\"160\" cy=\"55\" r=\"14\" fill=\"#3D5A80\"/><text x=\"160\" y=\"59\" font-family=\"system-ui, sans-serif\" font-size=\"11\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">3</text><circle cx=\"220\" cy=\"55\" r=\"14\" fill=\"#3D5A80\"/><text x=\"220\" y=\"59\" font-family=\"system-ui, sans-serif\" font-size=\"11\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">4</text><circle cx=\"280\" cy=\"55\" r=\"14\" fill=\"#3D5A80\"/><text x=\"280\" y=\"59\" font-family=\"system-ui, sans-serif\" font-size=\"11\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">5</text><line x1=\"54\" y1=\"55\" x2=\"86\" y2=\"55\" stroke=\"#98C1D9\" stroke-width=\"3\"/><line x1=\"114\" y1=\"55\" x2=\"146\" y2=\"55\" stroke=\"#98C1D9\" stroke-width=\"3\"/><line x1=\"174\" y1=\"55\" x2=\"206\" y2=\"55\" stroke=\"#98C1D9\" stroke-width=\"3\"/><line x1=\"234\" y1=\"55\" x2=\"266\" y2=\"55\" stroke=\"#98C1D9\" stroke-width=\"3\"/><polygon points=\"86,50 96,55 86,60\" fill=\"#98C1D9\"/><polygon points=\"146,50 156,55 146,60\" fill=\"#98C1D9\"/><polygon points=\"206,50 216,55 206,60\" fill=\"#98C1D9\"/><polygon points=\"266,50 276,55 266,60\" fill=\"#98C1D9\"/></svg>"
+        }
+      }
+    },
+    {
+      "id": "s07",
+      "order": 7,
+      "layout": "stat-card",
+      "content": {
+        "title": "數字會說話",
+        "subtitle": null,
+        "bullets": [],
+        "stats": [
+          {
+            "value": "85%",
+            "label": "跨文化專案遇溝通障礙"
+          },
+          {
+            "value": "2.3x",
+            "label": "良好溝通成功率提升"
+          },
+          {
+            "value": "67%",
+            "label": "台商海外團隊經驗衝突"
+          },
+          {
+            "value": "41%",
+            "label": "認為培訓明顯不足"
+          }
+        ],
+        "columns": [],
+        "steps": [],
+        "quote": null,
+        "visual": {
+          "type": "none",
+          "prompt": null
+        },
+        "extra": {
+          "inline_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"310\" height=\"105\" viewBox=\"0 0 310 105\"><text x=\"155\" y=\"12\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#4A4A6A\" text-anchor=\"middle\">溝通障礙主要來源</text><rect x=\"20\" y=\"28\" width=\"58\" height=\"52\" fill=\"#3D5A80\"/><text x=\"49\" y=\"24\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">32%</text><text x=\"49\" y=\"95\" font-family=\"system-ui, sans-serif\" font-size=\"8\" fill=\"#4A4A6A\" text-anchor=\"middle\">語言</text><rect x=\"92\" y=\"40\" width=\"58\" height=\"40\" fill=\"#98C1D9\"/><text x=\"121\" y=\"36\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">24%</text><text x=\"121\" y=\"95\" font-family=\"system-ui, sans-serif\" font-size=\"8\" fill=\"#4A4A6A\" text-anchor=\"middle\">非語言</text><rect x=\"164\" y=\"32\" width=\"58\" height=\"48\" fill=\"#3D5A80\"/><text x=\"193\" y=\"28\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">28%</text><text x=\"193\" y=\"95\" font-family=\"system-ui, sans-serif\" font-size=\"8\" fill=\"#4A4A6A\" text-anchor=\"middle\">決策風格</text><rect x=\"236\" y=\"52\" width=\"58\" height=\"28\" fill=\"#98C1D9\"/><text x=\"265\" y=\"48\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">16%</text><text x=\"265\" y=\"95\" font-family=\"system-ui, sans-serif\" font-size=\"8\" fill=\"#4A4A6A\" text-anchor=\"middle\">價值差異</text></svg>"
+        }
+      }
+    },
+    {
+      "id": "s08",
+      "order": 8,
+      "layout": "timeline",
+      "content": {
+        "title": "實戰案例：台美半導體協作專案",
+        "subtitle": null,
+        "bullets": [],
+        "stats": [],
+        "columns": [],
+        "steps": [
+          {
+            "number": 1,
+            "title": "衝突出現",
+            "description": "美方要求當場拍板，台方習慣會後內部對齊，會議冷場"
+          },
+          {
+            "number": 2,
+            "title": "理解差異",
+            "description": "專案經理引入文化簡報，釐清高情境與低情境特徵"
+          },
+          {
+            "number": 3,
+            "title": "流程優化",
+            "description": "會前書面資料、結構化議程、會後 24 小時確認紀錄"
+          },
+          {
+            "number": 4,
+            "title": "雙贏成果",
+            "description": "N2 測試專案提前三週完成，團隊滿意度上升 34%"
+          }
+        ],
+        "quote": null,
+        "visual": {
+          "type": "none",
+          "prompt": null
+        },
+        "extra": {
+          "inline_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"310\" height=\"85\" viewBox=\"0 0 310 85\"><line x1=\"25\" y1=\"42\" x2=\"285\" y2=\"42\" stroke=\"#E0E0E8\" stroke-width=\"3\"/><circle cx=\"40\" cy=\"42\" r=\"9\" fill=\"#3D5A80\"/><text x=\"40\" y=\"46\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">1</text><text x=\"40\" y=\"68\" font-family=\"system-ui, sans-serif\" font-size=\"7\" fill=\"#4A4A6A\" text-anchor=\"middle\">衝突</text><circle cx=\"110\" cy=\"42\" r=\"9\" fill=\"#3D5A80\"/><text x=\"110\" y=\"46\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">2</text><text x=\"110\" y=\"68\" font-family=\"system-ui, sans-serif\" font-size=\"7\" fill=\"#4A4A6A\" text-anchor=\"middle\">理解</text><circle cx=\"180\" cy=\"42\" r=\"9\" fill=\"#3D5A80\"/><text x=\"180\" y=\"46\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">3</text><text x=\"180\" y=\"68\" font-family=\"system-ui, sans-serif\" font-size=\"7\" fill=\"#4A4A6A\" text-anchor=\"middle\">調整</text><circle cx=\"250\" cy=\"42\" r=\"9\" fill=\"#3D5A80\"/><text x=\"250\" y=\"46\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">4</text><text x=\"250\" y=\"68\" font-family=\"system-ui, sans-serif\" font-size=\"7\" fill=\"#4A4A6A\" text-anchor=\"middle\">成果</text><line x1=\"49\" y1=\"42\" x2=\"101\" y2=\"42\" stroke=\"#98C1D9\" stroke-width=\"2\"/><line x1=\"119\" y1=\"42\" x2=\"171\" y2=\"42\" stroke=\"#98C1D9\" stroke-width=\"2\"/><line x1=\"189\" y1=\"42\" x2=\"241\" y2=\"42\" stroke=\"#98C1D9\" stroke-width=\"2\"/></svg>"
+        }
+      }
+    },
+    {
+      "id": "s09",
+      "order": 9,
+      "layout": "content",
+      "content": {
+        "title": "跨文化溝通黃金法則",
+        "subtitle": null,
+        "bullets": [
+          "• 假設善意：先理解對方背景與動機，再進行判斷",
+          "• 關係先行：花時間建立信任，後續任務執行會更順利",
+          "• 確認重述：用「我的理解是...請幫我確認」降低模糊地帶",
+          "• 混合管道：重要共識同時使用口頭討論與書面記錄",
+          "• 持續校準：定期檢討團隊默契，邀請成員給予開放反饋",
+          "• 以身作則：領導者示範耐心、包容與持續學習的態度"
+        ],
+        "stats": [],
+        "columns": [],
+        "steps": [],
+        "quote": null,
+        "visual": {
+          "type": "none",
+          "prompt": null
+        },
+        "extra": {
+          "inline_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"260\" height=\"135\" viewBox=\"0 0 260 135\"><circle cx=\"130\" cy=\"68\" r=\"48\" fill=\"none\" stroke=\"#E0E0E8\" stroke-width=\"18\"/><circle cx=\"130\" cy=\"68\" r=\"48\" fill=\"none\" stroke=\"#3D5A80\" stroke-width=\"18\" stroke-dasharray=\"60 240\"/><circle cx=\"130\" cy=\"68\" r=\"48\" fill=\"none\" stroke=\"#98C1D9\" stroke-width=\"18\" stroke-dasharray=\"48 252\" stroke-dashoffset=\"-60\"/><circle cx=\"130\" cy=\"68\" r=\"48\" fill=\"none\" stroke=\"#3D5A80\" stroke-width=\"18\" stroke-dasharray=\"36 264\" stroke-dashoffset=\"-108\"/><text x=\"130\" y=\"64\" font-family=\"system-ui, sans-serif\" font-size=\"10\" fill=\"#3D5A80\" text-anchor=\"middle\" font-weight=\"bold\">尊重</text><text x=\"130\" y=\"76\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#4A4A6A\" text-anchor=\"middle\">差異</text><text x=\"130\" y=\"130\" font-family=\"system-ui, sans-serif\" font-size=\"8\" fill=\"#4A4A6A\" text-anchor=\"middle\">關係 確認 調整 反饋 耐心</text></svg>"
+        }
+      }
+    },
+    {
+      "id": "s10",
+      "order": 10,
+      "layout": "transition",
+      "content": {
+        "title": "溝通無國界，理解有深度",
+        "subtitle": "從今日開始，成為國際化團隊的溝通橋樑",
+        "bullets": [],
+        "stats": [],
+        "columns": [],
+        "steps": [],
+        "quote": null,
+        "visual": {
+          "type": "none",
+          "prompt": null
+        },
+        "extra": {
+          "inline_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"280\" height=\"120\" viewBox=\"0 0 280 120\"><rect x=\"30\" y=\"55\" width=\"42\" height=\"18\" rx=\"2\" fill=\"#98C1D9\"/><rect x=\"205\" y=\"55\" width=\"42\" height=\"18\" rx=\"2\" fill=\"#98C1D9\"/><path d=\"M72 64 Q140 28 205 64\" fill=\"none\" stroke=\"#3D5A80\" stroke-width=\"7\"/><circle cx=\"72\" cy=\"52\" r=\"5\" fill=\"#3D5A80\"/><circle cx=\"205\" cy=\"52\" r=\"5\" fill=\"#3D5A80\"/><circle cx=\"102\" cy=\"46\" r=\"4\" fill=\"#3D5A80\"/><circle cx=\"138\" cy=\"38\" r=\"4\" fill=\"#3D5A80\"/><circle cx=\"175\" cy=\"46\" r=\"4\" fill=\"#3D5A80\"/><text x=\"140\" y=\"105\" font-family=\"system-ui, sans-serif\" font-size=\"9\" fill=\"#4A4A6A\" text-anchor=\"middle\">橋接多元 成就共贏</text></svg>"
+        }
+      }
+    }
+  ],
+  "source_prompt": "Generate a 10-slide deck about cross-cultural workplace communication skills using Taiwan semiconductor and tech industry context (with images)",
+  "generated_at": "2026-06-12T10:00:00"
+}

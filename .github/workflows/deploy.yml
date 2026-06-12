@@ -1,0 +1,66 @@
+name: SlideCraft Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'deckspec/*.json'
+      - 'templates/*.json'
+      - 'renderers/**'
+      - 'design-tokens/**'
+  workflow_dispatch:
+    inputs:
+      spec:
+        description: 'DeckSpec JSON file path (relative to repo root)'
+        required: false
+        default: ''
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt 2>/dev/null || true
+          pip install pyyaml jinja2 2>/dev/null || true
+
+      - name: Find DeckSpec to render
+        id: find-spec
+        run: |
+          if [ -n "${{ github.event.inputs.spec }}" ]; then
+            echo "spec=${{ github.event.inputs.spec }}" >> $GITHUB_OUTPUT
+          else
+            # Find the most recently changed .json in deckspec/ or templates/
+            LATEST=$(find deckspec templates -name '*.json' -not -name '_skeleton.json' -not -name 'README.md' -printf '%T@ %p\n' 2>/dev/null | sort -rn | head -1 | awk '{print $2}')
+            if [ -n "$LATEST" ]; then
+              echo "spec=$LATEST" >> $GITHUB_OUTPUT
+            else
+              echo "spec=" >> $GITHUB_OUTPUT
+            }
+          fi
+
+      - name: Render DeckSpec
+        if: steps.find-spec.outputs.spec != ''
+        run: |
+          SPEC="${{ steps.find-spec.outputs.spec }}"
+          echo "Rendering: $SPEC"
+          python cli/main.py --spec "$SPEC" --external --output-dir output/
+          echo "Output files:"
+          ls -la output/*.html 2>/dev/null || echo "No HTML output"
+
+      - name: Deploy to GitHub Pages
+        if: steps.find-spec.outputs.spec != ''
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output
+          destination_dir: ./decks
+          keep_files: true

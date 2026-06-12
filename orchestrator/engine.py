@@ -13,6 +13,7 @@ import os
 import re
 import yaml
 from pathlib import Path
+from typing import Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 
@@ -58,7 +59,14 @@ def _generate_images(slides: list[dict]) -> None:
 
 # ─── Main Pipeline ─────────────────────────────────────────────────────
 
-def generate(spec: dict, output_name: str = None, build_steps: bool = True) -> dict:
+def generate(
+    spec: dict,
+    output_name: str = None,
+    build_steps: bool = True,
+    standalone: bool = True,
+    css_path: Optional[str] = None,
+    js_path: Optional[str] = None,
+) -> dict:
     """Generate slides from a DeckSpec dict.
 
     Full pipeline: spec -> deck.
@@ -115,12 +123,40 @@ def generate(spec: dict, output_name: str = None, build_steps: bool = True) -> d
     print(f"🌐 Rendering HTML...")
     from renderers.html.renderer import render_deck as html_render
     # Read build_steps from spec global_design, CLI override wins
-    deck_build_steps = spec.get("global_design", {}).get("build_steps", build_steps)
-    html_content = html_render(slides, tokens, output_dir=str(OUTPUT_DIR), build_steps=deck_build_steps)
+    # build_steps / standalone etc: explicit args win over spec.global_design
+    g = spec.get("global_design", {}) or {}
+    deck_build_steps = build_steps if build_steps is not None else g.get("build_steps", True)
+    use_standalone = standalone if standalone is not None else g.get("standalone", True)
+    use_css_path = css_path if css_path is not None else g.get("css_path")
+    use_js_path = js_path if js_path is not None else g.get("js_path")
+    html_title = spec.get("title", "Presentation")
+    html_content = html_render(
+        slides, tokens,
+        output_dir=str(OUTPUT_DIR),
+        build_steps=deck_build_steps,
+        standalone=use_standalone,
+        css_path=use_css_path,
+        js_path=use_js_path,
+        title=html_title,
+    )
     html_path = OUTPUT_DIR / f"{output_name}.html"
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
     print(f"  ✅ HTML: {html_path}")
+
+    # For external mode with default asset paths, copy slidecraft.css + slider.js
+    # alongside the .html so relative refs resolve for file:// / static hosting.
+    if not use_standalone and (use_css_path is None and use_js_path is None):
+        out_dir = html_path.parent
+        for asset_fname, pkg_rel in [
+            ("slidecraft.css", "renderers/html/slidecraft.css"),
+            ("slider.js", "renderers/html/slider.js"),
+        ]:
+            target_path = out_dir / asset_fname
+            src = PROJECT_ROOT / pkg_rel
+            if src.exists() and not target_path.exists():
+                shutil.copy2(str(src), str(target_path))
+                print(f"  📎 Copied asset for external mode: {asset_fname}")
 
     # Step 4: Render PPTX
     print(f"📊 Rendering PPTX...")

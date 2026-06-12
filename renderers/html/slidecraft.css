@@ -1,0 +1,490 @@
+/* ==========================================================================
+   SlideCraft — Core slide + layout + nav styles
+   Extracted from renderer. Single source of truth for HTML slides.
+   ========================================================================== */
+
+/* Font imports for Inter + Noto Sans TC (used by many themes) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+/* Note: :root theme variables (--bg, --surface, --accent, --fs-*, --space-* etc)
+   are injected at runtime by the renderer from design tokens.
+   This file only contains static layout / component rules that reference the vars. */
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden auto;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Typography */
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+/* Cards use fixed 16px padding (per layout rules) */
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: 16px;
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ───
+   Grid gap fixed at 12px (per layout rules)
+*/
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ───
+   gap: 12px
+*/
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: 12px;
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ───
+   gap fixed 12px in base
+*/
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: 16px;
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ───
+   gap: 12px
+*/
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: clamp(22px, 9cqi, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+
+/* ─── Responsive & Compact Mode ───
+   .compact applied by slider.js on narrow viewports.
+   Content uses real width so grids reflow, cqi clamps text.
+*/
+.slide.compact .slide-content {
+    padding: var(--space-md);
+}
+.slide.compact h1 {
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}
+.slide.compact h2 {
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}
+.slide.compact h3 {
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}
+.slide.compact .stat-value {
+    font-size: clamp(20px, 8cqi, 36px);
+}
+.slide.compact .step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+/* Image+Text stacks vertically */
+.slide.compact .layout-image-text {
+    flex-direction: column !important;
+}
+.slide.compact .layout-image-text .image-side {
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}
+.slide.compact .layout-image-text .text-side {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}
+
+/* Single column for grids */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {
+    grid-template-columns: 1fr !important;
+}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}
+
+/* Hide absolute connectors on narrow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {
+    display: none !important;
+}
+.slide.compact .layout-process-flow .card-grid {
+    position: static !important;
+}
+
+/* Tighter cards/lists in compact */
+.slide.compact .card {
+    padding: 12px;
+}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {
+    padding-left: var(--space-md);
+}
+
+/* Additional compact tweaks for presentation wrappers (from nav styles) */
+.slide-wrapper section.slide.compact {
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0 auto;
+}
+.slide-wrapper section.slide.compact .slide-content {
+    padding: 14px 16px;
+}
+
+/* ─── Build Step Animations ─── */
+.step-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* step-connector (used by process-flow etc) */
+.step-connector {
+  opacity: 0.3;
+}
+
+/* Inline SVG visual accent (from extra.inline_svg) */
+.inline-visual {
+    margin-top: auto;
+    padding-top: 6px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.inline-visual svg {
+    max-width: 82%;
+    max-height: 128px;
+    height: auto;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   Gamma Nav (progress, counter, arrows) + Slide Wrapper scaling
+   These were previously injected by slider.js at runtime.
+   ========================================================================== */
+
+.gamma-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+  pointer-events: none;
+}
+.gamma-nav * { pointer-events: auto; }
+
+.gamma-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px;
+  background: rgba(255,255,255,0.1); z-index: 1001;
+}
+.gamma-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent, #6C5CE7), var(--accent2, #00D2D3));
+  transition: width 0.3s ease; width: 0%;
+}
+
+.gamma-counter {
+  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+  font-size: 13px; color: rgba(255,255,255,0.5);
+  font-family: system-ui, sans-serif; letter-spacing: 1px;
+  background: rgba(0,0,0,0.4); padding: 4px 14px;
+  border-radius: 12px; backdrop-filter: blur(4px);
+  white-space: nowrap; z-index: 1002;
+}
+
+.gamma-arrows {
+  position: fixed; bottom: 16px; right: 16px;
+  display: flex; gap: 8px; z-index: 1002;
+}
+.gamma-arrow {
+  width: 44px; height: 44px; border-radius: 50%; border: none;
+  background: rgba(0,0,0,0.45); color: #fff; cursor: pointer;
+  font-size: 24px; display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(4px); transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.gamma-arrow:hover { background: rgba(0,0,0,0.6); }
+.gamma-arrow:active { transform: scale(0.88); }
+
+/* Slide Wrapper — handles responsive scaling for deck presentation */
+.slide-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-shrink: 0;
+}
+.slide-wrapper section.slide {
+  transform-origin: center center;
+  transform: scale(var(--slide-scale, 1));
+  transition: opacity 0.4s ease;
+}
+.slide-wrapper section.slide:not(.slide-active) { opacity: 0.15; }
+.slide-wrapper section.slide.slide-active { opacity: 1; }
+.slide-wrapper section.slide.slide-exit { opacity: 0; }
+
+/* Mobile nav tweaks */
+@media (max-width: 800px) {
+  .gamma-counter { bottom: 14px; font-size: 12px; padding: 3px 12px; }
+  .gamma-arrows { bottom: 10px; right: 10px; gap: 10px; }
+  .gamma-arrow { width: 48px; height: 48px; font-size: 26px; }
+  .gamma-progress { height: 2px; }
+}
+
+/* Fullscreen */
+:-webkit-full-screen .slide-wrapper section.slide {
+  box-shadow: none; border: none;
+}
+:fullscreen .slide-wrapper section.slide {
+  box-shadow: none; border: none;
+}
+
+/* Shell deck container styles (used by templates + standalone) */
+.deck {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: 100%;
+  width: 100%;
+}
+@media (max-width: 800px) {
+  .deck { gap: 0; }
+}
