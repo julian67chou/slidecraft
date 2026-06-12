@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIS 智慧升級提案</title>
+<style>
+/* Viewer shell styles (dark backdrop, centering for the deck) */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+}
+@media (max-width: 800px) {
+  body { padding: 0; }
+}
+</style>
+<style id="theme-vars">
+:root {
+  --bg: #FDF8F5;
+  --surface: #FFFFFF;
+  --text-p: #2C2522;
+  --text-s: #6B5F58;
+  --accent: #004A99;
+  --border: #E8DDD5;
+  --font-sans: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif;
+  --fs-h1: 44px;
+  --lh-h1: 1.08;
+  --ls-h1: -0.02em;
+  --fs-h2: 28px;
+  --lh-h2: 1.15;
+  --ls-h2: -0.01em;
+  --fs-h3: 22px;
+  --lh-h3: 1.25;
+  --ls-h3: 0em;
+  --fs-body: 17px;
+  --lh-body: 1.55;
+  --ls-body: 0em;
+  --fs-caption: 12px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --radius-card: 6px;
+  --radius-btn: 4px;
+  --shadow-card: 0px 2px 8px 0px #00000015;
+}
+</style>
+<style id="slidecraft">
+/* ==========================================================================
+   SlideCraft — Core slide + layout + nav styles
+   Extracted from renderer. Single source of truth for HTML slides.
+   ========================================================================== */
+
+/* Font imports for Inter + Noto Sans TC (used by many themes) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+/* Note: :root theme variables (--bg, --surface, --accent, --fs-*, --space-* etc)
+   are injected at runtime by the renderer from design tokens.
+   This file only contains static layout / component rules that reference the vars. */
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden auto;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ─── Contrast Enforcement ──────────────────────────────────────────────
+   All text on bg-image / dark-bg slides gets white text + text-shadow
+   to ensure WCAG AA (4.5:1) minimum contrast regardless of background content.
+   
+   Uses descendant selectors to cover nested structures:
+   - .content-body ul (content layout)
+   - .text-side h2/ul (image-text layout)
+   - .slide-content direct children (cover, stat-card, etc.)
+   
+   Cards (.card) intentionally excluded — they have white surface background
+   and keep theme text colors.
+   
+   data-has-bg: slide has a full-bleed background image + overlay
+   data-has-dark-bg: slide has a dark gradient/color background without image
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* White text for all non-card text on bg slides — descendant selectors
+   cover nested content-body, text-side, and direct children. */
+section.slide[data-has-bg] .slide-content h1,
+section.slide[data-has-bg] .slide-content h2,
+section.slide[data-has-bg] .slide-content h3,
+section.slide[data-has-bg] .slide-content .subtitle,
+section.slide[data-has-bg] .slide-content ul,
+section.slide[data-has-bg] .slide-content p,
+section.slide[data-has-bg] .slide-content blockquote,
+section.slide[data-has-bg] .slide-content .content-title h2,
+section.slide[data-has-bg] .slide-content .content-body ul,
+section.slide[data-has-bg] .slide-content .content-body li,
+section.slide[data-has-bg] .text-side h1,
+section.slide[data-has-bg] .text-side h2,
+section.slide[data-has-bg] .text-side h3,
+section.slide[data-has-bg] .text-side .subtitle,
+section.slide[data-has-bg] .text-side ul,
+section.slide[data-has-bg] .text-side p,
+section.slide[data-has-bg] .text-side li,
+section.slide[data-has-dark-bg] .slide-content h1,
+section.slide[data-has-dark-bg] .slide-content h2,
+section.slide[data-has-dark-bg] .slide-content h3,
+section.slide[data-has-dark-bg] .slide-content .subtitle,
+section.slide[data-has-dark-bg] .slide-content ul,
+section.slide[data-has-dark-bg] .slide-content p,
+section.slide[data-has-dark-bg] .slide-content blockquote,
+section.slide[data-has-dark-bg] .slide-content .content-title h2,
+section.slide[data-has-dark-bg] .slide-content .content-body ul,
+section.slide[data-has-dark-bg] .slide-content .content-body li,
+section.slide[data-has-dark-bg] .text-side h1,
+section.slide[data-has-dark-bg] .text-side h2,
+section.slide[data-has-dark-bg] .text-side h3,
+section.slide[data-has-dark-bg] .text-side .subtitle,
+section.slide[data-has-dark-bg] .text-side ul,
+section.slide[data-has-dark-bg] .text-side p,
+section.slide[data-has-dark-bg] .text-side li {
+    color: #fff;
+}
+section.slide[data-has-bg] .slide-content ul li,
+section.slide[data-has-bg] .slide-content .content-body li,
+section.slide[data-has-bg] .text-side ul li,
+section.slide[data-has-dark-bg] .slide-content ul li,
+section.slide[data-has-dark-bg] .slide-content .content-body li,
+section.slide[data-has-dark-bg] .text-side ul li {
+    color: rgba(255,255,255,0.9);
+}
+
+/* Text-shadow safety net on bg slides — ensures minimum contrast even
+   where the overlay is thinnest (bottom-right at 0.55 opacity).
+   Covers all text containers: .slide-content descendant, .text-side, .stat-value */
+section.slide[data-has-bg] .slide-content h1,
+section.slide[data-has-bg] .slide-content h2,
+section.slide[data-has-bg] .slide-content h3,
+section.slide[data-has-bg] .slide-content p,
+section.slide[data-has-bg] .slide-content li,
+section.slide[data-has-bg] .slide-content .subtitle,
+section.slide[data-has-bg] .slide-content .stat-value,
+section.slide[data-has-bg] .text-side h1,
+section.slide[data-has-bg] .text-side h2,
+section.slide[data-has-bg] .text-side h3,
+section.slide[data-has-bg] .text-side p,
+section.slide[data-has-bg] .text-side li,
+section.slide[data-has-bg] .text-side .subtitle,
+section.slide[data-has-dark-bg] .slide-content h1,
+section.slide[data-has-dark-bg] .slide-content h2,
+section.slide[data-has-dark-bg] .slide-content h3,
+section.slide[data-has-dark-bg] .slide-content p,
+section.slide[data-has-dark-bg] .slide-content li,
+section.slide[data-has-dark-bg] .slide-content .subtitle,
+section.slide[data-has-dark-bg] .slide-content .stat-value,
+section.slide[data-has-dark-bg] .text-side h1,
+section.slide[data-has-dark-bg] .text-side h2,
+section.slide[data-has-dark-bg] .text-side h3,
+section.slide[data-has-dark-bg] .text-side p,
+section.slide[data-has-dark-bg] .text-side li,
+section.slide[data-has-dark-bg] .text-side .subtitle {
+    text-shadow: 0 1px 4px rgba(0,0,0,0.45);
+}
+
+/* Typography */
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-p);
+}
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+/* Cards use fixed 16px padding (per layout rules) */
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: 16px;
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ───
+   Grid gap fixed at 12px (per layout rules)
+*/
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-p);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ───
+   gap: 12px
+*/
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: 12px;
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ───
+   gap fixed 12px in base
+*/
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: 16px;
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-p);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ───
+   gap: 12px
+*/
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: clamp(22px, 9cqi, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+
+/* ─── Responsive & Compact Mode ───
+   .compact applied by slider.js on narrow viewports.
+   Content uses real width so grids reflow, cqi clamps text.
+*/
+.slide.compact .slide-content {
+    padding: var(--space-md);
+}
+.slide.compact h1 {
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}
+.slide.compact h2 {
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}
+.slide.compact h3 {
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}
+.slide.compact .stat-value {
+    font-size: clamp(20px, 8cqi, 36px);
+}
+.slide.compact .step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+/* Image+Text stacks vertically */
+.slide.compact .layout-image-text {
+    flex-direction: column !important;
+}
+.slide.compact .layout-image-text .image-side {
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}
+.slide.compact .layout-image-text .text-side {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}
+
+/* Single column for grids */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {
+    grid-template-columns: 1fr !important;
+}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}
+
+/* Hide absolute connectors on narrow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {
+    display: none !important;
+}
+.slide.compact .layout-process-flow .card-grid {
+    position: static !important;
+}
+
+/* Tighter cards/lists in compact */
+.slide.compact .card {
+    padding: 12px;
+}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {
+    padding-left: var(--space-md);
+}
+
+/* Additional compact tweaks for presentation wrappers (from nav styles) */
+.slide-wrapper section.slide.compact {
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0 auto;
+}
+.slide-wrapper section.slide.compact .slide-content {
+    padding: 14px 16px;
+}
+
+/* ─── Build Step Animations ─── */
+.step-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* step-connector (used by process-flow etc) */
+.step-connector {
+  opacity: 0.3;
+}
+
+/* Inline SVG visual accent (from extra.inline_svg) */
+.inline-visual {
+    margin-top: auto;
+    padding-top: 6px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.inline-visual svg {
+    max-width: 82%;
+    max-height: 128px;
+    height: auto;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   Gamma Nav (progress, counter, arrows) + Slide Wrapper scaling
+   These were previously injected by slider.js at runtime.
+   ========================================================================== */
+
+.gamma-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+  pointer-events: none;
+}
+.gamma-nav * { pointer-events: auto; }
+
+.gamma-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px;
+  background: rgba(255,255,255,0.1); z-index: 1001;
+}
+.gamma-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent, #6C5CE7), var(--accent2, #00D2D3));
+  transition: width 0.3s ease; width: 0%;
+}
+
+.gamma-counter {
+  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+  font-size: 13px; color: rgba(255,255,255,0.5);
+  font-family: system-ui, sans-serif; letter-spacing: 1px;
+  background: rgba(0,0,0,0.4); padding: 4px 14px;
+  border-radius: 12px; backdrop-filter: blur(4px);
+  white-space: nowrap; z-index: 1002;
+}
+
+.gamma-arrows {
+  position: fixed; bottom: 16px; right: 16px;
+  display: flex; gap: 8px; z-index: 1002;
+}
+.gamma-arrow {
+  width: 44px; height: 44px; border-radius: 50%; border: none;
+  background: rgba(0,0,0,0.45); color: #fff; cursor: pointer;
+  font-size: 24px; display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(4px); transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.gamma-arrow:hover { background: rgba(0,0,0,0.6); }
+.gamma-arrow:active { transform: scale(0.88); }
+
+/* Slide Wrapper — handles responsive scaling for deck presentation */
+.slide-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-shrink: 0;
+}
+.slide-wrapper section.slide {
+  transform-origin: center center;
+  transform: scale(var(--slide-scale, 1));
+  transition: opacity 0.4s ease;
+}
+.slide-wrapper section.slide:not(.slide-active) { opacity: 0.15; }
+.slide-wrapper section.slide.slide-active { opacity: 1; }
+.slide-wrapper section.slide.slide-exit { opacity: 0; }
+
+/* Mobile nav tweaks */
+@media (max-width: 800px) {
+  .gamma-counter { bottom: 14px; font-size: 12px; padding: 3px 12px; }
+  .gamma-arrows { bottom: 10px; right: 10px; gap: 10px; }
+  .gamma-arrow { width: 48px; height: 48px; font-size: 26px; }
+  .gamma-progress { height: 2px; }
+}
+
+/* Fullscreen */
+:-webkit-full-screen .slide-wrapper section.slide {
+  box-shadow: none; border: none;
+}
+:fullscreen .slide-wrapper section.slide {
+  box-shadow: none; border: none;
+}
+
+/* Shell deck container styles (used by templates + standalone) */
+.deck {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: 100%;
+  width: 100%;
+}
+@media (max-width: 800px) {
+  .deck { gap: 0; }
+}
+
+</style>
+</head>
+<body>
+<div class="deck">
+<div class="slide-wrapper"><section class="slide layout-cover" data-slide-id="s01" data-layout="cover" data-order="1" data-has-bg style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"><img class="slide-bg" src="his-proposal_images/slide_01.jpg" alt="Slide background" onerror="this.style.display='none'"><div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"></div><div class="slide-content"><h1 class="step-item" data-step="1">安生診所 × Hermes AI</h1><div class="subtitle step-item" data-step="2">HIS 智慧升級提案
+補足耀聖，打造 24hr 智慧病人體驗與精準經營</div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="200" height="80" viewBox="0 0 200 80"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#E8D5B7"/><stop offset="100%" stop-color="#A67C52"/></linearGradient></defs><rect x="10" y="25" width="180" height="30" rx="5" fill="url(#g)"/><circle cx="40" cy="40" r="12" fill="#5C4033"/><text x="100" y="45" font-family="system-ui, sans-serif" font-size="14" fill="#5C4033" text-anchor="middle" font-weight="600">安生診所</text></svg></div><div class="notes" style="display:none">開場問候 Jennifer，感謝抽空。今日提案強調與耀聖並存、API 低風險整合，只補充智慧與病人體驗層。時間控制 15-20 分鐘，重點在具體數字效益與 Roadmap。</div></section></div><div class="slide-wrapper"><section class="slide layout-content" data-slide-id="s02" data-layout="content" data-order="2" data-has-bg style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"><img class="slide-bg" src="his-proposal_images/slide_02.jpg" alt="Slide background" onerror="this.style.display='none'"><div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"></div><div class="slide-content"><div class="content-title"><h2>耀聖的極限：安生診所的日常挑戰</h2></div><div class="content-body"><ul><li class="step-item" data-step="1">• 病人只能在營業時間打電話預約，LINE 普及率高達 90% 以上卻無法 24hr 自助</li><li class="step-item" data-step="2">• 病歷多為手動輸入，缺乏結構化與 AI 輔助，醫師耗時打字</li><li class="step-item" data-step="3">• 經營報表需手動拉取，缺乏即時儀表板與預測洞察</li><li class="step-item" data-step="4">• 庫存與效期管理依賴人工盯控，無用量預測與智能預警</li><li class="step-item" data-step="5">• 安生與伊萊資料各自獨立，跨院區同步困難</li><li class="step-item" data-step="6">• 療程追蹤與自動化關懷不足，病人流失風險高</li><li class="step-item" data-step="7">• 客訴與異常事件多靠 LINE 文字紀錄，缺乏系統化稽核軌跡</li></ul></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="180" height="60" viewBox="0 0 180 60"><rect x="20" y="15" width="140" height="30" rx="4" fill="#E8D5B7" stroke="#A67C52" stroke-width="2"/><text x="90" y="35" font-family="system-ui, sans-serif" font-size="11" fill="#5C4033" text-anchor="middle">痛點分析</text></svg></div><div class="notes" style="display:none">用安生實際情境說明，連結 Jennifer 每天面對的挑戰。強調這些不是耀聖的錯，而是傳統 HIS 的天花板。轉折到 Hermes 如何精準補足。</div></section></div><div class="slide-wrapper"><section class="slide layout-stat-card" data-slide-id="s03" data-layout="stat-card" data-order="3" data-has-bg style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"><img class="slide-bg" src="his-proposal_images/slide_03.jpg" alt="Slide background" onerror="this.style.display='none'"><div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"></div><div class="slide-content"><h2>Hermes 補足耀聖的關鍵效益</h2><div class="stat-grid"><div class="stat step-item" data-step="1"><div class="stat-value">50-70%</div><div class="stat-label">電話預約量減少</div></div><div class="stat step-item" data-step="2"><div class="stat-value">5-10分</div><div class="stat-label">每診節省時間</div></div><div class="stat step-item" data-step="3"><div class="stat-value">30%</div><div class="stat-label">no-show 降低</div></div><div class="stat step-item" data-step="4"><div class="stat-value">25%</div><div class="stat-label">回診率提升</div></div></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="160" height="50" viewBox="0 0 160 50"><rect x="10" y="10" width="140" height="30" rx="4" fill="#E8D5B7"/><text x="80" y="30" font-family="system-ui, sans-serif" font-size="12" fill="#5C4033" text-anchor="middle">與耀聖並存</text></svg></div><div class="notes" style="display:none">用數據說話，強調這些是與耀聖並存後的實際效益。API 整合不影響現有健保申報與病歷系統。</div></section></div><div class="slide-wrapper"><section class="slide layout-card-list" data-slide-id="s04" data-layout="card-list" data-order="4" data-has-bg style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"><img class="slide-bg" src="his-proposal_images/slide_04.jpg" alt="Slide background" onerror="this.style.display='none'"><div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"></div><div class="slide-content"><h2>10 大模組（一）：病人體驗與臨床智慧</h2><div class="card-grid"><div class="card step-item" data-step="1"><ul><li>LINE 智慧客服：耀聖網路掛號有限，病人仍依賴電話。Hermes LINE AI 24hr 自然語言預約、提醒、衛教。效益：電話量減 50-70%，病人滿意度大增。</li><li>AI 病歷助手：病歷手打無結構化。Hermes 語音即轉結構化 SOAP 摘要。效益：每診省 5-10 分鐘，醫師專注看診。</li></ul></div><div class="card step-item" data-step="2"><ul><li>療程管理引擎：療程追蹤靠人工。Hermes 組合定價 + 自動追蹤 + LINE 提醒。效益：回診率提升 25%，自費收入成長。</li><li>經營儀表板：報表手動拉。Hermes 即時營收、來客、轉換儀表板。效益：老闆隨時決策，問題早發現。</li></ul></div><div class="card step-item" data-step="3"><ul><li>病人分群 CRM：資料難分群。Hermes 自動標籤 + 精準 LINE 推播。效益：行銷 ROI 提升，複診增加。</li></ul></div></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="140" height="45" viewBox="0 0 140 45"><rect x="5" y="8" width="130" height="28" rx="3" fill="#E8D5B7"/><text x="70" y="27" font-family="system-ui, sans-serif" font-size="11" fill="#5C4033" text-anchor="middle">AI + LINE</text></svg></div><div class="notes" style="display:none">快速走過每個模組，強調與耀聖並存、API 串接。重點說 LINE 與 AI 如何直接解決安生日常痛點。</div></section></div><div class="slide-wrapper"><section class="slide layout-card-list" data-slide-id="s05" data-layout="card-list" data-order="5" data-has-bg style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"><img class="slide-bg" src="his-proposal_images/slide_05.jpg" alt="Slide background" onerror="this.style.display='none'"><div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"></div><div class="slide-content"><h2>10 大模組（二）：經營運營與治理合規</h2><div class="card-grid"><div class="card step-item" data-step="1"><ul><li>庫存智能預警：庫存靠人工盯。Hermes 用量預測 + 效期警示 + 建議採購。效益：浪費減 40%，缺貨率下降。</li><li>多院區同步：安生伊萊資料獨立。Hermes 統一中台即時同步。效益：跨院一致體驗，總部即時掌握。</li></ul></div><div class="card step-item" data-step="2"><ul><li>異常事件追蹤：客訴靠 LINE 文字。Hermes 結構化紀錄 + 稽核軌跡。效益：醫糾風險降低，合規準備容易。</li><li>智慧排班：班表人工排。Hermes 需求預測 + 智能排班。效益：人力效率提升，病人等待時間縮短。</li></ul></div><div class="card step-item" data-step="3"><ul><li>表單數位化：紙本或基本電子。Hermes LINE 填寫 + 自動歸檔。效益：行政人力減，資料品質提升。</li></ul></div></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="140" height="45" viewBox="0 0 140 45"><rect x="5" y="8" width="130" height="28" rx="3" fill="#E8D5B7"/><text x="70" y="27" font-family="system-ui, sans-serif" font-size="11" fill="#5C4033" text-anchor="middle">運營智慧</text></svg></div><div class="notes" style="display:none">繼續強調低風險：所有模組透過 API 與耀聖並存，不影響現有健保申報與病歷系統。治理合規是診所非常在意的點。</div></section></div><div class="slide-wrapper"><section class="slide layout-image-text" data-slide-id="s06" data-layout="image-text" data-order="6" data-has-bg style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"><img class="slide-bg" src="his-proposal_images/slide_06.jpg" alt="Slide background" onerror="this.style.display='none'"><div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"></div><div class="image-side"><img class="slide-bg" src="his-proposal_images/slide_06.jpg" alt="Slide background" onerror="this.style.display='none'"></div><div class="text-side"><h2>Hermes AI 作為中樞</h2><div class="subtitle">與耀聖 API 無縫整合，資料雙向同步，低風險升級</div><ul class="body-text"><li class="step-item" data-step="1">LINE 官方帳號深度整合</li><li class="step-item" data-step="2">耀聖 HIS 現有功能完整保留</li><li class="step-item" data-step="3">健保雲端與法規合規優先</li><li class="step-item" data-step="4">即時資料同步與安全備份</li></ul></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="100" height="40" viewBox="0 0 100 40"><circle cx="20" cy="20" r="8" fill="#A67C52"/><circle cx="50" cy="20" r="8" fill="#E8D5B7"/><circle cx="80" cy="20" r="8" fill="#5C4033"/><line x1="28" y1="20" x2="42" y2="20" stroke="#A67C52" stroke-width="2"/><line x1="58" y1="20" x2="72" y2="20" stroke="#A67C52" stroke-width="2"/></svg></div><div class="notes" style="display:none">用架構圖說明技術可行性。強調 API 整合不動耀聖核心，資料只在需要時同步，安全與健保合規是優先考量。</div></section></div><div class="slide-wrapper"><section class="slide layout-process-flow" data-slide-id="s07" data-layout="process-flow" data-order="7" data-has-bg style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"><img class="slide-bg" src="his-proposal_images/slide_07.jpg" alt="Slide background" onerror="this.style.display='none'"><div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"></div><div class="slide-content"><h2>導入 Roadmap：三階段穩健推進</h2><div class="card-grid" style="flex:1;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));position:relative"><div class="card step-item" data-step="1" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-lg);position:relative"><div style="width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:var(--space-sm)">1</div><h3 style="font-size:var(--fs-h3);margin-bottom:4px">1 個月：快速見效</h3><p class="body-text">LINE 智慧客服上線 + 基本預約提醒。立即減少電話量 50% 以上。</p></div><div style="position:absolute;top:48px;left:calc(25% - 12px);width:calc(25%);height:2px;background:var(--accent);opacity:0.3;z-index:0"></div><div class="card step-item" data-step="2" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-lg);position:relative"><div style="width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:var(--space-sm)">2</div><h3 style="font-size:var(--fs-h3);margin-bottom:4px">3 個月：核心模組</h3><p class="body-text">AI 病歷助手、療程管理、經營儀表板上線。醫師效率與決策能力大幅提升。</p></div><div style="position:absolute;top:48px;left:calc(50% - 12px);width:calc(25%);height:2px;background:var(--accent);opacity:0.3;z-index:0"></div><div class="card step-item" data-step="3" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-lg);position:relative"><div style="width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:var(--space-sm)">3</div><h3 style="font-size:var(--fs-h3);margin-bottom:4px">6 個月：全面整合</h3><p class="body-text">多院區同步、庫存預警、CRM、事件追蹤全開。與耀聖完成深度 API 整合。</p></div></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="120" height="50" viewBox="0 0 120 50"><rect x="10" y="15" width="100" height="20" rx="3" fill="#E8D5B7"/><text x="60" y="29" font-family="system-ui, sans-serif" font-size="10" fill="#5C4033" text-anchor="middle">1-3-6 個月</text></svg></div><div class="notes" style="display:none">用 process-flow 清楚呈現三階段。每階段都有明確里程碑與效益。強調可依診所步調調整，不強迫一次到位。</div></section></div><div class="slide-wrapper"><section class="slide layout-stat-card" data-slide-id="s08" data-layout="stat-card" data-order="8" data-has-bg style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"><img class="slide-bg" src="his-proposal_images/slide_08.jpg" alt="Slide background" onerror="this.style.display='none'"><div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"></div><div class="slide-content"><h2>預期效益：數據說話</h2><div class="stat-grid"><div class="stat step-item" data-step="1"><div class="stat-value">50-70%</div><div class="stat-label">電話預約量減少</div></div><div class="stat step-item" data-step="2"><div class="stat-value">5-10分</div><div class="stat-label">每診節省時間</div></div><div class="stat step-item" data-step="3"><div class="stat-value">30%</div><div class="stat-label">no-show 降低</div></div><div class="stat step-item" data-step="4"><div class="stat-value">25%</div><div class="stat-label">回診率提升</div></div><div class="stat step-item" data-step="5"><div class="stat-value">40%</div><div class="stat-label">庫存浪費減少</div></div></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="140" height="40" viewBox="0 0 140 40"><rect x="5" y="5" width="130" height="30" rx="4" fill="#E8D5B7"/><text x="70" y="25" font-family="system-ui, sans-serif" font-size="12" fill="#5C4033" text-anchor="middle">ROI 明確</text></svg></div><div class="notes" style="display:none">用數據強化價值。數字是業界常見估計，可依安生實際數據調整。重點是這些效益來自與耀聖並存的智慧層。</div></section></div><div class="slide-wrapper"><section class="slide layout-comparison" data-slide-id="s09" data-layout="comparison" data-order="9" data-has-bg style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"><img class="slide-bg" src="his-proposal_images/slide_09.jpg" alt="Slide background" onerror="this.style.display='none'"><div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"></div><div class="slide-content"><h2>與耀聖並存，API 整合零風險</h2><div class="two-col-grid" style="flex:1;gap:var(--space-lg)"><div class="card step-item" data-step="1" style="border:2px solid var(--accent);"><div style="color:var(--accent);font-weight:700;font-size:var(--fs-caption);text-transform:uppercase;margin-bottom:var(--space-xs)">✓ Recommended</div><h3>耀聖現有優勢</h3><ul><li>健保申報與法規合規穩固</li><li>雲端電子病歷基礎完善</li><li>核心看診流程可靠</li><li>既有服務團隊支援</li></ul></div><div class="card step-item" data-step="2" style=""><h3>Hermes 補足價值</h3><ul><li>LINE 24hr 智慧病人體驗</li><li>AI 結構化病歷與分析</li><li>即時經營儀表板與預測</li><li>API 無縫雙向同步</li></ul></div></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="140" height="40" viewBox="0 0 140 40"><rect x="5" y="5" width="130" height="30" rx="4" fill="#E8D5B7"/><text x="70" y="25" font-family="system-ui, sans-serif" font-size="11" fill="#5C4033" text-anchor="middle">並存升級</text></svg></div><div class="notes" style="display:none">用 comparison 清楚說明不是要換系統。API 整合讓資料雙向流動，耀聖該做的繼續做，Hermes 補智慧與病人端。風險極低。</div></section></div><div class="slide-wrapper"><section class="slide layout-content" data-slide-id="s10" data-layout="content" data-order="10" data-has-bg style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"><img class="slide-bg" src="his-proposal_images/slide_10.jpg" alt="Slide background" onerror="this.style.display='none'"><div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"></div><div class="slide-content"><div class="content-title"><h2>導入支援：我們與安生同行</h2></div><div class="content-body"><ul><li class="step-item" data-step="1">• 專屬顧問與 API 整合工程師全程支援</li><li class="step-item" data-step="2">• 員工培訓與操作手冊，確保團隊快速上手</li><li class="step-item" data-step="3">• 資料安全與健保合規優先，通過嚴格審核</li><li class="step-item" data-step="4">• 每階段結束都有評估與優化會議</li><li class="step-item" data-step="5">• 6 個月後提供全面營運檢討報告</li></ul></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="140" height="40" viewBox="0 0 140 40"><rect x="5" y="5" width="130" height="30" rx="4" fill="#E8D5B7"/><text x="70" y="25" font-family="system-ui, sans-serif" font-size="11" fill="#5C4033" text-anchor="middle">專業支援</text></svg></div><div class="notes" style="display:none">強調導入不是丟給診所自己做。我們提供完整支援，降低任何轉型風險。與耀聖服務團隊也可協調。</div></section></div><div class="slide-wrapper"><section class="slide layout-content" data-slide-id="s11" data-layout="content" data-order="11" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"><div class="slide-content"><div class="content-title"><h2>安生診所的智慧未來</h2></div><div class="content-body"><ul><li class="step-item" data-step="1">• 病人 24hr 自助，滿意度與忠誠度提升</li><li class="step-item" data-step="2">• 醫護人力釋放，專注高價值醫療服務</li><li class="step-item" data-step="3">• 即時數據驅動決策，經營更精準</li><li class="step-item" data-step="4">• 多院區統一，規模化優勢發揮</li><li class="step-item" data-step="5">• 低風險 API 整合，健保合規零妥協</li></ul></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="140" height="40" viewBox="0 0 140 40"><rect x="5" y="5" width="130" height="30" rx="4" fill="#E8D5B7"/><text x="70" y="25" font-family="system-ui, sans-serif" font-size="11" fill="#5C4033" text-anchor="middle">智慧未來</text></svg></div><div class="notes" style="display:none">總結所有效益，回到 Jennifer 最初的目標。強調這是安生診所數位轉型的關鍵一步。</div></section></div><div class="slide-wrapper"><section class="slide layout-transition" data-slide-id="s12" data-layout="transition" data-order="12" data-has-bg style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"><img class="slide-bg" src="his-proposal_images/slide_12.jpg" alt="Slide background" onerror="this.style.display='none'"><div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%);"></div><div class="slide-content"><h1>下一步行動</h1><p class="subtitle">與 Hermes 攜手，補足耀聖，開啟安生智慧新篇章</p></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="160" height="50" viewBox="0 0 160 50"><rect x="10" y="10" width="140" height="30" rx="4" fill="#E8D5B7"/><text x="80" y="30" font-family="system-ui, sans-serif" font-size="12" fill="#5C4033" text-anchor="middle">立即行動</text></svg></div><div class="notes" style="display:none">結束時邀請 Jennifer 安排示範或討論。提供聯絡資訊與下一步建議。感謝聆聽。</div></section></div>
+</div>
+<script>
+/**
+ * SlideCraft Slider — runtime for slide navigation
+ * 
+ * Features:
+ * - Keyboard: ← → ↑ ↓ Space Home End F S
+ * - Mouse wheel / click on nav area
+ * - Fullscreen (F key)
+ * - Presenter mode (S key): notes + next slide preview + timer
+ * - Slide counter + progress bar
+ * - CSS transitions
+ * - Touch/swipe support (mobile)
+ * - Mobile-responsive: compact intrinsic mode on narrow screens (real box width + reflowing grids, stacked layouts, clamped text). Desktop uses scale-to-fit for design fidelity.
+ */
+(function() {
+  'use strict';
+
+  const deck = document.querySelector('.deck');
+  if (!deck) return;
+
+  const wrappers = deck.querySelectorAll('.slide-wrapper');
+  if (wrappers.length === 0) return;
+  const slides = deck.querySelectorAll('section.slide');
+
+  const SLIDE_W = 1280;
+  const SLIDE_H = 720;
+
+  let current = 0;
+  let presenterWindow = null;
+  let fullscreen = false;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartTime = 0;
+  let isMobile = false;
+  let rafPending = false;
+
+  // ── UI Elements ──────────────────────────────────────────────────
+
+  const nav = document.createElement('div');
+  nav.className = 'gamma-nav';
+  nav.innerHTML = [
+    '<div class="gamma-progress"><div class="gamma-progress-bar"></div></div>',
+    '<div class="gamma-counter"></div>',
+    '<div class="gamma-arrows">',
+    '  <button class="gamma-arrow gamma-prev" title="Previous (←)">‹</button>',
+    '  <button class="gamma-arrow gamma-next" title="Next (→)">›</button>',
+    '</div>',
+  ].join('');
+  document.body.appendChild(nav);
+
+  const progressBar = nav.querySelector('.gamma-progress-bar');
+  const counter = nav.querySelector('.gamma-counter');
+
+  // ── Responsive Fit ──────────────────────────────────────────────
+
+  var COMPACT_MAX_W = 620;
+  var COMPACT_MIN_W = 300;
+  var COMPACT_THRESHOLD = 540;
+
+  function resetSlideSizing(slideEl) {
+    if (!slideEl) return;
+    slideEl.classList.remove('compact');
+    slideEl.style.width = '';
+    slideEl.style.height = '';
+    slideEl.style.transform = '';
+    slideEl.style.transformOrigin = '';
+  }
+
+  function applyCurrentSizing() {
+    try {
+      var vw = window.innerWidth;
+      var curWrap = wrappers[current];
+      var curSlide = slides[current];
+      if (!curWrap || !curSlide) return;
+
+      // Reset the CURRENT slide clean before applying new sizing
+      curSlide.classList.remove('compact');
+      curSlide.style.width = '';
+      curSlide.style.height = '';
+      curSlide.style.transform = '';
+      curSlide.style.transformOrigin = '';
+
+      var padX = isMobile ? 10 : 32;
+      var padY = isMobile ? 0 : 80;
+      var scaleX = (vw - padX) / SLIDE_W;
+      var scaleY = (window.innerHeight - padY) / SLIDE_H;
+      var scale = Math.min(1, Math.max(0.2, Math.min(scaleX, scaleY)));
+      var effectiveW = SLIDE_W * scale;
+      var useCompact = isMobile || effectiveW < COMPACT_THRESHOLD;
+
+      if (useCompact) {
+        curSlide.classList.add('compact');
+        var avail = Math.max(COMPACT_MIN_W, Math.min(vw - (isMobile ? 8 : 20), COMPACT_MAX_W));
+        var aspect = SLIDE_H / SLIDE_W;
+        var useW = avail;
+        var useH = Math.round(useW * aspect);
+        curSlide.style.width = useW + 'px';
+        curSlide.style.height = useH + 'px';
+        curSlide.style.transform = 'none';
+        curWrap.style.setProperty('--slide-scale', '1');
+        curWrap.style.marginTop = '0px';
+      } else {
+        curWrap.style.setProperty('--slide-scale', scale);
+        var wrapperH = SLIDE_H * scale;
+        curWrap.style.marginTop = Math.max(0, (window.innerHeight - wrapperH) / 2) + 'px';
+      }
+    } catch (e) {
+      console.warn('SlideCraft sizing error:', e);
+    }
+  }
+
+  function fitSlides() {
+    rafPending = true;
+    requestAnimationFrame(function() {
+      rafPending = false;
+      var vw = window.innerWidth;
+      isMobile = vw < 800;
+
+      for (var i = 0; i < wrappers.length; i++) {
+        wrappers[i].style.display = (i === current) ? 'flex' : 'none';
+        wrappers[i].style.justifyContent = 'center';
+        wrappers[i].style.alignItems = 'center';
+      }
+
+      document.body.style.padding = '0';
+      document.body.style.overflow = isMobile ? '' : 'hidden';
+
+      applyCurrentSizing();
+      nav.style.bottom = '0';
+    });
+  }
+
+  function fitSlidesNow() {
+    var vw = window.innerWidth;
+    isMobile = vw < 800;
+
+    for (var i = 0; i < wrappers.length; i++) {
+      wrappers[i].style.display = (i === current) ? 'flex' : 'none';
+      wrappers[i].style.justifyContent = 'center';
+      wrappers[i].style.alignItems = 'center';
+    }
+
+    document.body.style.padding = '0';
+    document.body.style.overflow = isMobile ? '' : 'hidden';
+
+    applyCurrentSizing();
+    nav.style.bottom = '0';
+  }
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function() {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fitSlides, 100);
+  });
+
+  // ── Build Steps (data-step driven, speaker-paced reveal within slide) ──
+  // All .step-item start hidden (CSS). Only .step-visible makes them appear.
+  // Navigation (next/prev, keys, taps) advances steps first; only after last step
+  // does it change to another slide. On slide change, steps reset to 0.
+
+  function getStepItems(slide) {
+    if (!slide) return [];
+    return Array.from(slide.querySelectorAll('.step-item[data-step]'))
+      .sort(function(a, b) {
+        return (parseInt(a.dataset.step, 10) || 0) - (parseInt(b.dataset.step, 10) || 0);
+      });
+  }
+
+  function resetBuildSteps(slide) {
+    if (!slide) return;
+    var items = slide.querySelectorAll('.step-item');
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.remove('step-visible');
+    }
+  }
+
+  function getMaxBuildStep(slide) {
+    var items = getStepItems(slide);
+    var max = 0;
+    for (var i = 0; i < items.length; i++) {
+      var s = parseInt(items[i].dataset.step, 10) || 0;
+      if (s > max) max = s;
+    }
+    return max;
+  }
+
+  function getVisibleBuildStep(slide) {
+    var items = slide.querySelectorAll('.step-item.step-visible[data-step]');
+    var max = 0;
+    for (var i = 0; i < items.length; i++) {
+      var s = parseInt(items[i].dataset.step, 10) || 0;
+      if (s > max) max = s;
+    }
+    return max;
+  }
+
+  function setBuildStep(slide, targetStep) {
+    if (!slide) return;
+    var items = slide.querySelectorAll('.step-item[data-step]');
+    for (var i = 0; i < items.length; i++) {
+      var s = parseInt(items[i].dataset.step, 10) || 0;
+      if (s <= targetStep && targetStep > 0) {
+        items[i].classList.add('step-visible');
+      } else {
+        items[i].classList.remove('step-visible');
+      }
+    }
+  }
+
+  function advanceBuildStep(slide) {
+    var max = getMaxBuildStep(slide);
+    if (max <= 0) return false;
+    var curr = getVisibleBuildStep(slide);
+    if (curr >= max) return false;
+    setBuildStep(slide, curr + 1);
+    return true;
+  }
+
+  function rewindBuildStep(slide) {
+    var curr = getVisibleBuildStep(slide);
+    if (curr <= 0) return false;
+    setBuildStep(slide, curr - 1);
+    return true;
+  }
+
+  // ── Navigation ───────────────────────────────────────────────────
+
+  function goTo(index) {
+    var target = Math.max(0, Math.min(index, slides.length - 1));
+    if (target === current) return;
+
+    // Reset steps on the slide we are leaving (design: reset step to 0 on slide change)
+    resetBuildSteps(slides[current]);
+
+    slides[current].classList.remove('slide-active');
+    slides[current].classList.add('slide-exit');
+    
+    // New slide always starts at build-step 0 (all step-items hidden)
+    resetBuildSteps(slides[target]);
+    slides[target].classList.remove('slide-exit');
+    slides[target].classList.add('slide-active');
+    current = target;
+    updateUI();
+    
+    for (var i = 0; i < wrappers.length; i++) {
+      wrappers[i].style.display = (i === current) ? 'flex' : 'none';
+    }
+    fitSlidesNow();
+  }
+
+  function goNext() {
+    var curSlide = slides[current];
+    if (advanceBuildStep(curSlide)) {
+      // Revealed next build step within this slide (speaker controls pace).
+      // Do not advance slide until all steps on current are shown.
+      if (presenterWindow && !presenterWindow.closed) {
+        updatePresenter();
+      }
+      return;
+    }
+    goTo(current + 1);
+  }
+  function goPrev() {
+    var curSlide = slides[current];
+    if (rewindBuildStep(curSlide)) {
+      if (presenterWindow && !presenterWindow.closed) {
+        updatePresenter();
+      }
+      return;
+    }
+    goTo(current - 1);
+  }
+
+  // ── UI Update ────────────────────────────────────────────────────
+
+  function updateUI() {
+    var pct = ((current + 1) / slides.length) * 100;
+    progressBar.style.width = pct + '%';
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+
+    if (presenterWindow && !presenterWindow.closed) {
+      updatePresenter();
+    }
+  }
+
+  // ── Keyboard ─────────────────────────────────────────────────────
+
+  document.addEventListener('keydown', function(e) {
+    if (e.target.closest('input, textarea, select, [contenteditable]')) return;
+
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+      case ' ':
+        e.preventDefault();
+        goNext();
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        e.preventDefault();
+        goPrev();
+        break;
+      case 'Home':
+        e.preventDefault();
+        goTo(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        goTo(slides.length - 1);
+        break;
+      case 'f':
+      case 'F':
+        e.preventDefault();
+        toggleFullscreen();
+        break;
+      case 's':
+      case 'S':
+        e.preventDefault();
+        togglePresenter();
+        break;
+    }
+  });
+
+  // ── Mouse Wheel ──────────────────────────────────────────────────
+
+  var wheelTimeout = null;
+  document.addEventListener('wheel', function(e) {
+    if (!e.target.closest('.deck, .gamma-nav')) return;
+    if (wheelTimeout) return;
+    wheelTimeout = setTimeout(function() { wheelTimeout = null; }, 600);
+    if (e.deltaY > 0 || e.deltaX > 0) goNext();
+    else goPrev();
+  }, { passive: true });
+
+  // ── Touch / Swipe ───────────────────────────────────────────────
+
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+    touchStartTime = Date.now();
+  }, { passive: true });
+
+  document.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].screenX - touchStartX;
+    var dy = e.changedTouches[0].screenY - touchStartY;
+    var absDx = Math.abs(dx);
+    var absDy = Math.abs(dy);
+    var dt = Date.now() - touchStartTime;
+    
+    // Skip if the touch was on a nav button — those handle clicks separately.
+    // Otherwise tap + click fire twice and skip slides.
+    if (e.target && e.target.closest && e.target.closest('.gamma-nav')) return;
+    
+    // Tap: go next/prev based on which half was tapped
+    if (absDx < 30 && absDy < 30 && dt < 300) {
+      if (e.changedTouches[0].screenX < window.innerWidth * 0.4) {
+        goPrev();
+      } else if (e.changedTouches[0].screenX > window.innerWidth * 0.6) {
+        goNext();
+      }
+      return;
+    }
+    
+    // Swipe: horizontal only, min 40px
+    if (absDx > 40 && absDx > absDy * 1.5) {
+      if (dx < 0) goNext();
+      else goPrev();
+    }
+  }, { passive: true });
+
+  // ── Fullscreen ──────────────────────────────────────────────────
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(function() {});
+      fullscreen = true;
+    } else {
+      document.exitFullscreen().catch(function() {});
+      fullscreen = false;
+      setTimeout(fitSlides, 200);
+    }
+  }
+
+  // ── Presenter Mode ──────────────────────────────────────────────
+
+  function togglePresenter() {
+    if (presenterWindow && !presenterWindow.closed) {
+      presenterWindow.close();
+      presenterWindow = null;
+      return;
+    }
+    presenterWindow = window.open('', 'gamma-presenter',
+      'width=800,height=600,menubar=no,toolbar=no,location=no,status=no');
+    if (presenterWindow) {
+      presenterWindow.document.write(buildPresenterHTML());
+      presenterWindow.document.close();
+      updatePresenter();
+    }
+  }
+
+  function buildPresenterHTML() {
+    return '<!DOCTYPE html>\n<html><head><title>Gamma Presenter</title>\n<style>\n  * { margin: 0; padding: 0; box-sizing: border-box; }\n  body { font-family: system-ui, sans-serif; background: #1a1a1a; color: #eee; padding: 20px; }\n  .container { max-width: 700px; margin: 0 auto; }\n  h1 { font-size: 24px; margin-bottom: 10px; }\n  .timer { font-size: 40px; font-weight: 300; margin-bottom: 20px; font-variant-numeric: tabular-nums; }\n  .current-slide { background: #2a2a2a; border-radius: 8px; padding: 20px; margin-bottom: 16px; }\n  .current-slide h2 { font-size: 18px; color: #888; margin-bottom: 8px; }\n  .current-slide .content { font-size: 24px; line-height: 1.5; }\n  .notes { background: #333; border-radius: 8px; padding: 16px; margin-bottom: 16px; }\n  .notes h2 { font-size: 14px; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }\n  .notes .text { font-size: 18px; line-height: 1.6; color: #ddd; }\n  .next-preview { background: #222; border-radius: 8px; padding: 16px; opacity: 0.7; }\n  .next-preview h2 { font-size: 14px; color: #888; margin-bottom: 6px; text-transform: uppercase; }\n  .next-preview .content { font-size: 16px; color: #aaa; }\n  #start-btn { position: fixed; top: 20px; right: 20px; background: #6C5CE7; color: #fff; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; }\n  #start-btn:hover { background: #5A4BD1; }\n</style></head>\n<body>\n<div class="container">\n  <h1>🎤 Gamma Presenter</h1>\n  <div class="timer" id="timer">00:00</div>\n  <button id="start-btn" onclick="startTimer()">Start Timer</button>\n  <div class="current-slide">\n    <h2>Current Slide</h2>\n    <div class="content" id="current-content">—</div>\n  </div>\n  <div class="notes">\n    <h2>Speaker Notes</h2>\n    <div class="text" id="notes-text">No notes for this slide.</div>\n  </div>\n  <div class="next-preview">\n    <h2>Up Next</h2>\n    <div class="content" id="next-content">—</div>\n  </div>\n</div>\n<'+'script>\n  var startTime = null;\n  var timerInterval = null;\n  function startTimer() {\n    if (timerInterval) return;\n    startTime = Date.now();\n    timerInterval = setInterval(function() {\n      var elapsed = Math.floor((Date.now() - startTime) / 1000);\n      var m = String(Math.floor(elapsed / 60)).padStart(2, "0");\n      var s = String(elapsed % 60).padStart(2, "0");\n      document.getElementById("timer").textContent = m + ":" + s;\n    }, 500);\n  }\n  window.addEventListener("message", function(e) {\n    var d = e.data;\n    if (d.type === "slide-update") {\n      document.getElementById("current-content").textContent = d.currentTitle || "(No title)";\n      document.getElementById("notes-text").textContent = d.notes || "(No notes)";\n      document.getElementById("next-content").textContent = d.nextTitle || "(End of presentation)";\n    }\n  });\n<'+'/script>\n</body></html>';
+  }
+
+  function updatePresenter() {
+    if (!presenterWindow || presenterWindow.closed) return;
+    var slide = slides[current];
+    var nextSlide = slides[current + 1];
+    var notesEl = slide.querySelector('.notes');
+    
+    presenterWindow.postMessage({
+      type: 'slide-update',
+      currentTitle: (slide.querySelector('h1, h2') || {}).textContent || '(No title)',
+      notes: (notesEl ? notesEl.textContent : '') || '(No notes)',
+      nextTitle: (nextSlide ? nextSlide.querySelector('h1, h2') || {} : {}).textContent || '(End of presentation)'
+    }, '*');
+  }
+
+  // ── Init ─────────────────────────────────────────────────────────
+
+  // Mark first slide as active
+  for (var i = 0; i < slides.length; i++) {
+    if (i === 0) slides[i].classList.add('slide-active');
+    else slides[i].classList.remove('slide-active');
+  }
+
+  // Clean any prior inline sizing
+  for (var s = 0; s < slides.length; s++) resetSlideSizing(slides[s]);
+
+  // Ensure initial slide starts with build steps hidden (step 0)
+  if (slides[0]) resetBuildSteps(slides[0]);
+
+  fitSlides();
+  updateUI();
+
+  // Arrow button listeners
+  nav.querySelector('.gamma-prev').addEventListener('click', function(e) {
+    e.stopPropagation();
+    goPrev();
+  });
+  nav.querySelector('.gamma-next').addEventListener('click', function(e) {
+    e.stopPropagation();
+    goNext();
+  });
+
+  // Styles are now provided by slidecraft.css (gamma-nav, .slide-wrapper, compact overrides, etc.)
+  // This keeps slider.js as pure logic and safe to load via <script src>.
+
+  console.log('SlideCraft Slider loaded. ← → arrows, Home/End, F=fullscreen, S=presenter');
+
+  // ── Orientation Change ──────────────────────────────────────────
+  // On mobile, re-fit when screen rotates
+  if ('orientation' in window) {
+    window.addEventListener('orientationchange', function() {
+      setTimeout(fitSlides, 300);
+    });
+  }
+})();
+
+</script>
+</body>
+</html>

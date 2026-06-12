@@ -1,0 +1,994 @@
+{
+  "pass": false,
+  "slides": [
+    {
+      "slide": "1",
+      "layout": "cover",
+      "hasBg": true,
+      "hasDarkBg": false,
+      "pass": true,
+      "checks": [
+        {
+          "text": "安生診所 × Hermes AI",
+          "tag": "H1",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "HIS 智慧升級提案\n補足耀聖，打造 24hr 智慧病人體驗與精準經營",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "slide": "2",
+      "layout": "content",
+      "hasBg": true,
+      "hasDarkBg": false,
+      "pass": false,
+      "checks": [
+        {
+          "text": "耀聖的極限：安生診所的日常挑戰",
+          "tag": "H2",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "• 病人只能在營業時間打電話預約，LINE 普及率高達 90% 以上卻無法 24",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 病歷多為手動輸入，缺乏結構化與 AI 輔助，醫師耗時打字",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 經營報表需手動拉取，缺乏即時儀表板與預測洞察",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 庫存與效期管理依賴人工盯控，無用量預測與智能預警",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 安生與伊萊資料各自獨立，跨院區同步困難",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 療程追蹤與自動化關懷不足，病人流失風險高",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 客訴與異常事件多靠 LINE 文字紀錄，缺乏系統化稽核軌跡",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "slide": "3",
+      "layout": "stat-card",
+      "hasBg": true,
+      "hasDarkBg": false,
+      "pass": false,
+      "checks": [
+        {
+          "text": "Hermes 補足耀聖的關鍵效益",
+          "tag": "H2",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "50-70%",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(0, 74, 153)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 1.7,
+          "required": 3,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "電話預約量減少",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(107, 95, 88)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 2.38,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        },
+        {
+          "text": "5-10分",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(0, 74, 153)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 1.7,
+          "required": 3,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "每診節省時間",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(107, 95, 88)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 2.38,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        },
+        {
+          "text": "30%",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(0, 74, 153)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 1.7,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "no-show 降低",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(107, 95, 88)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 2.38,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        },
+        {
+          "text": "25%",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(0, 74, 153)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 1.7,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "回診率提升",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(107, 95, 88)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 2.38,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "slide": "4",
+      "layout": "card-list",
+      "hasBg": true,
+      "hasDarkBg": false,
+      "pass": false,
+      "checks": [
+        {
+          "text": "10 大模組（一）：病人體驗與臨床智慧",
+          "tag": "H2",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "LINE 智慧客服：耀聖網路掛號有限，病人仍依賴電話。Hermes LINE A",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "AI 病歷助手：病歷手打無結構化。Hermes 語音即轉結構化 SOAP 摘要。",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "療程管理引擎：療程追蹤靠人工。Hermes 組合定價 + 自動追蹤 + LINE",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "經營儀表板：報表手動拉。Hermes 即時營收、來客、轉換儀表板。效益：老闆隨時",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "病人分群 CRM：資料難分群。Hermes 自動標籤 + 精準 LINE 推播。",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "slide": "5",
+      "layout": "card-list",
+      "hasBg": true,
+      "hasDarkBg": false,
+      "pass": false,
+      "checks": [
+        {
+          "text": "10 大模組（二）：經營運營與治理合規",
+          "tag": "H2",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "庫存智能預警：庫存靠人工盯。Hermes 用量預測 + 效期警示 + 建議採購。",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "多院區同步：安生伊萊資料獨立。Hermes 統一中台即時同步。效益：跨院一致體驗",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "異常事件追蹤：客訴靠 LINE 文字。Hermes 結構化紀錄 + 稽核軌跡。效",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "智慧排班：班表人工排。Hermes 需求預測 + 智能排班。效益：人力效率提升，",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "表單數位化：紙本或基本電子。Hermes LINE 填寫 + 自動歸檔。效益：行",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "slide": "6",
+      "layout": "image-text",
+      "hasBg": true,
+      "hasDarkBg": false,
+      "pass": false,
+      "checks": [
+        {
+          "text": "Hermes AI 作為中樞",
+          "tag": "H2",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "與耀聖 API 無縫整合，資料雙向同步，低風險升級",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "LINE 官方帳號深度整合",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "耀聖 HIS 現有功能完整保留",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "健保雲端與法規合規優先",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "即時資料同步與安全備份",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "slide": "7",
+      "layout": "process-flow",
+      "hasBg": true,
+      "hasDarkBg": false,
+      "pass": false,
+      "checks": [
+        {
+          "text": "導入 Roadmap：三階段穩健推進",
+          "tag": "H2",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "1 個月：快速見效",
+          "tag": "H3",
+          "inCard": true,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "LINE 智慧客服上線 + 基本預約提醒。立即減少電話量 50% 以上。",
+          "tag": "P",
+          "inCard": true,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "3 個月：核心模組",
+          "tag": "H3",
+          "inCard": true,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "AI 病歷助手、療程管理、經營儀表板上線。醫師效率與決策能力大幅提升。",
+          "tag": "P",
+          "inCard": true,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "6 個月：全面整合",
+          "tag": "H3",
+          "inCard": true,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "多院區同步、庫存預警、CRM、事件追蹤全開。與耀聖完成深度 API 整合。",
+          "tag": "P",
+          "inCard": true,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "slide": "8",
+      "layout": "stat-card",
+      "hasBg": true,
+      "hasDarkBg": false,
+      "pass": false,
+      "checks": [
+        {
+          "text": "預期效益：數據說話",
+          "tag": "H2",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "50-70%",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(0, 74, 153)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 1.7,
+          "required": 3,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "電話預約量減少",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(107, 95, 88)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 2.38,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        },
+        {
+          "text": "5-10分",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(0, 74, 153)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 1.7,
+          "required": 3,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "每診節省時間",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(107, 95, 88)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 2.38,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        },
+        {
+          "text": "30%",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(0, 74, 153)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 1.7,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "no-show 降低",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(107, 95, 88)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 2.38,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        },
+        {
+          "text": "25%",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(0, 74, 153)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 1.7,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "回診率提升",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(107, 95, 88)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 2.38,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        },
+        {
+          "text": "40%",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(0, 74, 153)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 1.7,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "庫存浪費減少",
+          "tag": "DIV",
+          "inCard": false,
+          "color": "rgb(107, 95, 88)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 2.38,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "slide": "9",
+      "layout": "comparison",
+      "hasBg": true,
+      "hasDarkBg": false,
+      "pass": false,
+      "checks": [
+        {
+          "text": "與耀聖並存，API 整合零風險",
+          "tag": "H2",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "耀聖現有優勢",
+          "tag": "H3",
+          "inCard": true,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "健保申報與法規合規穩固",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "雲端電子病歷基礎完善",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "核心看診流程可靠",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "既有服務團隊支援",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "Hermes 補足價值",
+          "tag": "H3",
+          "inCard": true,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "LINE 24hr 智慧病人體驗",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "AI 結構化病歷與分析",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "即時經營儀表板與預測",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "API 無縫雙向同步",
+          "tag": "LI",
+          "inCard": true,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(255, 255, 255)",
+          "ratio": 1,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "slide": "10",
+      "layout": "content",
+      "hasBg": true,
+      "hasDarkBg": false,
+      "pass": false,
+      "checks": [
+        {
+          "text": "導入支援：我們與安生同行",
+          "tag": "H2",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "• 專屬顧問與 API 整合工程師全程支援",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 員工培訓與操作手冊，確保團隊快速上手",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 資料安全與健保合規優先，通過嚴格審核",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 每階段結束都有評估與優化會議",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 6 個月後提供全面營運檢討報告",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgba(255, 255, 255, 0.9)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "slide": "11",
+      "layout": "content",
+      "hasBg": false,
+      "hasDarkBg": false,
+      "pass": false,
+      "checks": [
+        {
+          "text": "安生診所的智慧未來",
+          "tag": "H2",
+          "inCard": false,
+          "color": "rgb(44, 37, 34)",
+          "bgColor": "rgba(0, 0, 0, 0)",
+          "ratio": 1.39,
+          "required": 3,
+          "hasShadow": false,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 病人 24hr 自助，滿意度與忠誠度提升",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgb(44, 37, 34)",
+          "bgColor": "rgba(0, 0, 0, 0)",
+          "ratio": 1.39,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 醫護人力釋放，專注高價值醫療服務",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgb(44, 37, 34)",
+          "bgColor": "rgba(0, 0, 0, 0)",
+          "ratio": 1.39,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 即時數據驅動決策，經營更精準",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgb(44, 37, 34)",
+          "bgColor": "rgba(0, 0, 0, 0)",
+          "ratio": 1.39,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 多院區統一，規模化優勢發揮",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgb(44, 37, 34)",
+          "bgColor": "rgba(0, 0, 0, 0)",
+          "ratio": 1.39,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        },
+        {
+          "text": "• 低風險 API 整合，健保合規零妥協",
+          "tag": "LI",
+          "inCard": false,
+          "color": "rgb(44, 37, 34)",
+          "bgColor": "rgba(0, 0, 0, 0)",
+          "ratio": 1.39,
+          "required": 4.5,
+          "hasShadow": false,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "slide": "12",
+      "layout": "transition",
+      "hasBg": true,
+      "hasDarkBg": false,
+      "pass": true,
+      "checks": [
+        {
+          "text": "下一步行動",
+          "tag": "H1",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 3,
+          "hasShadow": true,
+          "status": "PASS"
+        },
+        {
+          "text": "與 Hermes 攜手，補足耀聖，開啟安生智慧新篇章",
+          "tag": "P",
+          "inCard": false,
+          "color": "rgb(255, 255, 255)",
+          "bgColor": "rgb(40,40,45)",
+          "ratio": 14.67,
+          "required": 4.5,
+          "hasShadow": true,
+          "status": "PASS"
+        }
+      ]
+    }
+  ],
+  "total": 12
+}
