@@ -174,7 +174,7 @@ section.slide .slide-content {{
 /* ─── Layout: Card List ─── */
 .layout-card-list .card-grid {{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: var(--space-md);
     flex: 1;
 }}
@@ -220,8 +220,8 @@ section.slide .slide-content {{
 /* ─── Layout: Grid ─── */
 .layout-grid .grid-box {{
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
     gap: var(--space-md);
     flex: 1;
 }}
@@ -258,7 +258,7 @@ section.slide .slide-content {{
 /* ─── Layout: Two Column ─── */
 .layout-two-column .two-col-grid {{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: var(--space-lg);
     flex: 1;
 }}
@@ -282,7 +282,7 @@ section.slide .slide-content {{
 /* ─── Layout: Stat Card ─── */
 .layout-stat-card .stat-grid {{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     gap: var(--space-md);
     flex: 1;
     align-items: center;
@@ -292,7 +292,7 @@ section.slide .slide-content {{
     padding: var(--space-lg);
 }}
 .layout-stat-card .stat-grid .stat .stat-value {{
-    font-size: 48px;
+    font-size: clamp(22px, 9cqi, 48px);
     font-weight: 700;
     color: var(--accent);
     line-height: 1.1;
@@ -340,6 +340,83 @@ section.slide .slide-content {{
     line-height: var(--lh-body);
     color: var(--text-s);
     margin: 0;
+}}
+
+/* ─── Responsive & Compact Mode ───
+   .compact is applied by slider.js on small viewports.
+   In compact mode the slide element gets a real narrow width so
+   minmax grids + cqi units naturally adapt. These rules tighten
+   spacing and force single-column stacks for complex layouts.
+*/
+.slide.compact .slide-content {{
+    padding: var(--space-md);
+}}
+.slide.compact h1 {{
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}}
+.slide.compact h2 {{
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}}
+.slide.compact h3 {{
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {{
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}}
+.slide.compact .stat-value {{
+    font-size: clamp(20px, 8cqi, 36px);
+}}
+.slide.compact .step-num {{
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}}
+
+/* Image+Text stacks vertically in compact */
+.slide.compact .layout-image-text {{
+    flex-direction: column !important;
+}}
+.slide.compact .layout-image-text .image-side {{
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}}
+.slide.compact .layout-image-text .text-side {{
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}}
+
+/* Force single column stacks for grids that had 2-4 cols */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {{
+    grid-template-columns: 1fr !important;
+}}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {{
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}}
+
+/* Hide or neutralize absolute process-flow connectors on narrow reflow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {{
+    display: none !important;
+}}
+.slide.compact .layout-process-flow .card-grid {{
+    position: static !important;
+}}
+
+/* Slightly tighter cards and lists */
+.slide.compact .card {{
+    padding: var(--space-sm);
+}}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {{
+    padding-left: var(--space-md);
 }}
 </style>"""
 
@@ -768,6 +845,10 @@ body {{
     gap: 0;
     max-width: 100%;
     width: 100%;
+}}
+@media (max-width: 800px) {{
+  body {{ padding: 0; }}
+  .deck {{ gap: 0; }}
 }}
 {css_vars}
 </style>

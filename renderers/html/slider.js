@@ -9,7 +9,7 @@
  * - Slide counter + progress bar
  * - CSS transitions
  * - Touch/swipe support (mobile)
- * - Responsive fit (mobile + desktop)
+ * - Mobile-responsive: compact intrinsic mode on narrow screens (real box width + reflowing grids, stacked layouts, clamped text). Desktop uses scale-to-fit for design fidelity.
  */
 (function() {
   'use strict';
@@ -52,58 +52,84 @@
 
   // ── Responsive Fit ──────────────────────────────────────────────
 
+  var COMPACT_MAX_W = 620;
+  var COMPACT_MIN_W = 300;
+  var COMPACT_THRESHOLD = 540; // when effective scaled W drops below, use intrinsic reflow
+
+  function resetSlideSizing(slideEl) {
+    if (!slideEl) return;
+    slideEl.classList.remove('compact');
+    slideEl.style.width = '';
+    slideEl.style.height = '';
+    slideEl.style.transform = '';
+    slideEl.style.transformOrigin = '';
+  }
+
+  function applyCurrentSizing() {
+    var vw = window.innerWidth;
+    var curWrap = wrappers[current];
+    var curSlide = slides[current];
+    if (!curWrap || !curSlide) return;
+
+    var padX = isMobile ? 10 : 32;
+    var padY = isMobile ? 0 : 80;
+    var scaleX = (vw - padX) / SLIDE_W;
+    var scaleY = (window.innerHeight - padY) / SLIDE_H;
+    var scale = Math.min(1, Math.max(0.2, Math.min(scaleX, scaleY)));
+    var effectiveW = SLIDE_W * scale;
+
+    var useCompact = isMobile || effectiveW < COMPACT_THRESHOLD;
+
+    // Always start from clean for the current (others are hidden)
+    resetSlideSizing(curSlide);
+
+    if (useCompact) {
+      // Intrinsic size mode: give the slide a real narrow box so
+      // grids, cqi units, and flex children reflow naturally.
+      curSlide.classList.add('compact');
+      var avail = Math.max(COMPACT_MIN_W, Math.min(vw - (isMobile ? 8 : 20), COMPACT_MAX_W));
+      var aspect = SLIDE_H / SLIDE_W;
+      var useW = avail;
+      var useH = Math.round(useW * aspect);
+      curSlide.style.width = useW + 'px';
+      curSlide.style.height = useH + 'px';
+      curSlide.style.transform = 'none';
+      // Make wrapper centering simple
+      curWrap.style.setProperty('--slide-scale', '1');
+      curWrap.style.marginTop = isMobile ? '0px' : Math.max(0, (window.innerHeight - useH) / 2) + 'px';
+    } else {
+      // Classic scale-to-fit design fidelity mode
+      curWrap.style.setProperty('--slide-scale', scale);
+      var wrapperH = SLIDE_H * scale;
+      curWrap.style.marginTop = Math.max(0, (window.innerHeight - wrapperH) / 2) + 'px';
+    }
+  }
+
   function fitSlides() {
     if (rafPending) return;
     rafPending = true;
     requestAnimationFrame(function() {
       rafPending = false;
       var vw = window.innerWidth;
-      var vh = window.innerHeight;
       isMobile = vw < 800;
 
-      // On mobile: each wrapper fills viewport; slide fills wrapper
-      // On desktop: scale to fit with padding
-      var padX = isMobile ? 8 : 40;
-      var padY = isMobile ? 0 : 100;
-      var scaleX = (vw - padX) / SLIDE_W;
-      var scaleY = (vh - padY) / SLIDE_H;
-      var scale = Math.min(1, Math.max(0.25, Math.min(scaleX, scaleY)));
-
-      // Apply scale to wrappers
+      // Hide all but current (single active slide presentation model)
       for (var i = 0; i < wrappers.length; i++) {
-        wrappers[i].style.setProperty('--slide-scale', scale);
+        wrappers[i].style.display = (i === current) ? 'flex' : 'none';
+        wrappers[i].style.justifyContent = 'center';
+        wrappers[i].style.alignItems = 'center';
       }
 
-      // On mobile: deck behaves like a viewport slider
+      document.body.style.padding = '0';
+
       if (isMobile) {
-        // Mobile: scale to fill width, allow vertical scroll on page
         document.body.style.overflow = '';
-        document.body.style.padding = '0';
-        var mobileScale = (vw - 8) / SLIDE_W;
-        for (var j = 0; j < wrappers.length; j++) {
-          wrappers[j].style.display = (j === current) ? 'flex' : 'none';
-        }
-        for (var w = 0; w < wrappers.length; w++) {
-          wrappers[w].style.setProperty('--slide-scale', mobileScale);
-          wrappers[w].style.overflowY = '';
-          wrappers[w].style.overflowX = '';
-          wrappers[w].style.justifyContent = 'center';
-          wrappers[w].style.alignItems = 'center';
-        }
-        wrappers[current].style.marginTop = '0px';
-        nav.style.bottom = '0';
       } else {
-        // Desktop: show one slide at a time, centered
         document.body.style.overflow = 'hidden';
-        document.body.style.padding = '0';
-        for (var k = 0; k < wrappers.length; k++) {
-          wrappers[k].style.display = (k === current) ? 'flex' : 'none';
-        }
-        var wrapperH2 = SLIDE_H * scale;
-        var topOffset2 = Math.max(0, (vh - wrapperH2) / 2);
-        wrappers[current].style.marginTop = topOffset2 + 'px';
-        nav.style.bottom = '0';
       }
+
+      applyCurrentSizing();
+      nav.style.bottom = '0';
     });
   }
 
@@ -118,6 +144,9 @@
   function goTo(index) {
     var target = Math.max(0, Math.min(index, slides.length - 1));
     if (target === current) return;
+
+    // Reset any compact/intrinsic overrides on the slide we're leaving
+    resetSlideSizing(slides[current]);
     
     slides[current].classList.remove('slide-active');
     slides[current].classList.add('slide-exit');
@@ -127,11 +156,11 @@
     current = target;
     updateUI();
     
-    // Update which wrapper is visible (both mobile and desktop)
+    // Update which wrapper is visible
     for (var i = 0; i < wrappers.length; i++) {
       wrappers[i].style.display = (i === current) ? 'flex' : 'none';
     }
-    // Re-center
+    // Re-apply sizing (may enter/leave compact)
     fitSlides();
   }
 
@@ -287,6 +316,9 @@
     else slides[i].classList.remove('slide-active');
   }
 
+  // Clean any prior inline sizing
+  for (var s = 0; s < slides.length; s++) resetSlideSizing(slides[s]);
+
   fitSlides();
   updateUI();
 
@@ -364,12 +396,22 @@
     '  opacity: 0;',
     '}',
     '',
-    '/* Mobile: fullscreen slides */',
+    '/* Mobile + compact intrinsics */',
     '@media (max-width: 800px) {',
     '  .gamma-counter { bottom: 14px; font-size: 12px; padding: 3px 12px; }',
     '  .gamma-arrows { bottom: 10px; right: 10px; gap: 10px; }',
     '  .gamma-arrow { width: 48px; height: 48px; font-size: 26px; }',
     '  .gamma-progress { height: 2px; }',
+    '}',
+    '',
+    '/* Compact (intrinsic) slide presentation: full-bleed-ish with internal reflow */',
+    '.slide-wrapper section.slide.compact {',
+    '  border-radius: 0;',
+    '  box-shadow: none;',
+    '  margin: 0 auto;',
+    '}',
+    '.slide-wrapper section.slide.compact .slide-content {',
+    '  padding: 14px 16px;',
     '}',
     '',
     '/* Fullscreen */',
