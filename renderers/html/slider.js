@@ -76,7 +76,7 @@
 
       // On mobile: deck behaves like a viewport slider
       if (isMobile) {
-        // Mobile: fill width, allow page to scroll vertically
+        // Mobile: scale to fill width, allow vertical scroll on page
         document.body.style.overflow = '';
         document.body.style.padding = '0';
         var mobileScale = (vw - 8) / SLIDE_W;
@@ -86,7 +86,9 @@
         for (var w = 0; w < wrappers.length; w++) {
           wrappers[w].style.setProperty('--slide-scale', mobileScale);
           wrappers[w].style.overflowY = '';
-          wrappers[w].style.alignItems = '';
+          wrappers[w].style.overflowX = '';
+          wrappers[w].style.justifyContent = 'center';
+          wrappers[w].style.alignItems = 'center';
         }
         wrappers[current].style.marginTop = '0px';
         nav.style.bottom = '0';
