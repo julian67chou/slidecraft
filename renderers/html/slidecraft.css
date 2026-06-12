@@ -47,9 +47,15 @@ section.slide .slide-content {
     flex-direction: column;
 }
 
-/* When slide has a background image, switch to light text for readability.
-   Card-based layouts (stat-card, card-list, comparison) keep their own text
-   colors because they have surface-colored card backgrounds. */
+/* ─── Contrast Enforcement ──────────────────────────────────────────────
+   All text on bg-image / dark-bg slides gets white text + text-shadow
+   to ensure WCAG AA (4.5:1) minimum contrast regardless of background content.
+   
+   data-has-bg: slide has a full-bleed background image + overlay
+   data-has-dark-bg: slide has a dark gradient/color background without image
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* White text for all non-card text on bg slides */
 section.slide[data-has-bg] .slide-content:not(.stat-grid) > h1,
 section.slide[data-has-bg] .slide-content:not(.stat-grid) > h2,
 section.slide[data-has-bg] .slide-content:not(.stat-grid) > h3,
@@ -57,11 +63,39 @@ section.slide[data-has-bg] .slide-content > .subtitle,
 section.slide[data-has-bg] .slide-content > ul,
 section.slide[data-has-bg] .slide-content > p,
 section.slide[data-has-bg] .slide-content > blockquote,
-section.slide[data-has-bg] .slide-content > .content-title h2 {
+section.slide[data-has-bg] .slide-content > .content-title h2,
+section.slide[data-has-dark-bg] .slide-content:not(.stat-grid) > h1,
+section.slide[data-has-dark-bg] .slide-content:not(.stat-grid) > h2,
+section.slide[data-has-dark-bg] .slide-content:not(.stat-grid) > h3,
+section.slide[data-has-dark-bg] .slide-content > .subtitle,
+section.slide[data-has-dark-bg] .slide-content > ul,
+section.slide[data-has-dark-bg] .slide-content > p,
+section.slide[data-has-dark-bg] .slide-content > blockquote,
+section.slide[data-has-dark-bg] .slide-content > .content-title h2 {
     color: #fff;
 }
-section.slide[data-has-bg] .slide-content > ul li {
+section.slide[data-has-bg] .slide-content > ul li,
+section.slide[data-has-dark-bg] .slide-content > ul li {
     color: rgba(255,255,255,0.9);
+}
+
+/* Text-shadow safety net on bg slides — ensures minimum contrast even
+   where the overlay is thinnest (bottom-right at 0.55 opacity). */
+section.slide[data-has-bg] .slide-content h1,
+section.slide[data-has-bg] .slide-content h2,
+section.slide[data-has-bg] .slide-content h3,
+section.slide[data-has-bg] .slide-content p,
+section.slide[data-has-bg] .slide-content li,
+section.slide[data-has-bg] .slide-content .subtitle,
+section.slide[data-has-bg] .slide-content .stat-value,
+section.slide[data-has-dark-bg] .slide-content h1,
+section.slide[data-has-dark-bg] .slide-content h2,
+section.slide[data-has-dark-bg] .slide-content h3,
+section.slide[data-has-dark-bg] .slide-content p,
+section.slide[data-has-dark-bg] .slide-content li,
+section.slide[data-has-dark-bg] .slide-content .subtitle,
+section.slide[data-has-dark-bg] .slide-content .stat-value {
+    text-shadow: 0 1px 4px rgba(0,0,0,0.45);
 }
 
 /* Typography */

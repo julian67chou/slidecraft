@@ -1,0 +1,4647 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presentation</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+}
+.deck {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    max-width: 100%;
+    width: 100%;
+}
+@media (max-width: 800px) {
+  body { padding: 0; }
+  .deck { gap: 0; }
+}
+:root {
+  --bg: #0A0E27;
+  --surface: #12163A;
+  --text-p: #E8EAF6;
+  --text-s: #9CA3C9;
+  --accent: #00E5FF;
+  --border: #1E2355;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 48px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.02em;
+  --fs-h2: 30px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.01em;
+  --fs-h3: 22px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 17px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 12px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 2px 10px 0px #00000030;
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<div class="slide-wrapper"><section class="slide layout-cover" data-slide-id="s01" data-layout="cover" data-order="1" style="background: linear-gradient(135deg, rgba(0,0,0,0.58) 0%, rgba(26,26,46,0.32) 100%);"><style>
+:root {
+  --bg: #0A0E27;
+  --surface: #12163A;
+  --text-p: #E8EAF6;
+  --text-s: #9CA3C9;
+  --accent: #00E5FF;
+  --border: #1E2355;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 48px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.02em;
+  --fs-h2: 30px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.01em;
+  --fs-h3: 22px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 17px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 12px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 2px 10px 0px #00000030;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: clamp(22px, 9cqi, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+
+/* ─── Responsive & Compact Mode ───
+   .compact is applied by slider.js on small viewports.
+   In compact mode the slide element gets a real narrow width so
+   minmax grids + cqi units naturally adapt. These rules tighten
+   spacing and force single-column stacks for complex layouts.
+*/
+.slide.compact .slide-content {
+    padding: var(--space-md);
+}
+.slide.compact h1 {
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}
+.slide.compact h2 {
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}
+.slide.compact h3 {
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}
+.slide.compact .stat-value {
+    font-size: clamp(20px, 8cqi, 36px);
+}
+.slide.compact .step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+/* Image+Text stacks vertically in compact */
+.slide.compact .layout-image-text {
+    flex-direction: column !important;
+}
+.slide.compact .layout-image-text .image-side {
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}
+.slide.compact .layout-image-text .text-side {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}
+
+/* Force single column stacks for grids that had 2-4 cols */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {
+    grid-template-columns: 1fr !important;
+}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}
+
+/* Hide or neutralize absolute process-flow connectors on narrow reflow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {
+    display: none !important;
+}
+.slide.compact .layout-process-flow .card-grid {
+    position: static !important;
+}
+
+/* Slightly tighter cards and lists */
+.slide.compact .card {
+    padding: var(--space-sm);
+}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {
+    padding-left: var(--space-md);
+}
+
+/* ─── Build Step Animations ─── */
+.step-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inline SVG visual accent (from extra.inline_svg) */
+.inline-visual {
+    margin-top: auto;
+    padding-top: 6px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.inline-visual svg {
+    max-width: 82%;
+    max-height: 128px;
+    height: auto;
+    display: inline-block;
+}
+</style><img class="slide-bg" src="../cross-culture-v1_images/cover-discussion.jpg" alt="Slide background" onerror="this.style.display='none'"><div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 100%);"></div><div class="slide-content"><h1 class="">多元文化職場溝通技巧</h1><div class="subtitle ">打造包容、高效的國際化團隊</div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="300" height="150" viewBox="0 0 300 150"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3D5A80"/><stop offset="100%" stop-color="#98C1D9"/></linearGradient></defs><circle cx="60" cy="45" r="14" fill="#3D5A80"/><circle cx="130" cy="35" r="11" fill="#98C1D9"/><circle cx="210" cy="55" r="15" fill="#3D5A80"/><circle cx="95" cy="105" r="12" fill="#98C1D9"/><circle cx="185" cy="110" r="13" fill="#3D5A80"/><circle cx="260" cy="80" r="10" fill="#98C1D9"/><line x1="60" y1="45" x2="130" y2="35" stroke="#3D5A80" stroke-width="2.5" opacity="0.55"/><line x1="130" y1="35" x2="210" y2="55" stroke="#3D5A80" stroke-width="2.5" opacity="0.55"/><line x1="60" y1="45" x2="95" y2="105" stroke="#3D5A80" stroke-width="2.5" opacity="0.55"/><line x1="95" y1="105" x2="185" y2="110" stroke="#3D5A80" stroke-width="2.5" opacity="0.55"/><line x1="185" y1="110" x2="260" y2="80" stroke="#3D5A80" stroke-width="2.5" opacity="0.55"/><line x1="210" y1="55" x2="260" y2="80" stroke="#3D5A80" stroke-width="2.5" opacity="0.55"/><line x1="130" y1="35" x2="95" y2="105" stroke="#98C1D9" stroke-width="1.8" opacity="0.45"/><line x1="210" y1="55" x2="185" y2="110" stroke="#98C1D9" stroke-width="1.8" opacity="0.45"/><circle cx="150" cy="72" r="6" fill="#3D5A80"/><text x="150" y="145" font-family="system-ui, sans-serif" font-size="10" fill="#4A4A6A" text-anchor="middle">全球連結 • 多元協作</text></svg></div></section></div><div class="slide-wrapper"><section class="slide layout-content" data-slide-id="s02" data-layout="content" data-order="2"><style>
+:root {
+  --bg: #0A0E27;
+  --surface: #12163A;
+  --text-p: #E8EAF6;
+  --text-s: #9CA3C9;
+  --accent: #00E5FF;
+  --border: #1E2355;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 48px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.02em;
+  --fs-h2: 30px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.01em;
+  --fs-h3: 22px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 17px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 12px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 2px 10px 0px #00000030;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: clamp(22px, 9cqi, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+
+/* ─── Responsive & Compact Mode ───
+   .compact is applied by slider.js on small viewports.
+   In compact mode the slide element gets a real narrow width so
+   minmax grids + cqi units naturally adapt. These rules tighten
+   spacing and force single-column stacks for complex layouts.
+*/
+.slide.compact .slide-content {
+    padding: var(--space-md);
+}
+.slide.compact h1 {
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}
+.slide.compact h2 {
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}
+.slide.compact h3 {
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}
+.slide.compact .stat-value {
+    font-size: clamp(20px, 8cqi, 36px);
+}
+.slide.compact .step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+/* Image+Text stacks vertically in compact */
+.slide.compact .layout-image-text {
+    flex-direction: column !important;
+}
+.slide.compact .layout-image-text .image-side {
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}
+.slide.compact .layout-image-text .text-side {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}
+
+/* Force single column stacks for grids that had 2-4 cols */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {
+    grid-template-columns: 1fr !important;
+}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}
+
+/* Hide or neutralize absolute process-flow connectors on narrow reflow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {
+    display: none !important;
+}
+.slide.compact .layout-process-flow .card-grid {
+    position: static !important;
+}
+
+/* Slightly tighter cards and lists */
+.slide.compact .card {
+    padding: var(--space-sm);
+}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {
+    padding-left: var(--space-md);
+}
+
+/* ─── Build Step Animations ─── */
+.step-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inline SVG visual accent (from extra.inline_svg) */
+.inline-visual {
+    margin-top: auto;
+    padding-top: 6px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.inline-visual svg {
+    max-width: 82%;
+    max-height: 128px;
+    height: auto;
+    display: inline-block;
+}
+</style><div class="slide-content"><div class="content-title"><h2>為什麼跨文化溝通如此重要</h2></div><div class="content-body"><ul><li class="">• 台灣半導體與科技產業高度依賴全球供應鏈，台積電、聯發科等公司團隊成員來自超過 30 國</li><li class="">• 跨文化溝通不良是國際專案延遲或失敗的主因之一，平均增加 15% 至 25% 時間與成本</li><li class="">• 外商在台據點與台商海外投資（越南、印度、美國、歐洲）持續擴張，主管與同事背景多元</li><li class="">• 有效跨文化溝通能提升團隊信任、減少誤會、加速決策與創新</li><li class="">• 後疫情遠距工作與跨時區視訊，已成為半導體與科技業日常標準模式</li></ul></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="340" height="155" viewBox="0 0 340 155"><rect x="25" y="22" width="290" height="1.5" fill="#E0E0E8"/><text x="25" y="16" font-family="system-ui, sans-serif" font-size="10" fill="#4A4A6A">科技業跨文化團隊比例</text><rect x="48" y="72" width="38" height="58" fill="#3D5A80"/><text x="67" y="68" font-family="system-ui, sans-serif" font-size="10" fill="#3D5A80" text-anchor="middle" font-weight="bold">48%</text><text x="67" y="145" font-family="system-ui, sans-serif" font-size="9" fill="#4A4A6A" text-anchor="middle">2018</text><rect x="108" y="52" width="38" height="78" fill="#3D5A80"/><text x="127" y="48" font-family="system-ui, sans-serif" font-size="10" fill="#3D5A80" text-anchor="middle" font-weight="bold">67%</text><text x="127" y="145" font-family="system-ui, sans-serif" font-size="9" fill="#4A4A6A" text-anchor="middle">2021</text><rect x="168" y="36" width="38" height="94" fill="#3D5A80"/><text x="187" y="32" font-family="system-ui, sans-serif" font-size="10" fill="#3D5A80" text-anchor="middle" font-weight="bold">82%</text><text x="187" y="145" font-family="system-ui, sans-serif" font-size="9" fill="#4A4A6A" text-anchor="middle">2024</text><rect x="228" y="24" width="38" height="106" fill="#98C1D9"/><text x="247" y="20" font-family="system-ui, sans-serif" font-size="10" fill="#3D5A80" text-anchor="middle" font-weight="bold">93%</text><text x="247" y="145" font-family="system-ui, sans-serif" font-size="9" fill="#4A4A6A" text-anchor="middle">2026</text></svg></div></section></div><div class="slide-wrapper"><section class="slide layout-card-list" data-slide-id="s03" data-layout="card-list" data-order="3"><style>
+:root {
+  --bg: #0A0E27;
+  --surface: #12163A;
+  --text-p: #E8EAF6;
+  --text-s: #9CA3C9;
+  --accent: #00E5FF;
+  --border: #1E2355;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 48px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.02em;
+  --fs-h2: 30px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.01em;
+  --fs-h3: 22px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 17px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 12px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 2px 10px 0px #00000030;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: clamp(22px, 9cqi, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+
+/* ─── Responsive & Compact Mode ───
+   .compact is applied by slider.js on small viewports.
+   In compact mode the slide element gets a real narrow width so
+   minmax grids + cqi units naturally adapt. These rules tighten
+   spacing and force single-column stacks for complex layouts.
+*/
+.slide.compact .slide-content {
+    padding: var(--space-md);
+}
+.slide.compact h1 {
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}
+.slide.compact h2 {
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}
+.slide.compact h3 {
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}
+.slide.compact .stat-value {
+    font-size: clamp(20px, 8cqi, 36px);
+}
+.slide.compact .step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+/* Image+Text stacks vertically in compact */
+.slide.compact .layout-image-text {
+    flex-direction: column !important;
+}
+.slide.compact .layout-image-text .image-side {
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}
+.slide.compact .layout-image-text .text-side {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}
+
+/* Force single column stacks for grids that had 2-4 cols */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {
+    grid-template-columns: 1fr !important;
+}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}
+
+/* Hide or neutralize absolute process-flow connectors on narrow reflow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {
+    display: none !important;
+}
+.slide.compact .layout-process-flow .card-grid {
+    position: static !important;
+}
+
+/* Slightly tighter cards and lists */
+.slide.compact .card {
+    padding: var(--space-sm);
+}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {
+    padding-left: var(--space-md);
+}
+
+/* ─── Build Step Animations ─── */
+.step-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inline SVG visual accent (from extra.inline_svg) */
+.inline-visual {
+    margin-top: auto;
+    padding-top: 6px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.inline-visual svg {
+    max-width: 82%;
+    max-height: 128px;
+    height: auto;
+    display: inline-block;
+}
+</style><div class="slide-content"><h2>Hofstede 文化差異維度</h2><div class="card-grid"><div class="card "><ul><li>權力距離：台灣與許多亞洲文化傾向尊重階層，決策常由資深主管主導</li><li>個人 vs 集體：集體主義文化優先團隊和諧與共識，個人突出較為收斂</li></ul></div><div class="card "><ul><li>不確定性規避：偏好明確規範、詳細計畫，對突發變動需要更多緩衝</li><li>長期導向：重視耐心投資與未來回報，較能忍受短期成果波動</li></ul></div><div class="card "><ul></ul></div></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="320" height="140" viewBox="0 0 320 140"><text x="160" y="14" font-family="system-ui, sans-serif" font-size="9" fill="#4A4A6A" text-anchor="middle">四大維度相對強度（台灣參照）</text><rect x="35" y="95" width="42" height="28" fill="#3D5A80"/><text x="56" y="90" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle">58</text><text x="56" y="125" font-family="system-ui, sans-serif" font-size="8" fill="#4A4A6A" text-anchor="middle">權力距離</text><rect x="95" y="68" width="42" height="55" fill="#98C1D9"/><text x="116" y="63" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle">17</text><text x="116" y="125" font-family="system-ui, sans-serif" font-size="8" fill="#4A4A6A" text-anchor="middle">個人主義</text><rect x="155" y="58" width="42" height="65" fill="#3D5A80"/><text x="176" y="53" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle">69</text><text x="176" y="125" font-family="system-ui, sans-serif" font-size="8" fill="#4A4A6A" text-anchor="middle">不確定規避</text><rect x="215" y="32" width="42" height="91" fill="#98C1D9"/><text x="236" y="27" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle">93</text><text x="236" y="125" font-family="system-ui, sans-serif" font-size="8" fill="#4A4A6A" text-anchor="middle">長期導向</text></svg></div></section></div><div class="slide-wrapper"><section class="slide layout-comparison" data-slide-id="s04" data-layout="comparison" data-order="4"><style>
+:root {
+  --bg: #0A0E27;
+  --surface: #12163A;
+  --text-p: #E8EAF6;
+  --text-s: #9CA3C9;
+  --accent: #00E5FF;
+  --border: #1E2355;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 48px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.02em;
+  --fs-h2: 30px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.01em;
+  --fs-h3: 22px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 17px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 12px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 2px 10px 0px #00000030;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: clamp(22px, 9cqi, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+
+/* ─── Responsive & Compact Mode ───
+   .compact is applied by slider.js on small viewports.
+   In compact mode the slide element gets a real narrow width so
+   minmax grids + cqi units naturally adapt. These rules tighten
+   spacing and force single-column stacks for complex layouts.
+*/
+.slide.compact .slide-content {
+    padding: var(--space-md);
+}
+.slide.compact h1 {
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}
+.slide.compact h2 {
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}
+.slide.compact h3 {
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}
+.slide.compact .stat-value {
+    font-size: clamp(20px, 8cqi, 36px);
+}
+.slide.compact .step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+/* Image+Text stacks vertically in compact */
+.slide.compact .layout-image-text {
+    flex-direction: column !important;
+}
+.slide.compact .layout-image-text .image-side {
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}
+.slide.compact .layout-image-text .text-side {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}
+
+/* Force single column stacks for grids that had 2-4 cols */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {
+    grid-template-columns: 1fr !important;
+}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}
+
+/* Hide or neutralize absolute process-flow connectors on narrow reflow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {
+    display: none !important;
+}
+.slide.compact .layout-process-flow .card-grid {
+    position: static !important;
+}
+
+/* Slightly tighter cards and lists */
+.slide.compact .card {
+    padding: var(--space-sm);
+}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {
+    padding-left: var(--space-md);
+}
+
+/* ─── Build Step Animations ─── */
+.step-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inline SVG visual accent (from extra.inline_svg) */
+.inline-visual {
+    margin-top: auto;
+    padding-top: 6px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.inline-visual svg {
+    max-width: 82%;
+    max-height: 128px;
+    height: auto;
+    display: inline-block;
+}
+</style><div class="slide-content"><h2>高情境 vs 低情境溝通風格</h2><div class="two-col-grid" style="flex:1;gap:var(--space-lg)"><div class="card " style="border:2px solid var(--accent);"><div style="color:var(--accent);font-weight:700;font-size:var(--fs-caption);text-transform:uppercase;margin-bottom:var(--space-xs)">✓ Recommended</div><h3>高情境文化（台灣、亞洲）</h3><ul><li>表達間接，依賴脈絡與暗示</li><li>重視關係與和諧建立</li><li>避免當面直接否定</li><li>決策前需時間達成共識</li></ul></div><div class="card " style=""><h3>低情境文化（歐美）</h3><ul><li>表達直接、清楚、明確</li><li>重視任務與時間效率</li><li>會議中公開討論異議</li><li>快速做出具體決定</li></ul></div></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="300" height="130" viewBox="0 0 300 130"><rect x="18" y="18" width="115" height="78" rx="4" fill="#F8F9FA" stroke="#3D5A80" stroke-width="1.5"/><text x="75" y="34" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle" font-weight="bold">高情境</text><path d="M35 48 Q55 58 75 50 Q95 60 115 52" fill="none" stroke="#98C1D9" stroke-width="2.5"/><circle cx="38" cy="70" r="3" fill="#3D5A80"/><circle cx="58" cy="70" r="3" fill="#3D5A80"/><circle cx="78" cy="70" r="3" fill="#3D5A80"/><text x="75" y="95" font-family="system-ui, sans-serif" font-size="8" fill="#4A4A6A" text-anchor="middle">間接 關係 含蓄</text><rect x="158" y="18" width="115" height="78" rx="4" fill="#F8F9FA" stroke="#3D5A80" stroke-width="1.5"/><text x="215" y="34" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle" font-weight="bold">低情境</text><line x1="175" y1="50" x2="255" y2="50" stroke="#3D5A80" stroke-width="3"/><polygon points="255,45 265,50 255,55" fill="#3D5A80"/><text x="215" y="95" font-family="system-ui, sans-serif" font-size="8" fill="#4A4A6A" text-anchor="middle">直接 任務 明確</text></svg></div></section></div><div class="slide-wrapper"><section class="slide layout-grid" data-slide-id="s05" data-layout="grid" data-order="5"><style>
+:root {
+  --bg: #0A0E27;
+  --surface: #12163A;
+  --text-p: #E8EAF6;
+  --text-s: #9CA3C9;
+  --accent: #00E5FF;
+  --border: #1E2355;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 48px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.02em;
+  --fs-h2: 30px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.01em;
+  --fs-h3: 22px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 17px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 12px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 2px 10px 0px #00000030;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: clamp(22px, 9cqi, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+
+/* ─── Responsive & Compact Mode ───
+   .compact is applied by slider.js on small viewports.
+   In compact mode the slide element gets a real narrow width so
+   minmax grids + cqi units naturally adapt. These rules tighten
+   spacing and force single-column stacks for complex layouts.
+*/
+.slide.compact .slide-content {
+    padding: var(--space-md);
+}
+.slide.compact h1 {
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}
+.slide.compact h2 {
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}
+.slide.compact h3 {
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}
+.slide.compact .stat-value {
+    font-size: clamp(20px, 8cqi, 36px);
+}
+.slide.compact .step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+/* Image+Text stacks vertically in compact */
+.slide.compact .layout-image-text {
+    flex-direction: column !important;
+}
+.slide.compact .layout-image-text .image-side {
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}
+.slide.compact .layout-image-text .text-side {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}
+
+/* Force single column stacks for grids that had 2-4 cols */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {
+    grid-template-columns: 1fr !important;
+}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}
+
+/* Hide or neutralize absolute process-flow connectors on narrow reflow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {
+    display: none !important;
+}
+.slide.compact .layout-process-flow .card-grid {
+    position: static !important;
+}
+
+/* Slightly tighter cards and lists */
+.slide.compact .card {
+    padding: var(--space-sm);
+}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {
+    padding-left: var(--space-md);
+}
+
+/* ─── Build Step Animations ─── */
+.step-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inline SVG visual accent (from extra.inline_svg) */
+.inline-visual {
+    margin-top: auto;
+    padding-top: 6px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.inline-visual svg {
+    max-width: 82%;
+    max-height: 128px;
+    height: auto;
+    display: inline-block;
+}
+</style><div class="slide-content"><h2>常見跨文化誤解</h2><div class="grid-box"><div class="card "><h3>語言障礙</h3><p class="body-text">專業術語與語速差異，即使使用英文仍造成誤解</p></div><div class="card "><h3>非語言誤讀</h3><p class="body-text">台灣點頭常代表「聽見」而非「同意」，沉默意義不同</p></div><div class="card "><h3>刻板印象</h3><p class="body-text">預設「亞洲人保守、西洋人直率」，忽略個人差異</p></div><div class="card "><h3>價值觀衝突</h3><p class="body-text">加班文化 vs 生活平衡、階層 vs 平等決策</p></div></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="300" height="125" viewBox="0 0 300 125"><rect x="12" y="10" width="130" height="48" rx="3" fill="#F8F9FA" stroke="#E0E0E8"/><text x="77" y="26" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle" font-weight="bold">語言障礙</text><path d="M25 38 L35 44 L45 36" fill="none" stroke="#3D5A80" stroke-width="1.8"/><rect x="158" y="10" width="130" height="48" rx="3" fill="#F8F9FA" stroke="#E0E0E8"/><text x="223" y="26" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle" font-weight="bold">非語言誤讀</text><circle cx="190" cy="40" r="5" fill="none" stroke="#3D5A80" stroke-width="1.8"/><line x1="187" y1="37" x2="193" y2="43" stroke="#3D5A80" stroke-width="1.8"/><rect x="12" y="66" width="130" height="48" rx="3" fill="#F8F9FA" stroke="#E0E0E8"/><text x="77" y="82" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle" font-weight="bold">刻板印象</text><circle cx="50" cy="95" r="6" fill="#98C1D9"/><circle cx="70" cy="95" r="6" fill="#3D5A80"/><text x="60" y="98" font-family="system-ui, sans-serif" font-size="7" fill="#fff" text-anchor="middle">?</text><rect x="158" y="66" width="130" height="48" rx="3" fill="#F8F9FA" stroke="#E0E0E8"/><text x="223" y="82" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle" font-weight="bold">價值觀衝突</text><line x1="180" y1="88" x2="200" y2="100" stroke="#3D5A80" stroke-width="2"/><line x1="200" y1="88" x2="180" y2="100" stroke="#3D5A80" stroke-width="2"/></svg></div></section></div><div class="slide-wrapper"><section class="slide layout-process-flow" data-slide-id="s06" data-layout="process-flow" data-order="6"><style>
+:root {
+  --bg: #0A0E27;
+  --surface: #12163A;
+  --text-p: #E8EAF6;
+  --text-s: #9CA3C9;
+  --accent: #00E5FF;
+  --border: #1E2355;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 48px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.02em;
+  --fs-h2: 30px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.01em;
+  --fs-h3: 22px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 17px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 12px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 2px 10px 0px #00000030;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: clamp(22px, 9cqi, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+
+/* ─── Responsive & Compact Mode ───
+   .compact is applied by slider.js on small viewports.
+   In compact mode the slide element gets a real narrow width so
+   minmax grids + cqi units naturally adapt. These rules tighten
+   spacing and force single-column stacks for complex layouts.
+*/
+.slide.compact .slide-content {
+    padding: var(--space-md);
+}
+.slide.compact h1 {
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}
+.slide.compact h2 {
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}
+.slide.compact h3 {
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}
+.slide.compact .stat-value {
+    font-size: clamp(20px, 8cqi, 36px);
+}
+.slide.compact .step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+/* Image+Text stacks vertically in compact */
+.slide.compact .layout-image-text {
+    flex-direction: column !important;
+}
+.slide.compact .layout-image-text .image-side {
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}
+.slide.compact .layout-image-text .text-side {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}
+
+/* Force single column stacks for grids that had 2-4 cols */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {
+    grid-template-columns: 1fr !important;
+}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}
+
+/* Hide or neutralize absolute process-flow connectors on narrow reflow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {
+    display: none !important;
+}
+.slide.compact .layout-process-flow .card-grid {
+    position: static !important;
+}
+
+/* Slightly tighter cards and lists */
+.slide.compact .card {
+    padding: var(--space-sm);
+}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {
+    padding-left: var(--space-md);
+}
+
+/* ─── Build Step Animations ─── */
+.step-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inline SVG visual accent (from extra.inline_svg) */
+.inline-visual {
+    margin-top: auto;
+    padding-top: 6px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.inline-visual svg {
+    max-width: 82%;
+    max-height: 128px;
+    height: auto;
+    display: inline-block;
+}
+</style><div class="slide-content"><h2>跨文化溝通實戰五步驟</h2><div class="card-grid" style="flex:1;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));position:relative"><div class="card " style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-lg);position:relative"><div style="width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:var(--space-sm)">1</div><h3 style="font-size:var(--fs-h3);margin-bottom:4px">觀察</h3><p class="body-text">留意語氣節奏與非語言訊號</p></div><div style="position:absolute;top:48px;left:calc(16% - 12px);width:calc(16%);height:2px;background:var(--accent);opacity:0.3;z-index:0"></div><div class="card " style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-lg);position:relative"><div style="width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:var(--space-sm)">2</div><h3 style="font-size:var(--fs-h3);margin-bottom:4px">傾聽</h3><p class="body-text">給予完整空間接收觀點</p></div><div style="position:absolute;top:48px;left:calc(33% - 12px);width:calc(16%);height:2px;background:var(--accent);opacity:0.3;z-index:0"></div><div class="card " style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-lg);position:relative"><div style="width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:var(--space-sm)">3</div><h3 style="font-size:var(--fs-h3);margin-bottom:4px">確認</h3><p class="body-text">重述理解避免假設</p></div><div style="position:absolute;top:48px;left:calc(50% - 12px);width:calc(16%);height:2px;background:var(--accent);opacity:0.3;z-index:0"></div><div class="card " style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-lg);position:relative"><div style="width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:var(--space-sm)">4</div><h3 style="font-size:var(--fs-h3);margin-bottom:4px">調整</h3><p class="body-text">彈性改變表達與流程</p></div><div style="position:absolute;top:48px;left:calc(66% - 12px);width:calc(16%);height:2px;background:var(--accent);opacity:0.3;z-index:0"></div><div class="card " style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-lg);position:relative"><div style="width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:var(--space-sm)">5</div><h3 style="font-size:var(--fs-h3);margin-bottom:4px">反饋</h3><p class="body-text">書面確認共識行動</p></div></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="320" height="95" viewBox="0 0 320 95"><text x="160" y="12" font-family="system-ui, sans-serif" font-size="9" fill="#4A4A6A" text-anchor="middle">觀察 → 傾聽 → 確認 → 調整 → 反饋</text><circle cx="40" cy="55" r="14" fill="#3D5A80"/><text x="40" y="59" font-family="system-ui, sans-serif" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">1</text><circle cx="100" cy="55" r="14" fill="#3D5A80"/><text x="100" y="59" font-family="system-ui, sans-serif" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">2</text><circle cx="160" cy="55" r="14" fill="#3D5A80"/><text x="160" y="59" font-family="system-ui, sans-serif" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">3</text><circle cx="220" cy="55" r="14" fill="#3D5A80"/><text x="220" y="59" font-family="system-ui, sans-serif" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">4</text><circle cx="280" cy="55" r="14" fill="#3D5A80"/><text x="280" y="59" font-family="system-ui, sans-serif" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">5</text><line x1="54" y1="55" x2="86" y2="55" stroke="#98C1D9" stroke-width="3"/><line x1="114" y1="55" x2="146" y2="55" stroke="#98C1D9" stroke-width="3"/><line x1="174" y1="55" x2="206" y2="55" stroke="#98C1D9" stroke-width="3"/><line x1="234" y1="55" x2="266" y2="55" stroke="#98C1D9" stroke-width="3"/><polygon points="86,50 96,55 86,60" fill="#98C1D9"/><polygon points="146,50 156,55 146,60" fill="#98C1D9"/><polygon points="206,50 216,55 206,60" fill="#98C1D9"/><polygon points="266,50 276,55 266,60" fill="#98C1D9"/></svg></div></section></div><div class="slide-wrapper"><section class="slide layout-stat-card" data-slide-id="s07" data-layout="stat-card" data-order="7"><style>
+:root {
+  --bg: #0A0E27;
+  --surface: #12163A;
+  --text-p: #E8EAF6;
+  --text-s: #9CA3C9;
+  --accent: #00E5FF;
+  --border: #1E2355;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 48px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.02em;
+  --fs-h2: 30px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.01em;
+  --fs-h3: 22px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 17px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 12px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 2px 10px 0px #00000030;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: clamp(22px, 9cqi, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+
+/* ─── Responsive & Compact Mode ───
+   .compact is applied by slider.js on small viewports.
+   In compact mode the slide element gets a real narrow width so
+   minmax grids + cqi units naturally adapt. These rules tighten
+   spacing and force single-column stacks for complex layouts.
+*/
+.slide.compact .slide-content {
+    padding: var(--space-md);
+}
+.slide.compact h1 {
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}
+.slide.compact h2 {
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}
+.slide.compact h3 {
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}
+.slide.compact .stat-value {
+    font-size: clamp(20px, 8cqi, 36px);
+}
+.slide.compact .step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+/* Image+Text stacks vertically in compact */
+.slide.compact .layout-image-text {
+    flex-direction: column !important;
+}
+.slide.compact .layout-image-text .image-side {
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}
+.slide.compact .layout-image-text .text-side {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}
+
+/* Force single column stacks for grids that had 2-4 cols */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {
+    grid-template-columns: 1fr !important;
+}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}
+
+/* Hide or neutralize absolute process-flow connectors on narrow reflow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {
+    display: none !important;
+}
+.slide.compact .layout-process-flow .card-grid {
+    position: static !important;
+}
+
+/* Slightly tighter cards and lists */
+.slide.compact .card {
+    padding: var(--space-sm);
+}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {
+    padding-left: var(--space-md);
+}
+
+/* ─── Build Step Animations ─── */
+.step-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inline SVG visual accent (from extra.inline_svg) */
+.inline-visual {
+    margin-top: auto;
+    padding-top: 6px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.inline-visual svg {
+    max-width: 82%;
+    max-height: 128px;
+    height: auto;
+    display: inline-block;
+}
+</style><div class="slide-content"><h2>數字會說話</h2><div class="stat-grid"><div class="stat "><div class="stat-value">85%</div><div class="stat-label">跨文化專案遇溝通障礙</div></div><div class="stat "><div class="stat-value">2.3x</div><div class="stat-label">良好溝通成功率提升</div></div><div class="stat "><div class="stat-value">67%</div><div class="stat-label">台商海外團隊經驗衝突</div></div><div class="stat "><div class="stat-value">41%</div><div class="stat-label">認為培訓明顯不足</div></div></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="310" height="105" viewBox="0 0 310 105"><text x="155" y="12" font-family="system-ui, sans-serif" font-size="9" fill="#4A4A6A" text-anchor="middle">溝通障礙主要來源</text><rect x="20" y="28" width="58" height="52" fill="#3D5A80"/><text x="49" y="24" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle" font-weight="bold">32%</text><text x="49" y="95" font-family="system-ui, sans-serif" font-size="8" fill="#4A4A6A" text-anchor="middle">語言</text><rect x="92" y="40" width="58" height="40" fill="#98C1D9"/><text x="121" y="36" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle" font-weight="bold">24%</text><text x="121" y="95" font-family="system-ui, sans-serif" font-size="8" fill="#4A4A6A" text-anchor="middle">非語言</text><rect x="164" y="32" width="58" height="48" fill="#3D5A80"/><text x="193" y="28" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle" font-weight="bold">28%</text><text x="193" y="95" font-family="system-ui, sans-serif" font-size="8" fill="#4A4A6A" text-anchor="middle">決策風格</text><rect x="236" y="52" width="58" height="28" fill="#98C1D9"/><text x="265" y="48" font-family="system-ui, sans-serif" font-size="9" fill="#3D5A80" text-anchor="middle" font-weight="bold">16%</text><text x="265" y="95" font-family="system-ui, sans-serif" font-size="8" fill="#4A4A6A" text-anchor="middle">價值差異</text></svg></div></section></div><div class="slide-wrapper"><section class="slide layout-timeline" data-slide-id="s08" data-layout="timeline" data-order="8"><style>
+:root {
+  --bg: #0A0E27;
+  --surface: #12163A;
+  --text-p: #E8EAF6;
+  --text-s: #9CA3C9;
+  --accent: #00E5FF;
+  --border: #1E2355;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 48px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.02em;
+  --fs-h2: 30px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.01em;
+  --fs-h3: 22px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 17px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 12px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 2px 10px 0px #00000030;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: clamp(22px, 9cqi, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+
+/* ─── Responsive & Compact Mode ───
+   .compact is applied by slider.js on small viewports.
+   In compact mode the slide element gets a real narrow width so
+   minmax grids + cqi units naturally adapt. These rules tighten
+   spacing and force single-column stacks for complex layouts.
+*/
+.slide.compact .slide-content {
+    padding: var(--space-md);
+}
+.slide.compact h1 {
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}
+.slide.compact h2 {
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}
+.slide.compact h3 {
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}
+.slide.compact .stat-value {
+    font-size: clamp(20px, 8cqi, 36px);
+}
+.slide.compact .step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+/* Image+Text stacks vertically in compact */
+.slide.compact .layout-image-text {
+    flex-direction: column !important;
+}
+.slide.compact .layout-image-text .image-side {
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}
+.slide.compact .layout-image-text .text-side {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}
+
+/* Force single column stacks for grids that had 2-4 cols */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {
+    grid-template-columns: 1fr !important;
+}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}
+
+/* Hide or neutralize absolute process-flow connectors on narrow reflow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {
+    display: none !important;
+}
+.slide.compact .layout-process-flow .card-grid {
+    position: static !important;
+}
+
+/* Slightly tighter cards and lists */
+.slide.compact .card {
+    padding: var(--space-sm);
+}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {
+    padding-left: var(--space-md);
+}
+
+/* ─── Build Step Animations ─── */
+.step-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inline SVG visual accent (from extra.inline_svg) */
+.inline-visual {
+    margin-top: auto;
+    padding-top: 6px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.inline-visual svg {
+    max-width: 82%;
+    max-height: 128px;
+    height: auto;
+    display: inline-block;
+}
+</style><div class="slide-content"><h2>實戰案例：台美半導體協作專案</h2><div class="timeline"><div class="step "><div class="step-num">1</div><div class="step-text"><h3>衝突出現</h3><p>美方要求當場拍板，台方習慣會後內部對齊，會議冷場</p></div></div><div class="step "><div class="step-num">2</div><div class="step-text"><h3>理解差異</h3><p>專案經理引入文化簡報，釐清高情境與低情境特徵</p></div></div><div class="step "><div class="step-num">3</div><div class="step-text"><h3>流程優化</h3><p>會前書面資料、結構化議程、會後 24 小時確認紀錄</p></div></div><div class="step "><div class="step-num">4</div><div class="step-text"><h3>雙贏成果</h3><p>N2 測試專案提前三週完成，團隊滿意度上升 34%</p></div></div></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="310" height="85" viewBox="0 0 310 85"><line x1="25" y1="42" x2="285" y2="42" stroke="#E0E0E8" stroke-width="3"/><circle cx="40" cy="42" r="9" fill="#3D5A80"/><text x="40" y="46" font-family="system-ui, sans-serif" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">1</text><text x="40" y="68" font-family="system-ui, sans-serif" font-size="7" fill="#4A4A6A" text-anchor="middle">衝突</text><circle cx="110" cy="42" r="9" fill="#3D5A80"/><text x="110" y="46" font-family="system-ui, sans-serif" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">2</text><text x="110" y="68" font-family="system-ui, sans-serif" font-size="7" fill="#4A4A6A" text-anchor="middle">理解</text><circle cx="180" cy="42" r="9" fill="#3D5A80"/><text x="180" y="46" font-family="system-ui, sans-serif" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">3</text><text x="180" y="68" font-family="system-ui, sans-serif" font-size="7" fill="#4A4A6A" text-anchor="middle">調整</text><circle cx="250" cy="42" r="9" fill="#3D5A80"/><text x="250" y="46" font-family="system-ui, sans-serif" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">4</text><text x="250" y="68" font-family="system-ui, sans-serif" font-size="7" fill="#4A4A6A" text-anchor="middle">成果</text><line x1="49" y1="42" x2="101" y2="42" stroke="#98C1D9" stroke-width="2"/><line x1="119" y1="42" x2="171" y2="42" stroke="#98C1D9" stroke-width="2"/><line x1="189" y1="42" x2="241" y2="42" stroke="#98C1D9" stroke-width="2"/></svg></div></section></div><div class="slide-wrapper"><section class="slide layout-content" data-slide-id="s09" data-layout="content" data-order="9"><style>
+:root {
+  --bg: #0A0E27;
+  --surface: #12163A;
+  --text-p: #E8EAF6;
+  --text-s: #9CA3C9;
+  --accent: #00E5FF;
+  --border: #1E2355;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 48px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.02em;
+  --fs-h2: 30px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.01em;
+  --fs-h3: 22px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 17px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 12px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 2px 10px 0px #00000030;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: clamp(22px, 9cqi, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+
+/* ─── Responsive & Compact Mode ───
+   .compact is applied by slider.js on small viewports.
+   In compact mode the slide element gets a real narrow width so
+   minmax grids + cqi units naturally adapt. These rules tighten
+   spacing and force single-column stacks for complex layouts.
+*/
+.slide.compact .slide-content {
+    padding: var(--space-md);
+}
+.slide.compact h1 {
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}
+.slide.compact h2 {
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}
+.slide.compact h3 {
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}
+.slide.compact .stat-value {
+    font-size: clamp(20px, 8cqi, 36px);
+}
+.slide.compact .step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+/* Image+Text stacks vertically in compact */
+.slide.compact .layout-image-text {
+    flex-direction: column !important;
+}
+.slide.compact .layout-image-text .image-side {
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}
+.slide.compact .layout-image-text .text-side {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}
+
+/* Force single column stacks for grids that had 2-4 cols */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {
+    grid-template-columns: 1fr !important;
+}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}
+
+/* Hide or neutralize absolute process-flow connectors on narrow reflow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {
+    display: none !important;
+}
+.slide.compact .layout-process-flow .card-grid {
+    position: static !important;
+}
+
+/* Slightly tighter cards and lists */
+.slide.compact .card {
+    padding: var(--space-sm);
+}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {
+    padding-left: var(--space-md);
+}
+
+/* ─── Build Step Animations ─── */
+.step-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inline SVG visual accent (from extra.inline_svg) */
+.inline-visual {
+    margin-top: auto;
+    padding-top: 6px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.inline-visual svg {
+    max-width: 82%;
+    max-height: 128px;
+    height: auto;
+    display: inline-block;
+}
+</style><div class="slide-content"><div class="content-title"><h2>跨文化溝通黃金法則</h2></div><div class="content-body"><ul><li class="">• 假設善意：先理解對方背景與動機，再進行判斷</li><li class="">• 關係先行：花時間建立信任，後續任務執行會更順利</li><li class="">• 確認重述：用「我的理解是...請幫我確認」降低模糊地帶</li><li class="">• 混合管道：重要共識同時使用口頭討論與書面記錄</li><li class="">• 持續校準：定期檢討團隊默契，邀請成員給予開放反饋</li><li class="">• 以身作則：領導者示範耐心、包容與持續學習的態度</li></ul></div></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="260" height="135" viewBox="0 0 260 135"><circle cx="130" cy="68" r="48" fill="none" stroke="#E0E0E8" stroke-width="18"/><circle cx="130" cy="68" r="48" fill="none" stroke="#3D5A80" stroke-width="18" stroke-dasharray="60 240"/><circle cx="130" cy="68" r="48" fill="none" stroke="#98C1D9" stroke-width="18" stroke-dasharray="48 252" stroke-dashoffset="-60"/><circle cx="130" cy="68" r="48" fill="none" stroke="#3D5A80" stroke-width="18" stroke-dasharray="36 264" stroke-dashoffset="-108"/><text x="130" y="64" font-family="system-ui, sans-serif" font-size="10" fill="#3D5A80" text-anchor="middle" font-weight="bold">尊重</text><text x="130" y="76" font-family="system-ui, sans-serif" font-size="9" fill="#4A4A6A" text-anchor="middle">差異</text><text x="130" y="130" font-family="system-ui, sans-serif" font-size="8" fill="#4A4A6A" text-anchor="middle">關係 確認 調整 反饋 耐心</text></svg></div></section></div><div class="slide-wrapper"><section class="slide layout-transition" data-slide-id="s10" data-layout="transition" data-order="10"><style>
+:root {
+  --bg: #0A0E27;
+  --surface: #12163A;
+  --text-p: #E8EAF6;
+  --text-s: #9CA3C9;
+  --accent: #00E5FF;
+  --border: #1E2355;
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --fs-h1: 48px;
+  --lh-h1: 1.05;
+  --ls-h1: -0.02em;
+  --fs-h2: 30px;
+  --lh-h2: 1.1;
+  --ls-h2: -0.01em;
+  --fs-h3: 22px;
+  --lh-h3: 1.2;
+  --ls-h3: 0em;
+  --fs-body: 17px;
+  --lh-body: 1.5;
+  --ls-body: 0em;
+  --fs-caption: 12px;
+  --lh-caption: 1.4;
+  --ls-caption: 0.01em;
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0px 2px 10px 0px #00000030;
+}
+
+section.slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--text-p);
+    background: var(--bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+section.slide .slide-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+section.slide .slide-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+section.slide .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    margin: 0 0 var(--space-md) 0;
+    font-weight: 700;
+}
+
+.slide h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    margin: 0 0 var(--space-sm) 0;
+    font-weight: 600;
+}
+
+.slide h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    margin: 0 0 var(--space-xs) 0;
+    font-weight: 500;
+}
+
+.slide .body-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    color: var(--text-s);
+}
+
+.slide .subtitle {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+.slide .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-card, none);
+    border: 1px solid var(--border);
+}
+
+/* ─── Layout: Cover ─── */
+.layout-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-cover h1 {
+    color: var(--text-p);
+    max-width: 80%;
+}
+.layout-cover .subtitle {
+    color: var(--text-s);
+}
+
+/* ─── Layout: Card List ─── */
+.layout-card-list .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card {
+    display: flex;
+    flex-direction: column;
+}
+.layout-card-list .card-grid .card ul {
+    margin: 0;
+    padding-left: var(--space-md);
+    flex: 1;
+}
+.layout-card-list .card-grid .card li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Image + Text ─── */
+.layout-image-text {
+    flex-direction: row !important;
+}
+.layout-image-text .image-side {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+}
+.layout-image-text .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.layout-image-text .text-side {
+    flex: 0 0 50%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ─── Layout: Grid ─── */
+.layout-grid .grid-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+/* ─── Layout: Transition ─── */
+.layout-transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.layout-transition h1 {
+    font-size: calc(var(--fs-h1) * 1.3);
+}
+
+/* ─── Layout: Content ─── */
+.layout-content .content-title {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: var(--space-lg);
+}
+.layout-content .content-body {
+    flex: 1;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+}
+.layout-content .content-body ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+}
+.layout-content .content-body li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ─── Layout: Two Column ─── */
+.layout-two-column .two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    flex: 1;
+}
+.layout-two-column .two-col-grid .col {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+}
+.layout-two-column .two-col-grid .col ul {
+    margin: 0;
+    padding-left: var(--space-md);
+}
+.layout-two-column .two-col-grid .col li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin-bottom: var(--space-xs);
+}
+
+/* ─── Layout: Stat Card ─── */
+.layout-stat-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-md);
+    flex: 1;
+    align-items: center;
+}
+.layout-stat-card .stat-grid .stat {
+    text-align: center;
+    padding: var(--space-lg);
+}
+.layout-stat-card .stat-grid .stat .stat-value {
+    font-size: clamp(22px, 9cqi, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.layout-stat-card .stat-grid .stat .stat-label {
+    font-size: var(--fs-body);
+    color: var(--text-s);
+    margin-top: var(--space-xs);
+}
+
+/* ─── Layout: Timeline ─── */
+.layout-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 var(--space-lg);
+}
+.layout-timeline .timeline .step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+.layout-timeline .timeline .step .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+}
+.layout-timeline .timeline .step .step-text {
+    flex: 1;
+}
+.layout-timeline .timeline .step .step-text h3 {
+    margin-bottom: 4px;
+}
+.layout-timeline .timeline .step .step-text p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-s);
+    margin: 0;
+}
+
+/* ─── Responsive & Compact Mode ───
+   .compact is applied by slider.js on small viewports.
+   In compact mode the slide element gets a real narrow width so
+   minmax grids + cqi units naturally adapt. These rules tighten
+   spacing and force single-column stacks for complex layouts.
+*/
+.slide.compact .slide-content {
+    padding: var(--space-md);
+}
+.slide.compact h1 {
+    font-size: clamp(26px, 7.5cqi, var(--fs-h1));
+}
+.slide.compact h2 {
+    font-size: clamp(20px, 5.8cqi, var(--fs-h2));
+}
+.slide.compact h3 {
+    font-size: clamp(16px, 4.5cqi, var(--fs-h3));
+}
+.slide.compact .body-text,
+.slide.compact .card li,
+.slide.compact .two-col-grid li {
+    font-size: clamp(14px, 3.8cqi, var(--fs-body));
+}
+.slide.compact .stat-value {
+    font-size: clamp(20px, 8cqi, 36px);
+}
+.slide.compact .step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+/* Image+Text stacks vertically in compact */
+.slide.compact .layout-image-text {
+    flex-direction: column !important;
+}
+.slide.compact .layout-image-text .image-side {
+    flex: none !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 160px;
+}
+.slide.compact .layout-image-text .text-side {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: var(--space-md) !important;
+}
+
+/* Force single column stacks for grids that had 2-4 cols */
+.slide.compact .layout-card-list .card-grid,
+.slide.compact .layout-grid .grid-box {
+    grid-template-columns: 1fr !important;
+}
+.slide.compact .layout-two-column .two-col-grid,
+.slide.compact .layout-stat-card .stat-grid,
+.slide.compact .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm);
+}
+
+/* Hide or neutralize absolute process-flow connectors on narrow reflow */
+.slide.compact [style*="position:absolute"][style*="height:2px"] {
+    display: none !important;
+}
+.slide.compact .layout-process-flow .card-grid {
+    position: static !important;
+}
+
+/* Slightly tighter cards and lists */
+.slide.compact .card {
+    padding: var(--space-sm);
+}
+.slide.compact .slide-content ul,
+.slide.compact .slide-content ol {
+    padding-left: var(--space-md);
+}
+
+/* ─── Build Step Animations ─── */
+.step-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inline SVG visual accent (from extra.inline_svg) */
+.inline-visual {
+    margin-top: auto;
+    padding-top: 6px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.inline-visual svg {
+    max-width: 82%;
+    max-height: 128px;
+    height: auto;
+    display: inline-block;
+}
+</style><div class="slide-bg-overlay" style="background: linear-gradient(135deg, #00E5FF15 0%, #00E5FF05 100%);"></div><div class="slide-content"><h1>溝通無國界，理解有深度</h1><p class="subtitle">從今日開始，成為國際化團隊的溝通橋樑</p></div><div class="inline-visual"><svg xmlns="http://www.w3.org/2000/svg" width="280" height="120" viewBox="0 0 280 120"><rect x="30" y="55" width="42" height="18" rx="2" fill="#98C1D9"/><rect x="205" y="55" width="42" height="18" rx="2" fill="#98C1D9"/><path d="M72 64 Q140 28 205 64" fill="none" stroke="#3D5A80" stroke-width="7"/><circle cx="72" cy="52" r="5" fill="#3D5A80"/><circle cx="205" cy="52" r="5" fill="#3D5A80"/><circle cx="102" cy="46" r="4" fill="#3D5A80"/><circle cx="138" cy="38" r="4" fill="#3D5A80"/><circle cx="175" cy="46" r="4" fill="#3D5A80"/><text x="140" y="105" font-family="system-ui, sans-serif" font-size="9" fill="#4A4A6A" text-anchor="middle">橋接多元 成就共贏</text></svg></div></section></div>
+</div>
+<script>
+/**
+ * SlideCraft Slider — runtime for slide navigation
+ * 
+ * Features:
+ * - Keyboard: ← → ↑ ↓ Space Home End F S
+ * - Mouse wheel / click on nav area
+ * - Fullscreen (F key)
+ * - Presenter mode (S key): notes + next slide preview + timer
+ * - Slide counter + progress bar
+ * - CSS transitions
+ * - Touch/swipe support (mobile)
+ * - Mobile-responsive: compact intrinsic mode on narrow screens (real box width + reflowing grids, stacked layouts, clamped text). Desktop uses scale-to-fit for design fidelity.
+ */
+(function() {
+  'use strict';
+
+  const deck = document.querySelector('.deck');
+  if (!deck) return;
+
+  const wrappers = deck.querySelectorAll('.slide-wrapper');
+  if (wrappers.length === 0) return;
+  const slides = deck.querySelectorAll('section.slide');
+
+  const SLIDE_W = 1280;
+  const SLIDE_H = 720;
+
+  let current = 0;
+  let presenterWindow = null;
+  let fullscreen = false;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartTime = 0;
+  let isMobile = false;
+  let rafPending = false;
+
+  // ── UI Elements ──────────────────────────────────────────────────
+
+  const nav = document.createElement('div');
+  nav.className = 'gamma-nav';
+  nav.innerHTML = [
+    '<div class="gamma-progress"><div class="gamma-progress-bar"></div></div>',
+    '<div class="gamma-counter"></div>',
+    '<div class="gamma-arrows">',
+    '  <button class="gamma-arrow gamma-prev" title="Previous (←)">‹</button>',
+    '  <button class="gamma-arrow gamma-next" title="Next (→)">›</button>',
+    '</div>',
+  ].join('');
+  document.body.appendChild(nav);
+
+  const progressBar = nav.querySelector('.gamma-progress-bar');
+  const counter = nav.querySelector('.gamma-counter');
+
+  // ── Responsive Fit ──────────────────────────────────────────────
+
+  var COMPACT_MAX_W = 620;
+  var COMPACT_MIN_W = 300;
+  var COMPACT_THRESHOLD = 540;
+
+  function resetSlideSizing(slideEl) {
+    if (!slideEl) return;
+    slideEl.classList.remove('compact');
+    slideEl.style.width = '';
+    slideEl.style.height = '';
+    slideEl.style.transform = '';
+    slideEl.style.transformOrigin = '';
+  }
+
+  function applyCurrentSizing() {
+    try {
+      var vw = window.innerWidth;
+      var curWrap = wrappers[current];
+      var curSlide = slides[current];
+      if (!curWrap || !curSlide) return;
+
+      // Reset the CURRENT slide clean before applying new sizing
+      curSlide.classList.remove('compact');
+      curSlide.style.width = '';
+      curSlide.style.height = '';
+      curSlide.style.transform = '';
+      curSlide.style.transformOrigin = '';
+
+      var padX = isMobile ? 10 : 32;
+      var padY = isMobile ? 0 : 80;
+      var scaleX = (vw - padX) / SLIDE_W;
+      var scaleY = (window.innerHeight - padY) / SLIDE_H;
+      var scale = Math.min(1, Math.max(0.2, Math.min(scaleX, scaleY)));
+      var effectiveW = SLIDE_W * scale;
+      var useCompact = isMobile || effectiveW < COMPACT_THRESHOLD;
+
+      if (useCompact) {
+        curSlide.classList.add('compact');
+        var avail = Math.max(COMPACT_MIN_W, Math.min(vw - (isMobile ? 8 : 20), COMPACT_MAX_W));
+        var aspect = SLIDE_H / SLIDE_W;
+        var useW = avail;
+        var useH = Math.round(useW * aspect);
+        curSlide.style.width = useW + 'px';
+        curSlide.style.height = useH + 'px';
+        curSlide.style.transform = 'none';
+        curWrap.style.setProperty('--slide-scale', '1');
+        curWrap.style.marginTop = '0px';
+      } else {
+        curWrap.style.setProperty('--slide-scale', scale);
+        var wrapperH = SLIDE_H * scale;
+        curWrap.style.marginTop = Math.max(0, (window.innerHeight - wrapperH) / 2) + 'px';
+      }
+    } catch (e) {
+      console.warn('SlideCraft sizing error:', e);
+    }
+  }
+
+  function fitSlides() {
+    rafPending = true;
+    requestAnimationFrame(function() {
+      rafPending = false;
+      var vw = window.innerWidth;
+      isMobile = vw < 800;
+
+      for (var i = 0; i < wrappers.length; i++) {
+        wrappers[i].style.display = (i === current) ? 'flex' : 'none';
+        wrappers[i].style.justifyContent = 'center';
+        wrappers[i].style.alignItems = 'center';
+      }
+
+      document.body.style.padding = '0';
+      document.body.style.overflow = isMobile ? '' : 'hidden';
+
+      applyCurrentSizing();
+      nav.style.bottom = '0';
+    });
+  }
+
+  function fitSlidesNow() {
+    var vw = window.innerWidth;
+    isMobile = vw < 800;
+
+    for (var i = 0; i < wrappers.length; i++) {
+      wrappers[i].style.display = (i === current) ? 'flex' : 'none';
+      wrappers[i].style.justifyContent = 'center';
+      wrappers[i].style.alignItems = 'center';
+    }
+
+    document.body.style.padding = '0';
+    document.body.style.overflow = isMobile ? '' : 'hidden';
+
+    applyCurrentSizing();
+    nav.style.bottom = '0';
+  }
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function() {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fitSlides, 100);
+  });
+
+  // ── Build Steps (data-step driven, speaker-paced reveal within slide) ──
+  // All .step-item start hidden (CSS). Only .step-visible makes them appear.
+  // Navigation (next/prev, keys, taps) advances steps first; only after last step
+  // does it change to another slide. On slide change, steps reset to 0.
+
+  function getStepItems(slide) {
+    if (!slide) return [];
+    return Array.from(slide.querySelectorAll('.step-item[data-step]'))
+      .sort(function(a, b) {
+        return (parseInt(a.dataset.step, 10) || 0) - (parseInt(b.dataset.step, 10) || 0);
+      });
+  }
+
+  function resetBuildSteps(slide) {
+    if (!slide) return;
+    var items = slide.querySelectorAll('.step-item');
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.remove('step-visible');
+    }
+  }
+
+  function getMaxBuildStep(slide) {
+    var items = getStepItems(slide);
+    var max = 0;
+    for (var i = 0; i < items.length; i++) {
+      var s = parseInt(items[i].dataset.step, 10) || 0;
+      if (s > max) max = s;
+    }
+    return max;
+  }
+
+  function getVisibleBuildStep(slide) {
+    var items = slide.querySelectorAll('.step-item.step-visible[data-step]');
+    var max = 0;
+    for (var i = 0; i < items.length; i++) {
+      var s = parseInt(items[i].dataset.step, 10) || 0;
+      if (s > max) max = s;
+    }
+    return max;
+  }
+
+  function setBuildStep(slide, targetStep) {
+    if (!slide) return;
+    var items = slide.querySelectorAll('.step-item[data-step]');
+    for (var i = 0; i < items.length; i++) {
+      var s = parseInt(items[i].dataset.step, 10) || 0;
+      if (s <= targetStep && targetStep > 0) {
+        items[i].classList.add('step-visible');
+      } else {
+        items[i].classList.remove('step-visible');
+      }
+    }
+  }
+
+  function advanceBuildStep(slide) {
+    var max = getMaxBuildStep(slide);
+    if (max <= 0) return false;
+    var curr = getVisibleBuildStep(slide);
+    if (curr >= max) return false;
+    setBuildStep(slide, curr + 1);
+    return true;
+  }
+
+  function rewindBuildStep(slide) {
+    var curr = getVisibleBuildStep(slide);
+    if (curr <= 0) return false;
+    setBuildStep(slide, curr - 1);
+    return true;
+  }
+
+  // ── Navigation ───────────────────────────────────────────────────
+
+  function goTo(index) {
+    var target = Math.max(0, Math.min(index, slides.length - 1));
+    if (target === current) return;
+
+    // Reset steps on the slide we are leaving (design: reset step to 0 on slide change)
+    resetBuildSteps(slides[current]);
+
+    slides[current].classList.remove('slide-active');
+    slides[current].classList.add('slide-exit');
+    
+    // New slide always starts at build-step 0 (all step-items hidden)
+    resetBuildSteps(slides[target]);
+    slides[target].classList.remove('slide-exit');
+    slides[target].classList.add('slide-active');
+    current = target;
+    updateUI();
+    
+    for (var i = 0; i < wrappers.length; i++) {
+      wrappers[i].style.display = (i === current) ? 'flex' : 'none';
+    }
+    fitSlidesNow();
+  }
+
+  function goNext() {
+    var curSlide = slides[current];
+    if (advanceBuildStep(curSlide)) {
+      // Revealed next build step within this slide (speaker controls pace).
+      // Do not advance slide until all steps on current are shown.
+      if (presenterWindow && !presenterWindow.closed) {
+        updatePresenter();
+      }
+      return;
+    }
+    goTo(current + 1);
+  }
+  function goPrev() {
+    var curSlide = slides[current];
+    if (rewindBuildStep(curSlide)) {
+      if (presenterWindow && !presenterWindow.closed) {
+        updatePresenter();
+      }
+      return;
+    }
+    goTo(current - 1);
+  }
+
+  // ── UI Update ────────────────────────────────────────────────────
+
+  function updateUI() {
+    var pct = ((current + 1) / slides.length) * 100;
+    progressBar.style.width = pct + '%';
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+
+    if (presenterWindow && !presenterWindow.closed) {
+      updatePresenter();
+    }
+  }
+
+  // ── Keyboard ─────────────────────────────────────────────────────
+
+  document.addEventListener('keydown', function(e) {
+    if (e.target.closest('input, textarea, select, [contenteditable]')) return;
+
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+      case ' ':
+        e.preventDefault();
+        goNext();
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        e.preventDefault();
+        goPrev();
+        break;
+      case 'Home':
+        e.preventDefault();
+        goTo(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        goTo(slides.length - 1);
+        break;
+      case 'f':
+      case 'F':
+        e.preventDefault();
+        toggleFullscreen();
+        break;
+      case 's':
+      case 'S':
+        e.preventDefault();
+        togglePresenter();
+        break;
+    }
+  });
+
+  // ── Mouse Wheel ──────────────────────────────────────────────────
+
+  var wheelTimeout = null;
+  document.addEventListener('wheel', function(e) {
+    if (!e.target.closest('.deck, .gamma-nav')) return;
+    if (wheelTimeout) return;
+    wheelTimeout = setTimeout(function() { wheelTimeout = null; }, 600);
+    if (e.deltaY > 0 || e.deltaX > 0) goNext();
+    else goPrev();
+  }, { passive: true });
+
+  // ── Touch / Swipe ───────────────────────────────────────────────
+
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+    touchStartTime = Date.now();
+  }, { passive: true });
+
+  document.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].screenX - touchStartX;
+    var dy = e.changedTouches[0].screenY - touchStartY;
+    var absDx = Math.abs(dx);
+    var absDy = Math.abs(dy);
+    var dt = Date.now() - touchStartTime;
+    
+    // Skip if the touch was on a nav button — those handle clicks separately.
+    // Otherwise tap + click fire twice and skip slides.
+    if (e.target && e.target.closest && e.target.closest('.gamma-nav')) return;
+    
+    // Tap: go next/prev based on which half was tapped
+    if (absDx < 30 && absDy < 30 && dt < 300) {
+      if (e.changedTouches[0].screenX < window.innerWidth * 0.4) {
+        goPrev();
+      } else if (e.changedTouches[0].screenX > window.innerWidth * 0.6) {
+        goNext();
+      }
+      return;
+    }
+    
+    // Swipe: horizontal only, min 40px
+    if (absDx > 40 && absDx > absDy * 1.5) {
+      if (dx < 0) goNext();
+      else goPrev();
+    }
+  }, { passive: true });
+
+  // ── Fullscreen ──────────────────────────────────────────────────
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(function() {});
+      fullscreen = true;
+    } else {
+      document.exitFullscreen().catch(function() {});
+      fullscreen = false;
+      setTimeout(fitSlides, 200);
+    }
+  }
+
+  // ── Presenter Mode ──────────────────────────────────────────────
+
+  function togglePresenter() {
+    if (presenterWindow && !presenterWindow.closed) {
+      presenterWindow.close();
+      presenterWindow = null;
+      return;
+    }
+    presenterWindow = window.open('', 'gamma-presenter',
+      'width=800,height=600,menubar=no,toolbar=no,location=no,status=no');
+    if (presenterWindow) {
+      presenterWindow.document.write(buildPresenterHTML());
+      presenterWindow.document.close();
+      updatePresenter();
+    }
+  }
+
+  function buildPresenterHTML() {
+    return '<!DOCTYPE html>\n<html><head><title>Gamma Presenter</title>\n<style>\n  * { margin: 0; padding: 0; box-sizing: border-box; }\n  body { font-family: system-ui, sans-serif; background: #1a1a1a; color: #eee; padding: 20px; }\n  .container { max-width: 700px; margin: 0 auto; }\n  h1 { font-size: 24px; margin-bottom: 10px; }\n  .timer { font-size: 40px; font-weight: 300; margin-bottom: 20px; font-variant-numeric: tabular-nums; }\n  .current-slide { background: #2a2a2a; border-radius: 8px; padding: 20px; margin-bottom: 16px; }\n  .current-slide h2 { font-size: 18px; color: #888; margin-bottom: 8px; }\n  .current-slide .content { font-size: 24px; line-height: 1.5; }\n  .notes { background: #333; border-radius: 8px; padding: 16px; margin-bottom: 16px; }\n  .notes h2 { font-size: 14px; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }\n  .notes .text { font-size: 18px; line-height: 1.6; color: #ddd; }\n  .next-preview { background: #222; border-radius: 8px; padding: 16px; opacity: 0.7; }\n  .next-preview h2 { font-size: 14px; color: #888; margin-bottom: 6px; text-transform: uppercase; }\n  .next-preview .content { font-size: 16px; color: #aaa; }\n  #start-btn { position: fixed; top: 20px; right: 20px; background: #6C5CE7; color: #fff; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; }\n  #start-btn:hover { background: #5A4BD1; }\n</style></head>\n<body>\n<div class="container">\n  <h1>🎤 Gamma Presenter</h1>\n  <div class="timer" id="timer">00:00</div>\n  <button id="start-btn" onclick="startTimer()">Start Timer</button>\n  <div class="current-slide">\n    <h2>Current Slide</h2>\n    <div class="content" id="current-content">—</div>\n  </div>\n  <div class="notes">\n    <h2>Speaker Notes</h2>\n    <div class="text" id="notes-text">No notes for this slide.</div>\n  </div>\n  <div class="next-preview">\n    <h2>Up Next</h2>\n    <div class="content" id="next-content">—</div>\n  </div>\n</div>\n<'+'script>\n  var startTime = null;\n  var timerInterval = null;\n  function startTimer() {\n    if (timerInterval) return;\n    startTime = Date.now();\n    timerInterval = setInterval(function() {\n      var elapsed = Math.floor((Date.now() - startTime) / 1000);\n      var m = String(Math.floor(elapsed / 60)).padStart(2, "0");\n      var s = String(elapsed % 60).padStart(2, "0");\n      document.getElementById("timer").textContent = m + ":" + s;\n    }, 500);\n  }\n  window.addEventListener("message", function(e) {\n    var d = e.data;\n    if (d.type === "slide-update") {\n      document.getElementById("current-content").textContent = d.currentTitle || "(No title)";\n      document.getElementById("notes-text").textContent = d.notes || "(No notes)";\n      document.getElementById("next-content").textContent = d.nextTitle || "(End of presentation)";\n    }\n  });\n<'+'/script>\n</body></html>';
+  }
+
+  function updatePresenter() {
+    if (!presenterWindow || presenterWindow.closed) return;
+    var slide = slides[current];
+    var nextSlide = slides[current + 1];
+    var notesEl = slide.querySelector('.notes');
+    
+    presenterWindow.postMessage({
+      type: 'slide-update',
+      currentTitle: (slide.querySelector('h1, h2') || {}).textContent || '(No title)',
+      notes: (notesEl ? notesEl.textContent : '') || '(No notes)',
+      nextTitle: (nextSlide ? nextSlide.querySelector('h1, h2') || {} : {}).textContent || '(End of presentation)'
+    }, '*');
+  }
+
+  // ── Init ─────────────────────────────────────────────────────────
+
+  // Mark first slide as active
+  for (var i = 0; i < slides.length; i++) {
+    if (i === 0) slides[i].classList.add('slide-active');
+    else slides[i].classList.remove('slide-active');
+  }
+
+  // Clean any prior inline sizing
+  for (var s = 0; s < slides.length; s++) resetSlideSizing(slides[s]);
+
+  // Ensure initial slide starts with build steps hidden (step 0)
+  if (slides[0]) resetBuildSteps(slides[0]);
+
+  fitSlides();
+  updateUI();
+
+  // Arrow button listeners
+  nav.querySelector('.gamma-prev').addEventListener('click', function(e) {
+    e.stopPropagation();
+    goPrev();
+  });
+  nav.querySelector('.gamma-next').addEventListener('click', function(e) {
+    e.stopPropagation();
+    goNext();
+  });
+
+  // ── Slider Styles (injected) ─────────────────────────────────────
+
+  var styleEl = document.createElement('style');
+  styleEl.textContent = [
+    '/* Gamma Nav */',
+    '.gamma-nav {',
+    '  position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;',
+    '  pointer-events: none;',
+    '}',
+    '.gamma-nav * { pointer-events: auto; }',
+    '.gamma-progress {',
+    '  position: fixed; top: 0; left: 0; right: 0; height: 3px;',
+    '  background: rgba(255,255,255,0.1); z-index: 1001;',
+    '}',
+    '.gamma-progress-bar {',
+    '  height: 100%;',
+    '  background: linear-gradient(90deg, var(--accent, #6C5CE7), var(--accent2, #00D2D3));',
+    '  transition: width 0.3s ease; width: 0%;',
+    '}',
+    '.gamma-counter {',
+    '  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);',
+    '  font-size: 13px; color: rgba(255,255,255,0.5);',
+    '  font-family: system-ui, sans-serif; letter-spacing: 1px;',
+    '  background: rgba(0,0,0,0.4); padding: 4px 14px;',
+    '  border-radius: 12px; backdrop-filter: blur(4px);',
+    '  white-space: nowrap; z-index: 1002;',
+    '}',
+    '.gamma-arrows {',
+    '  position: fixed; bottom: 16px; right: 16px;',
+    '  display: flex; gap: 8px; z-index: 1002;',
+    '}',
+    '.gamma-arrow {',
+    '  width: 44px; height: 44px; border-radius: 50%; border: none;',
+    '  background: rgba(0,0,0,0.45); color: #fff; cursor: pointer;',
+    '  font-size: 24px; display: flex; align-items: center; justify-content: center;',
+    '  backdrop-filter: blur(4px); transition: background 0.2s;',
+    '  -webkit-tap-highlight-color: transparent;',
+    '}',
+    '.gamma-arrow:hover { background: rgba(0,0,0,0.6); }',
+    '.gamma-arrow:active { transform: scale(0.88); }',
+    '',
+    '/* Slide Wrapper — handles responsive scaling */',
+    '.slide-wrapper {',
+    '  display: flex;',
+    '  align-items: center;',
+    '  justify-content: center;',
+    '  width: 100%;',
+    '  flex-shrink: 0;',
+    '}',
+    '.slide-wrapper section.slide {',
+    '  transform-origin: center center;',
+    '  transform: scale(var(--slide-scale, 1));',
+    '  transition: opacity 0.4s ease;',
+    '}',
+    '.slide-wrapper section.slide:not(.slide-active) {',
+    '  opacity: 0.15;',
+    '}',
+    '.slide-wrapper section.slide.slide-active {',
+    '  opacity: 1;',
+    '}',
+    '.slide-wrapper section.slide.slide-exit {',
+    '  opacity: 0;',
+    '}',
+    '',
+    '/* Mobile + compact intrinsics */',
+    '@media (max-width: 800px) {',
+    '  .gamma-counter { bottom: 14px; font-size: 12px; padding: 3px 12px; }',
+    '  .gamma-arrows { bottom: 10px; right: 10px; gap: 10px; }',
+    '  .gamma-arrow { width: 48px; height: 48px; font-size: 26px; }',
+    '  .gamma-progress { height: 2px; }',
+    '}',
+    '',
+    '/* Compact (intrinsic) slide presentation: full-bleed-ish with internal reflow */',
+    '.slide-wrapper section.slide.compact {',
+    '  border-radius: 0;',
+    '  box-shadow: none;',
+    '  margin: 0 auto;',
+    '}',
+    '.slide-wrapper section.slide.compact .slide-content {',
+    '  padding: 14px 16px;',
+    '}',
+    '',
+    '/* Fullscreen */',
+    ':-webkit-full-screen .slide-wrapper section.slide {',
+    '  box-shadow: none; border: none;',
+    '}',
+    ':fullscreen .slide-wrapper section.slide {',
+    '  box-shadow: none; border: none;',
+    '}',
+  ].join('\n');
+  document.head.appendChild(styleEl);
+
+  console.log('SlideCraft Slider loaded. ← → arrows, Home/End, F=fullscreen, S=presenter');
+
+  // ── Orientation Change ──────────────────────────────────────────
+  // On mobile, re-fit when screen rotates
+  if ('orientation' in window) {
+    window.addEventListener('orientationchange', function() {
+      setTimeout(fitSlides, 300);
+    });
+  }
+})();
+
+</script>
+</body></html>

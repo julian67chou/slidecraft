@@ -31,7 +31,7 @@ if GROK_BIN is None:
     GROK_BIN = shutil.which("grok") or shutil.which("grok-build") or "grok"
 
 
-def generate_image(prompt: str, aspect: str = "16:9", timeout: int = 45) -> str:
+def generate_image(prompt: str, aspect: str = "16:9", timeout: int = 120) -> str:
     """
     Generate an image using Grok Draw.
     

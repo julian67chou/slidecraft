@@ -489,8 +489,10 @@ def render_slide(
         else:
             img_src = img_path
         bg_parts.append(_img_tag(img_src, "slide-bg"))
-        # Add overlay for readability — dark enough for bright clinic photos
-        bg_parts.append('<div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 100%);"></div>')
+        # Add overlay for readability — dark enough for bright clinic photos.
+        # Minimum floor of 0.55 ensures the bottom-right corner still provides
+        # adequate contrast for text placed anywhere on the slide.
+        bg_parts.append('<div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.55) 100%);"></div>')
     elif layout in ("cover", "transition") and "accent" in tokens.get("colors", {}):
         accent = tokens["colors"]["accent"]
         # Subtle gradient background using accent
@@ -526,6 +528,26 @@ def render_slide(
     if bg_override:
         bg_style = f' style="background: {bg_override};"'
 
+    # Auto-detect dark background (no bg image + dark background override).
+    # When a slide has custom dark background_override but no photo, the
+    # data-has-bg CSS rules won't fire — but dark bg + dark text is unreadable.
+    # Heuristic: check if the override contains dark hex colors (< #333333)
+    has_dark_bg = False
+    if bg_override and not img_path:
+        import re as _re
+        hex_colors = _re.findall(r'#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})', bg_override)
+        for hc in hex_colors:
+            if len(hc) == 3:
+                hc = hc[0]*2 + hc[1]*2 + hc[2]*2
+            try:
+                r, g, b = int(hc[0:2], 16), int(hc[2:4], 16), int(hc[4:6], 16)
+                avg = (r + g + b) / 3
+                if avg < 85:  # darker than ~#555555
+                    has_dark_bg = True
+                    break
+            except ValueError:
+                pass
+
     # Speaker notes
     notes_html = ""
     if notes:
@@ -536,7 +558,8 @@ def render_slide(
         f'data-slide-id="{_esc(slide_spec.get("id", ""))}" '
         f'data-layout="{_esc(layout)}" '
         f'data-order="{slide_spec.get("order", 0)}"'
-        f'{" data-has-bg" if img_path else ""}{bg_style}>'
+        f'{" data-has-bg" if img_path else ""}'
+        f'{" data-has-dark-bg" if has_dark_bg else ""}{bg_style}>'
         f'{"".join(bg_parts)}'
         f'{content_html}'
         f'{notes_html}'
