@@ -76,31 +76,32 @@
 
       // On mobile: deck behaves like a viewport slider
       if (isMobile) {
-        document.body.style.overflow = 'hidden';
+        // Mobile: fill width, allow page to scroll vertically
+        document.body.style.overflow = '';
         document.body.style.padding = '0';
-        // Hide non-active wrappers on mobile (only show current)
+        var mobileScale = (vw - 8) / SLIDE_W;
         for (var j = 0; j < wrappers.length; j++) {
           wrappers[j].style.display = (j === current) ? 'flex' : 'none';
         }
-        // Wrapper fills the screen
-        var wrapperH = SLIDE_H * scale;
-        var topOffset = Math.max(0, (vh - wrapperH) / 2);
-        wrappers[current].style.marginTop = topOffset + 'px';
-        // Show nav bar
+        for (var w = 0; w < wrappers.length; w++) {
+          wrappers[w].style.setProperty('--slide-scale', mobileScale);
+          wrappers[w].style.overflowY = '';
+          wrappers[w].style.alignItems = '';
+        }
+        wrappers[current].style.marginTop = '0px';
         nav.style.bottom = '0';
-      // Show one slide at a time (both mobile and desktop)
-      document.body.style.overflow = 'hidden';
-      document.body.style.padding = '0';
-      // Only show current wrapper
-      for (var j = 0; j < wrappers.length; j++) {
-        wrappers[j].style.display = (j === current) ? 'flex' : 'none';
+      } else {
+        // Desktop: show one slide at a time, centered
+        document.body.style.overflow = 'hidden';
+        document.body.style.padding = '0';
+        for (var k = 0; k < wrappers.length; k++) {
+          wrappers[k].style.display = (k === current) ? 'flex' : 'none';
+        }
+        var wrapperH2 = SLIDE_H * scale;
+        var topOffset2 = Math.max(0, (vh - wrapperH2) / 2);
+        wrappers[current].style.marginTop = topOffset2 + 'px';
+        nav.style.bottom = '0';
       }
-      // Center the current slide
-      var wrapperH = SLIDE_H * scale;
-      var topOffset = Math.max(0, (vh - wrapperH) / 2);
-      wrappers[current].style.marginTop = topOffset + 'px';
-      // Show nav bar at bottom
-      nav.style.bottom = '0';
     });
   }
 
