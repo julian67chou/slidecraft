@@ -489,8 +489,8 @@ def render_slide(
         else:
             img_src = img_path
         bg_parts.append(_img_tag(img_src, "slide-bg"))
-        # Add overlay for readability on dark images (stronger for full-bleed cover use)
-        bg_parts.append('<div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 100%);"></div>')
+        # Add overlay for readability — dark enough for bright clinic photos
+        bg_parts.append('<div class="slide-bg-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 100%);"></div>')
     elif layout in ("cover", "transition") and "accent" in tokens.get("colors", {}):
         accent = tokens["colors"]["accent"]
         # Subtle gradient background using accent
@@ -535,7 +535,8 @@ def render_slide(
         f'<section class="slide layout-{layout}" '
         f'data-slide-id="{_esc(slide_spec.get("id", ""))}" '
         f'data-layout="{_esc(layout)}" '
-        f'data-order="{slide_spec.get("order", 0)}"{bg_style}>'
+        f'data-order="{slide_spec.get("order", 0)}"'
+        f'{" data-has-bg" if img_path else ""}{bg_style}>'
         f'{"".join(bg_parts)}'
         f'{content_html}'
         f'{notes_html}'
