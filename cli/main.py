@@ -1,5 +1,5 @@
 """
-Gamma PPT Generator — CLI entry point.
+# SlideCraft — CLI entry point.
 
 Usage:
     python -m cli.main --spec <spec_json_or_path> [--theme clinic-warm] [--name output_name]
@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(description="Gamma PPT Generator")
+    parser = argparse.ArgumentParser(description="SlideCraft — spec-to-deck generator")
     parser.add_argument("--spec", help="DeckSpec JSON string or path to .json file")
     parser.add_argument("--prompt", "-p", help="Topic description (generates spec)")
     parser.add_argument("--theme", "-t", default="clinic-warm",

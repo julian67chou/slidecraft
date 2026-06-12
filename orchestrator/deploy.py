@@ -15,7 +15,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent.parent
 OUTPUT_DIR = PROJECT_ROOT / "output"
-REPO = "julian67chou/gamma-ppt"
+REPO = "julian67chou/slidecraft"
 
 
 def get_decks() -> list[dict]:
@@ -77,7 +77,7 @@ def build_index_page(decks: list[dict]) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gamma PPT — Published Decks</title>
+<title>SlideCraft — Published Decks</title>
 <style>
 * {{ margin: 0; padding: 0; box-sizing: border-box; }}
 body {{
@@ -120,7 +120,7 @@ h1 {{ font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #fff; }}
 </style>
 </head>
 <body>
-<h1>🎯 Gamma PPT</h1>
+<h1>🎯 SlideCraft</h1>
 <p class="subtitle">Published decks — {len(decks)} total</p>
 <div class="deck-grid">
 {''.join(cards) if cards else '<div class="empty"><p>No decks generated yet</p><p>Run the CLI to create your first deck</p></div>'}

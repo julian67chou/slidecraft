@@ -1,5 +1,5 @@
 /**
- * Gamma PPT Slider — runtime for slide navigation
+ * SlideCraft Slider — runtime for slide navigation
  * 
  * Features:
  * - Keyboard: ← → ↑ ↓ Space Home End F S
@@ -379,7 +379,7 @@
   ].join('\n');
   document.head.appendChild(styleEl);
 
-  console.log('Gamma PPT Slider loaded. ← → arrows, Home/End, F=fullscreen, S=presenter');
+  console.log('SlideCraft Slider loaded. ← → arrows, Home/End, F=fullscreen, S=presenter');
 
   // ── Orientation Change ──────────────────────────────────────────
   // On mobile, re-fit when screen rotates

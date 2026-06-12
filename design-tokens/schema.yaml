@@ -1,4 +1,4 @@
-# Gamma PPT — Unified Design Token Schema
+# SlideCraft — Unified Design Token Schema
 # This YAML drives BOTH HTML (CSS custom properties) and PPTX (EMU) renderers.
 # Every value uses dual units: px/in for layout, pt/px for typography.
 

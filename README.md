@@ -1,4 +1,4 @@
-# Gamma PPT Generator
+# SlideCraft
 
 Prompt → Stunning Deck in seconds.
 
@@ -11,7 +11,7 @@ Prompt → Stunning Deck in seconds.
 ## Quick Start
 
 ```bash
-cd /workspace/gamma-ppt
+cd /workspace/slidecraft
 
 # Generate a deck
 python3 -c "

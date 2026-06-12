@@ -99,8 +99,9 @@ def generate(spec: dict, output_name: str = None) -> dict:
             ext = os.path.splitext(gen_path)[1] or ".jpg"
             img_name = f"slide_{s.get('order', 0):02d}{ext}"
             dest = images_dir / img_name
-            shutil.copy2(gen_path, str(dest))
-            vis["generated_path"] = str(dest)  # Relative-safe absolute path
+            if os.path.abspath(gen_path) != os.path.abspath(str(dest)):
+                shutil.copy2(gen_path, str(dest))
+                vis["generated_path"] = str(dest)  # Relative-safe absolute path
 
     # Step 2: Load design tokens
     token_path = DESIGN_TOKENS_DIR / f"{theme}.yaml"
