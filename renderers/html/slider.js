@@ -88,14 +88,19 @@
         wrappers[current].style.marginTop = topOffset + 'px';
         // Show nav bar
         nav.style.bottom = '0';
-      } else {
-        document.body.style.overflow = 'hidden';
-        document.body.style.padding = '20px';
-        // Show all wrappers
-        for (var k = 0; k < wrappers.length; k++) {
-          wrappers[k].style.display = 'flex';
-        }
+      // Show one slide at a time (both mobile and desktop)
+      document.body.style.overflow = 'hidden';
+      document.body.style.padding = '0';
+      // Only show current wrapper
+      for (var j = 0; j < wrappers.length; j++) {
+        wrappers[j].style.display = (j === current) ? 'flex' : 'none';
       }
+      // Center the current slide
+      var wrapperH = SLIDE_H * scale;
+      var topOffset = Math.max(0, (vh - wrapperH) / 2);
+      wrappers[current].style.marginTop = topOffset + 'px';
+      // Show nav bar at bottom
+      nav.style.bottom = '0';
     });
   }
 
@@ -119,14 +124,12 @@
     current = target;
     updateUI();
     
-    // On mobile, update which wrapper is visible
-    if (isMobile) {
-      for (var i = 0; i < wrappers.length; i++) {
-        wrappers[i].style.display = (i === current) ? 'flex' : 'none';
-      }
-      // Re-center
-      fitSlides();
+    // Update which wrapper is visible (both mobile and desktop)
+    for (var i = 0; i < wrappers.length; i++) {
+      wrappers[i].style.display = (i === current) ? 'flex' : 'none';
     }
+    // Re-center
+    fitSlides();
   }
 
   function goNext() { goTo(current + 1); }
