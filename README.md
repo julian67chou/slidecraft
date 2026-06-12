@@ -36,6 +36,18 @@ generate(spec, 'my-deck')
 Generated decks are in `output/`. Open `.html` files directly in browser.
 Use keyboard: ← → to navigate, F for fullscreen, S for presenter mode.
 
+### Build Step Animations (HTML only)
+The HTML viewer supports PPT-style "build" animations for progressive reveal:
+- Elements that support stepping (e.g. bullets, cards, grid boxes, stats, timeline items, quote text then source, etc.) are hidden initially.
+- Press → (or click right half / tap right / Space / ArrowDown) to reveal the next item **within the current slide**.
+- Only after all steps on a slide are visible does → advance to the next slide.
+- ← rewinds the last step first, then goes to the previous slide.
+- Layouts like `transition` always appear all-at-once (no steps).
+- Driven by `data-step="N"` + `.step-item` / `.step-visible` classes (0.35s opacity + translateY CSS transitions).
+- Respects the core navigation model: no behavior change to arrows when there are no steps. 
+
+This is a lightweight web-only effect (speaker controls the pace). PPTX exports are static.
+
 ## Architecture
 
 ```

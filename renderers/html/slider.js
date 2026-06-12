@@ -152,18 +152,90 @@
     resizeTimer = setTimeout(fitSlides, 100);
   });
 
+  // ── Build Steps (data-step driven, speaker-paced reveal within slide) ──
+  // All .step-item start hidden (CSS). Only .step-visible makes them appear.
+  // Navigation (next/prev, keys, taps) advances steps first; only after last step
+  // does it change to another slide. On slide change, steps reset to 0.
+
+  function getStepItems(slide) {
+    if (!slide) return [];
+    return Array.from(slide.querySelectorAll('.step-item[data-step]'))
+      .sort(function(a, b) {
+        return (parseInt(a.dataset.step, 10) || 0) - (parseInt(b.dataset.step, 10) || 0);
+      });
+  }
+
+  function resetBuildSteps(slide) {
+    if (!slide) return;
+    var items = slide.querySelectorAll('.step-item');
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.remove('step-visible');
+    }
+  }
+
+  function getMaxBuildStep(slide) {
+    var items = getStepItems(slide);
+    var max = 0;
+    for (var i = 0; i < items.length; i++) {
+      var s = parseInt(items[i].dataset.step, 10) || 0;
+      if (s > max) max = s;
+    }
+    return max;
+  }
+
+  function getVisibleBuildStep(slide) {
+    var items = slide.querySelectorAll('.step-item.step-visible[data-step]');
+    var max = 0;
+    for (var i = 0; i < items.length; i++) {
+      var s = parseInt(items[i].dataset.step, 10) || 0;
+      if (s > max) max = s;
+    }
+    return max;
+  }
+
+  function setBuildStep(slide, targetStep) {
+    if (!slide) return;
+    var items = slide.querySelectorAll('.step-item[data-step]');
+    for (var i = 0; i < items.length; i++) {
+      var s = parseInt(items[i].dataset.step, 10) || 0;
+      if (s <= targetStep && targetStep > 0) {
+        items[i].classList.add('step-visible');
+      } else {
+        items[i].classList.remove('step-visible');
+      }
+    }
+  }
+
+  function advanceBuildStep(slide) {
+    var max = getMaxBuildStep(slide);
+    if (max <= 0) return false;
+    var curr = getVisibleBuildStep(slide);
+    if (curr >= max) return false;
+    setBuildStep(slide, curr + 1);
+    return true;
+  }
+
+  function rewindBuildStep(slide) {
+    var curr = getVisibleBuildStep(slide);
+    if (curr <= 0) return false;
+    setBuildStep(slide, curr - 1);
+    return true;
+  }
+
   // ── Navigation ───────────────────────────────────────────────────
 
   function goTo(index) {
     var target = Math.max(0, Math.min(index, slides.length - 1));
     if (target === current) return;
 
-    // Note: do NOT reset OLD slide here — applyCurrentSizing within
-    // fitSlidesNow() always starts from a clean slate for the new slide.
-    
+    // Reset steps on the slide we are leaving (design: reset step to 0 on slide change)
+    resetBuildSteps(slides[current]);
+
     slides[current].classList.remove('slide-active');
     slides[current].classList.add('slide-exit');
     
+    // New slide always starts at build-step 0 (all step-items hidden)
+    resetBuildSteps(slides[target]);
     slides[target].classList.remove('slide-exit');
     slides[target].classList.add('slide-active');
     current = target;
@@ -175,8 +247,28 @@
     fitSlidesNow();
   }
 
-  function goNext() { goTo(current + 1); }
-  function goPrev() { goTo(current - 1); }
+  function goNext() {
+    var curSlide = slides[current];
+    if (advanceBuildStep(curSlide)) {
+      // Revealed next build step within this slide (speaker controls pace).
+      // Do not advance slide until all steps on current are shown.
+      if (presenterWindow && !presenterWindow.closed) {
+        updatePresenter();
+      }
+      return;
+    }
+    goTo(current + 1);
+  }
+  function goPrev() {
+    var curSlide = slides[current];
+    if (rewindBuildStep(curSlide)) {
+      if (presenterWindow && !presenterWindow.closed) {
+        updatePresenter();
+      }
+      return;
+    }
+    goTo(current - 1);
+  }
 
   // ── UI Update ────────────────────────────────────────────────────
 
@@ -333,6 +425,9 @@
 
   // Clean any prior inline sizing
   for (var s = 0; s < slides.length; s++) resetSlideSizing(slides[s]);
+
+  // Ensure initial slide starts with build steps hidden (step 0)
+  if (slides[0]) resetBuildSteps(slides[0]);
 
   fitSlides();
   updateUI();

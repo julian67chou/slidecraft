@@ -418,6 +418,17 @@ section.slide .slide-content {{
 .slide.compact .slide-content ol {{
     padding-left: var(--space-md);
 }}
+
+/* ─── Build Step Animations ─── */
+.step-item {{
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}}
+.step-item.step-visible {{
+  opacity: 1;
+  transform: translateY(0);
+}}
 </style>"""
 
 
@@ -440,9 +451,13 @@ def _render_cover(content: dict) -> str:
     title = content.get("title", "")
     subtitle = content.get("subtitle", "")
     parts = ['<div class="slide-content">']
+    step = 0
+    if title:
+        step += 1
+        parts.append(f'<h1 class="step-item" data-step="{step}">{_esc(title)}</h1>')
     if subtitle:
-        parts.append(f'<div class="subtitle">{_esc(subtitle)}</div>')
-    parts.append(f'<h1>{_esc(title)}</h1>')
+        step += 1
+        parts.append(f'<div class="subtitle step-item" data-step="{step}">{_esc(subtitle)}</div>')
     parts.append("</div>")
     return "".join(parts)
 
@@ -459,8 +474,10 @@ def _render_card_list(content: dict) -> str:
     parts = ['<div class="slide-content">']
     parts.append(f'<h2>{_esc(title)}</h2>')
     parts.append('<div class="card-grid">')
+    step = 0
     for i, col in enumerate(cols):
-        parts.append(f'<div class="card"><ul>')
+        step += 1
+        parts.append(f'<div class="card step-item" data-step="{step}"><ul>')
         for item in col:
             parts.append(f"<li>{_esc(item)}</li>")
         parts.append("</ul></div>")
@@ -482,8 +499,10 @@ def _render_image_text(content: dict, visual_path: Optional[str] = None) -> str:
         parts.append(f'<div class="subtitle">{_esc(content["subtitle"])}</div>')
     if bullets:
         parts.append('<ul class="body-text">')
+        step = 0
         for b in bullets:
-            parts.append(f"<li>{_esc(b)}</li>")
+            step += 1
+            parts.append(f'<li class="step-item" data-step="{step}">{_esc(b)}</li>')
         parts.append("</ul>")
     parts.append("</div>")
     return "".join(parts)
@@ -498,8 +517,10 @@ def _render_grid(content: dict) -> str:
     parts.append('<div class="grid-box">')
     # Use columns if provided, otherwise split bullets into 4 boxes
     items = cols if cols else [{"heading": f"Item {i+1}", "items": [b]} for i, b in enumerate(bullets[:4])]
+    step = 0
     for item in items:
-        parts.append(f'<div class="card">')
+        step += 1
+        parts.append(f'<div class="card step-item" data-step="{step}">')
         parts.append(f'<h3>{_esc(item.get("heading", ""))}</h3>')
         for sub in item.get("items", []):
             parts.append(f'<p class="body-text">{_esc(sub)}</p>')
@@ -526,13 +547,23 @@ def _render_content(content: dict) -> str:
     parts = ['<div class="slide-content">']
     parts.append(f'<div class="content-title"><h2>{_esc(title)}</h2></div>')
     parts.append('<div class="content-body">')
+    step = 0
     if quote:
-        parts.append(f'<blockquote><p>"{_esc(quote.get("text", ""))}"</p>')
-        parts.append(f'<cite>— {_esc(quote.get("source", ""))}</cite></blockquote>')
+        qtext = quote.get("text", "")
+        qsrc = quote.get("source", "")
+        parts.append('<blockquote>')
+        if qtext:
+            step += 1
+            parts.append(f'<p class="step-item" data-step="{step}">&quot;{_esc(qtext)}&quot;</p>')
+        if qsrc:
+            step += 1
+            parts.append(f'<cite class="step-item" data-step="{step}">— {_esc(qsrc)}</cite>')
+        parts.append('</blockquote>')
     if bullets:
         parts.append("<ul>")
         for b in bullets:
-            parts.append(f"<li>{_esc(b)}</li>")
+            step += 1
+            parts.append(f'<li class="step-item" data-step="{step}">{_esc(b)}</li>')
         parts.append("</ul>")
     parts.append("</div></div>")
     return "".join(parts)
@@ -545,19 +576,23 @@ def _render_two_column(content: dict) -> str:
     parts = ['<div class="slide-content">']
     parts.append(f'<h2>{_esc(title)}</h2>')
     parts.append('<div class="two-col-grid">')
+    step = 0
     if columns:
         for col in columns:
-            parts.append(f'<div class="col"><h3>{_esc(col.get("heading", ""))}</h3><ul>')
+            step += 1
+            parts.append(f'<div class="col step-item" data-step="{step}"><h3>{_esc(col.get("heading", ""))}</h3><ul>')
             for item in col.get("items", []):
                 parts.append(f"<li>{_esc(item)}</li>")
             parts.append("</ul></div>")
     else:
         mid = len(bullets) // 2
-        parts.append('<div class="col"><ul>')
+        step += 1
+        parts.append(f'<div class="col step-item" data-step="{step}"><ul>')
         for b in bullets[:mid]:
             parts.append(f"<li>{_esc(b)}</li>")
         parts.append("</ul></div>")
-        parts.append('<div class="col"><ul>')
+        step += 1
+        parts.append(f'<div class="col step-item" data-step="{step}"><ul>')
         for b in bullets[mid:]:
             parts.append(f"<li>{_esc(b)}</li>")
         parts.append("</ul></div>")
@@ -571,8 +606,10 @@ def _render_stat_card(content: dict) -> str:
     parts = ['<div class="slide-content">']
     parts.append(f'<h2>{_esc(title)}</h2>')
     parts.append('<div class="stat-grid">')
+    step = 0
     for stat in stats:
-        parts.append(f'<div class="stat"><div class="stat-value">{_esc(stat.get("value", ""))}</div>')
+        step += 1
+        parts.append(f'<div class="stat step-item" data-step="{step}"><div class="stat-value">{_esc(stat.get("value", ""))}</div>')
         parts.append(f'<div class="stat-label">{_esc(stat.get("label", ""))}</div></div>')
     parts.append("</div></div>")
     return "".join(parts)
@@ -584,11 +621,13 @@ def _render_timeline(content: dict) -> str:
     parts = ['<div class="slide-content">']
     parts.append(f'<h2>{_esc(title)}</h2>')
     parts.append('<div class="timeline">')
-    for step in steps:
-        num = step.get("number", 1)
-        parts.append(f'<div class="step"><div class="step-num">{num}</div><div class="step-text">')
-        parts.append(f'<h3>{_esc(step.get("title", ""))}</h3>')
-        parts.append(f'<p>{_esc(step.get("description", ""))}</p>')
+    step = 0
+    for s in steps:
+        step += 1
+        num = s.get("number", 1)
+        parts.append(f'<div class="step step-item" data-step="{step}"><div class="step-num">{num}</div><div class="step-text">')
+        parts.append(f'<h3>{_esc(s.get("title", ""))}</h3>')
+        parts.append(f'<p>{_esc(s.get("description", ""))}</p>')
         parts.append("</div></div>")
     parts.append("</div></div>")
     return "".join(parts)
@@ -601,11 +640,13 @@ def _render_comparison(content: dict) -> str:
     parts = ['<div class="slide-content">']
     parts.append(f'<h2>{_esc(title)}</h2>')
     parts.append('<div class="two-col-grid" style="flex:1;gap:var(--space-lg)">')
+    step = 0
     for i, col in enumerate(columns):
+        step += 1
         is_winner = i == 0
         extra_style = 'border:2px solid var(--accent);' if is_winner else ''
         badge = '<div style="color:var(--accent);font-weight:700;font-size:var(--fs-caption);text-transform:uppercase;margin-bottom:var(--space-xs)">✓ Recommended</div>' if is_winner else ''
-        parts.append(f'<div class="card" style="{extra_style}">{badge}')
+        parts.append(f'<div class="card step-item" data-step="{step}" style="{extra_style}">{badge}')
         parts.append(f'<h3>{_esc(col.get("heading", ""))}</h3><ul>')
         for item in col.get("items", []):
             parts.append(f"<li>{_esc(item)}</li>")
@@ -623,8 +664,15 @@ def _render_quote(content: dict) -> str:
         parts.append(f'<h2 style="margin-bottom:var(--space-lg)">{_esc(title)}</h2>')
     if quote:
         parts.append(f'<blockquote style="font-size:calc(var(--fs-h2) * 1.2);line-height:1.4;color:var(--text-p);font-weight:500;max-width:80%;margin:0 auto var(--space-lg)">')
-        parts.append(f'<p style="position:relative">&#x201C;{_esc(quote.get("text", ""))}&#x201D;</p>')
-        parts.append(f'<cite style="font-size:var(--fs-body);color:var(--text-s);font-style:normal;margin-top:var(--space-md);display:block">— {_esc(quote.get("source", ""))}</cite>')
+        step = 0
+        qtext = quote.get("text", "")
+        qsrc = quote.get("source", "")
+        if qtext:
+            step += 1
+            parts.append(f'<p class="step-item" data-step="{step}" style="position:relative">&#x201C;{_esc(qtext)}&#x201D;</p>')
+        if qsrc:
+            step += 1
+            parts.append(f'<cite class="step-item" data-step="{step}" style="font-size:var(--fs-body);color:var(--text-s);font-style:normal;margin-top:var(--space-md);display:block">— {_esc(qsrc)}</cite>')
         parts.append('</blockquote>')
     parts.append("</div>")
     return "".join(parts)
@@ -639,12 +687,14 @@ def _render_team(content: dict) -> str:
     parts.append(f'<h2>{_esc(title)}</h2>')
     parts.append('<div class="card-grid" style="flex:1">')
     items = columns if columns else [{"heading": f"Member {i+1}", "items": [m]} for i, m in enumerate(members[:6])]
+    step = 0
     for item in items:
+        step += 1
         name = item.get("heading", "")
         roles = item.get("items", [])
         # Avatar placeholder (initials)
         initials = "".join([w[0] for w in name.split()[:2]]) if name else "?"
-        parts.append(f'<div class="card" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-lg)">')
+        parts.append(f'<div class="card step-item" data-step="{step}" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-lg)">')
         parts.append(f'<div style="width:64px;height:64px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;margin-bottom:var(--space-sm)">{_esc(initials)}</div>')
         parts.append(f'<h3 style="margin-bottom:4px">{_esc(name)}</h3>')
         for role in roles:
@@ -663,10 +713,12 @@ def _render_process_flow(content: dict) -> str:
     parts = ['<div class="slide-content">']
     parts.append(f'<h2>{_esc(title)}</h2>')
     parts.append('<div class="card-grid" style="flex:1;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));position:relative">')
+    _step = 0
     for i, item in enumerate(items):
+        _step += 1
         heading = item.get("heading", f"Step {i+1}")
         desc = item.get("items", [""])[0] if item.get("items") else ""
-        parts.append(f'<div class="card" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-lg);position:relative">')
+        parts.append(f'<div class="card step-item" data-step="{_step}" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-lg);position:relative">')
         parts.append(f'<div style="width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:var(--space-sm)">{i+1}</div>')
         parts.append(f'<h3 style="font-size:var(--fs-h3);margin-bottom:4px">{_esc(heading)}</h3>')
         parts.append(f'<p class="body-text">{_esc(desc)}</p>')
