@@ -242,7 +242,7 @@
       "layout": "card-list",
       "hasBg": true,
       "hasDarkBg": false,
-      "pass": false,
+      "pass": true,
       "checks": [
         {
           "text": "10 大模組（一）：病人體驗與臨床智慧",
@@ -259,56 +259,56 @@
           "text": "LINE 智慧客服：耀聖網路掛號有限，病人仍依賴電話。Hermes LINE A",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "AI 病歷助手：病歷手打無結構化。Hermes 語音即轉結構化 SOAP 摘要。",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "療程管理引擎：療程追蹤靠人工。Hermes 組合定價 + 自動追蹤 + LINE",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "經營儀表板：報表手動拉。Hermes 即時營收、來客、轉換儀表板。效益：老闆隨時",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "病人分群 CRM：資料難分群。Hermes 自動標籤 + 精準 LINE 推播。",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         }
       ]
     },
@@ -317,7 +317,7 @@
       "layout": "card-list",
       "hasBg": true,
       "hasDarkBg": false,
-      "pass": false,
+      "pass": true,
       "checks": [
         {
           "text": "10 大模組（二）：經營運營與治理合規",
@@ -334,56 +334,56 @@
           "text": "庫存智能預警：庫存靠人工盯。Hermes 用量預測 + 效期警示 + 建議採購。",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "多院區同步：安生伊萊資料獨立。Hermes 統一中台即時同步。效益：跨院一致體驗",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "異常事件追蹤：客訴靠 LINE 文字。Hermes 結構化紀錄 + 稽核軌跡。效",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "智慧排班：班表人工排。Hermes 需求預測 + 智能排班。效益：人力效率提升，",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "表單數位化：紙本或基本電子。Hermes LINE 填寫 + 自動歸檔。效益：行",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         }
       ]
     },
@@ -711,45 +711,45 @@
           "text": "健保申報與法規合規穩固",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "雲端電子病歷基礎完善",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "核心看診流程可靠",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "既有服務團隊支援",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "Hermes 補足價值",
@@ -766,45 +766,45 @@
           "text": "LINE 24hr 智慧病人體驗",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "AI 結構化病歷與分析",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "即時經營儀表板與預測",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "text": "API 無縫雙向同步",
           "tag": "LI",
           "inCard": true,
-          "color": "rgba(255, 255, 255, 0.9)",
+          "color": "rgb(44, 37, 34)",
           "bgColor": "rgb(255, 255, 255)",
-          "ratio": 1,
+          "ratio": 15.06,
           "required": 4.5,
           "hasShadow": true,
-          "status": "FAIL"
+          "status": "PASS"
         }
       ]
     },

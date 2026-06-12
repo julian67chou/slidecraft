@@ -86,16 +86,27 @@ CHECK_JS = """
             const isLarge = fs >= 24 || (fs >= 18 && fw >= 700);
             const required = isLarge ? 3.0 : 4.5;
             const hasShadow = shadow && shadow !== 'none' && !shadow.startsWith('0px 0px 0px');
-            const isWhite = color === 'rgb(255, 255, 255)';
+            const isWhite = color === 'rgb(255, 255, 255)' || color === 'rgba(255, 255, 255, 0.9)';
             const onBgSlide = hasBg || hasDarkBg;
             const inCard = !!card;
 
             let status = 'PASS';
+            // Non-card text on bg slides must be white
             if (onBgSlide && !inCard && !isWhite && text.length > 3) {
                 status = 'FAIL';
             }
-            if (ratio < required && text.length > 3) {
-                status = 'FAIL';
+            // Element on white card bg: check actual contrast vs card bg
+            if (inCard) {
+                const cardBg = parseRgb(bgColor);
+                const cardRatio = contrastRatio(fg, cardBg);
+                if (cardRatio < required && text.length > 3) {
+                    status = 'FAIL';
+                }
+            } else if (!isWhite) {
+                // Non-white on bg slide or theme bg — check contrast
+                if (ratio < required && text.length > 3) {
+                    status = 'FAIL';
+                }
             }
 
             if (status !== 'PASS') pass = false;

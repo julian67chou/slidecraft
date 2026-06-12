@@ -121,12 +121,13 @@ section.slide .slide-content {
    ──────────────────────────────────────────────────────────────────────── */
 
 /* White text for all non-card text on bg slides — descendant selectors
-   cover nested content-body, text-side, and direct children. */
+   cover nested content-body, text-side, and direct children.
+   Cards (.card) are explicitly EXCLUDED — they have white surface bg
+   and keep theme text colors. */
 section.slide[data-has-bg] .slide-content h1,
 section.slide[data-has-bg] .slide-content h2,
 section.slide[data-has-bg] .slide-content h3,
 section.slide[data-has-bg] .slide-content .subtitle,
-section.slide[data-has-bg] .slide-content ul,
 section.slide[data-has-bg] .slide-content p,
 section.slide[data-has-bg] .slide-content blockquote,
 section.slide[data-has-bg] .slide-content .content-title h2,
@@ -143,7 +144,6 @@ section.slide[data-has-dark-bg] .slide-content h1,
 section.slide[data-has-dark-bg] .slide-content h2,
 section.slide[data-has-dark-bg] .slide-content h3,
 section.slide[data-has-dark-bg] .slide-content .subtitle,
-section.slide[data-has-dark-bg] .slide-content ul,
 section.slide[data-has-dark-bg] .slide-content p,
 section.slide[data-has-dark-bg] .slide-content blockquote,
 section.slide[data-has-dark-bg] .slide-content .content-title h2,
@@ -158,10 +158,8 @@ section.slide[data-has-dark-bg] .text-side p,
 section.slide[data-has-dark-bg] .text-side li {
     color: #fff;
 }
-section.slide[data-has-bg] .slide-content ul li,
 section.slide[data-has-bg] .slide-content .content-body li,
 section.slide[data-has-bg] .text-side ul li,
-section.slide[data-has-dark-bg] .slide-content ul li,
 section.slide[data-has-dark-bg] .slide-content .content-body li,
 section.slide[data-has-dark-bg] .text-side ul li {
     color: rgba(255,255,255,0.9);
