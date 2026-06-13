@@ -46,14 +46,14 @@
         "visual": {
           "type": "photo",
           "position": "full-bleed-background",
-          "path": "/tmp/ppt-images/bg01-cover.jpg",
+          "path": null,
           "overlay": "dark-cyan-tech"
         },
         "extra": {}
       },
       "speaker_notes": "開場：介紹從哲學思想實驗到現代神經科學與 AI 理論的演進脈絡。強調這不僅是技術問題，更是定義人類自身的問題。",
       "background_override": null,
-      "background_image": "/tmp/ppt-images/bg01-cover.jpg"
+      "background_image": "images/ai-consciousness/slide_01_bg.jpg"
     },
     {
       "id": "s02",
@@ -76,14 +76,14 @@
         "visual": {
           "type": "photo",
           "position": "full-bleed-background",
-          "path": "/tmp/ppt-images/bg02-philosophy.jpg",
+          "path": null,
           "overlay": "dark"
         },
         "extra": {}
       },
       "speaker_notes": "哲學層面挑戰我們對「理解」與「體驗」的預設。這些思想實驗至今仍是 AI 意識討論的起點。",
       "background_override": null,
-      "background_image": "/tmp/ppt-images/bg02-philosophy.jpg"
+      "background_image": "images/ai-consciousness/slide_02_bg.jpg"
     },
     {
       "id": "s03",
@@ -106,14 +106,14 @@
         "visual": {
           "type": "photo",
           "position": "full-bleed-background",
-          "path": "/tmp/ppt-images/bg03-science.jpg",
+          "path": null,
           "overlay": "dark"
         },
         "extra": {}
       },
       "speaker_notes": "這些理論提供可操作的計算指標。AI 研究正嘗試在架構中實作類似機制。",
       "background_override": null,
-      "background_image": "/tmp/ppt-images/bg03-science.jpg"
+      "background_image": "images/ai-consciousness/slide_03_bg.jpg"
     },
     {
       "id": "s04",
@@ -139,14 +139,14 @@
         "visual": {
           "type": "photo",
           "position": "full-bleed-background",
-          "path": "/tmp/ppt-images/bg04-ai-status.jpg",
+          "path": null,
           "overlay": "dark"
         },
         "extra": {}
       },
       "speaker_notes": "重點強調：不是簡單的「有或沒有」，而是根據多理論指標進行證據匯聚評估。避免過度擬人化或過度懷疑。",
       "background_override": null,
-      "background_image": "/tmp/ppt-images/bg04-ai-status.jpg"
+      "background_image": "images/ai-consciousness/slide_04_bg.jpg"
     },
     {
       "id": "s05",
@@ -169,17 +169,16 @@
         "visual": {
           "type": "photo",
           "position": "full-bleed-background",
-          "path": "/tmp/ppt-images/bg05-closing.jpg",
+          "path": null,
           "overlay": "dark"
         },
         "extra": {}
       },
       "speaker_notes": "結尾留白：邀請觀眾思考定義問題本身比單一答案更重要。開放提問與討論。",
       "background_override": null,
-      "background_image": "/tmp/ppt-images/bg05-closing.jpg"
+      "background_image": "images/ai-consciousness/slide_05_bg.jpg"
     }
   ],
   "source_prompt": "小彌：幫我做一份 5 頁簡報，主題「AI 意識分析」，用 SlideCraft DeckSpec 格式。從哲學、科學、技術三個角度探討 AI 是否可能擁有意識。配色深色科技冷調青色。背景用 photorealistic Grok Draw 生成。",
   "generated_at": "2026-06-13T14:32:11.895700+00:00"
-} 
- 
+}
