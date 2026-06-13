@@ -43,8 +43,8 @@ jobs:
           if [ -n "${{ github.event.inputs.spec }}" ]; then
             echo "spec=${{ github.event.inputs.spec }}" >> $GITHUB_OUTPUT
           else
-            # Find the most recently changed .json in deckspec/ or templates/
-            LATEST=$(find deckspec templates -name '*.json' -not -name '_skeleton.json' -not -name 'README.md' -printf '%T@ %p\n' 2>/dev/null | sort -rn | head -1 | awk '{print $2}')
+            # Find the most recently changed .json in deckspec/ or templates/ (by git history, not filesystem mtime)
+            LATEST=$(git log --name-only --pretty=format: -10 -- 'deckspec/*.json' 'templates/*.json' | grep '\.json$' | grep -v '_skeleton\|README' | head -1)
             if [ -n "$LATEST" ]; then
               echo "spec=$LATEST" >> $GITHUB_OUTPUT
             else
@@ -57,7 +57,7 @@ jobs:
         run: |
           SPEC="${{ steps.find-spec.outputs.spec }}"
           echo "Rendering: $SPEC"
-          python cli/main.py --spec "$SPEC" --external --output-dir output/
+          python cli/main.py --spec "$SPEC" --external
           echo "Output files:"
           ls -la output/*.html 2>/dev/null || echo "No HTML output"
 
