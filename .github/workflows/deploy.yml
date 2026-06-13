@@ -8,6 +8,7 @@ on:
       - 'templates/*.json'
       - 'renderers/**'
       - 'design-tokens/**'
+      - 'scripts/*'
       - '.github/workflows/*'
   workflow_dispatch:
     inputs:
