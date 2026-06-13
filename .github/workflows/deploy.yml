@@ -32,6 +32,10 @@ jobs:
           pip install -r requirements.txt 2>/dev/null || true
           pip install pyyaml jinja2 2>/dev/null || true
 
+      - name: Install Playwright browsers
+        run: |
+          python -m playwright install chromium --with-deps 2>/dev/null || true
+
       - name: Find DeckSpec to render
         id: find-spec
         run: |
@@ -55,6 +59,20 @@ jobs:
           python cli/main.py --spec "$SPEC" --external --output-dir output/
           echo "Output files:"
           ls -la output/*.html 2>/dev/null || echo "No HTML output"
+
+      - name: Verify Deck Quality
+        if: steps.find-spec.outputs.spec != ''
+        run: |
+          for html in output/*.html; do
+            echo "=== Verifying: $html ==="
+            python scripts/verify-deck.py --html "$html" --ci --report "verify-output/$(basename $html .html).json"
+            RC=$?
+            if [ $RC -ne 0 ]; then
+              echo "❌ Verification FAILED for $html"
+              exit $RC
+            fi
+            echo "✅ Verification PASSED for $html"
+          done
 
       - name: Deploy to GitHub Pages
         if: steps.find-spec.outputs.spec != ''

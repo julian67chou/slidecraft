@@ -6,3 +6,6 @@ output/*.html
 output/*.pptx
 output/*.json
 output/*_images/
+
+# Verification outputs
+verify-output/
