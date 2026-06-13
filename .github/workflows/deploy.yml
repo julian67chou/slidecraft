@@ -48,7 +48,7 @@ jobs:
               echo "spec=$LATEST" >> $GITHUB_OUTPUT
             else
               echo "spec=" >> $GITHUB_OUTPUT
-            }
+            fi
           fi
 
       - name: Render DeckSpec
