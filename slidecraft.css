@@ -459,16 +459,27 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
     background: rgba(0,0,0,0.55);
 }
 
-/* Single column for grids */
+/* Single column for grids (cards, two-col → compact single) */
 .slide.compact .layout-card-list .card-grid,
 .slide.compact .layout-grid .grid-box {
     grid-template-columns: 1fr !important;
 }
-.slide.compact .layout-two-column .two-col-grid,
-.slide.compact .layout-stat-card .stat-grid,
-.slide.compact .two-col-grid {
+/* Stat-grid: use 2 columns on compact (can't fit 14+ stats in 1 column) */
+.slide.compact .layout-two-column .two-col-grid {
     grid-template-columns: 1fr !important;
     gap: var(--space-sm);
+}
+.slide.compact .layout-stat-card .stat-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px;
+}
+/* Enable vertical scroll inside compact slides that overflow */
+.slide.compact {
+    overflow-y: auto !important;
+}
+.slide-wrapper section.slide.compact .slide-content {
+    overflow-y: auto;
+    flex: 1;
 }
 
 /* Hide absolute connectors on narrow */
