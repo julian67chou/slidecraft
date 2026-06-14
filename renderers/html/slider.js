@@ -94,7 +94,8 @@
         var useW = avail;
         var useH = Math.round(useW * aspect);
         curSlide.style.width = useW + 'px';
-        curSlide.style.height = useH + 'px';
+        // NO fixed height — let content determine it naturally
+        curSlide.style.height = '';
         curSlide.style.transform = 'none';
         curWrap.style.setProperty('--slide-scale', '1');
         curWrap.style.marginTop = '0px';

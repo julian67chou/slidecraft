@@ -501,12 +501,17 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
 
 /* Additional compact tweaks for presentation wrappers (from nav styles) */
 .slide-wrapper section.slide.compact {
+    height: auto !important;
+    min-height: 100dvh;
     border-radius: 0;
     box-shadow: none;
     margin: 0 auto;
+    overflow: visible;
 }
 .slide-wrapper section.slide.compact .slide-content {
     padding: 14px 16px;
+    height: auto;
+    overflow: visible;
 }
 
 /* ─── Build Step Animations ─── */
