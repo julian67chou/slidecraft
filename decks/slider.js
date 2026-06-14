@@ -1,0 +1,457 @@
+/**
+ * SlideCraft Slider — runtime for slide navigation
+ * 
+ * Features:
+ * - Keyboard: ← → ↑ ↓ Space Home End F S
+ * - Mouse wheel / click on nav area
+ * - Fullscreen (F key)
+ * - Presenter mode (S key): notes + next slide preview + timer
+ * - Slide counter + progress bar
+ * - CSS transitions
+ * - Touch/swipe support (mobile)
+ * - Mobile-responsive: compact intrinsic mode on narrow screens (real box width + reflowing grids, stacked layouts, clamped text). Desktop uses scale-to-fit for design fidelity.
+ */
+(function() {
+  'use strict';
+
+  const deck = document.querySelector('.deck');
+  if (!deck) return;
+
+  const wrappers = deck.querySelectorAll('.slide-wrapper');
+  if (wrappers.length === 0) return;
+  const slides = deck.querySelectorAll('section.slide');
+
+  const SLIDE_W = 1280;
+  const SLIDE_H = 720;
+
+  let current = 0;
+  let presenterWindow = null;
+  let fullscreen = false;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartTime = 0;
+  let isMobile = false;
+  let rafPending = false;
+
+  // ── UI Elements ──────────────────────────────────────────────────
+
+  const nav = document.createElement('div');
+  nav.className = 'gamma-nav';
+  nav.innerHTML = [
+    '<div class="gamma-progress"><div class="gamma-progress-bar"></div></div>',
+    '<div class="gamma-counter"></div>',
+    '<div class="gamma-arrows">',
+    '  <button class="gamma-arrow gamma-prev" title="Previous (←)">‹</button>',
+    '  <button class="gamma-arrow gamma-next" title="Next (→)">›</button>',
+    '</div>',
+  ].join('');
+  document.body.appendChild(nav);
+
+  const progressBar = nav.querySelector('.gamma-progress-bar');
+  const counter = nav.querySelector('.gamma-counter');
+
+  // ── Responsive Fit ──────────────────────────────────────────────
+
+  var COMPACT_MAX_W = 620;
+  var COMPACT_MIN_W = 300;
+  var COMPACT_THRESHOLD = 540;
+
+  function resetSlideSizing(slideEl) {
+    if (!slideEl) return;
+    slideEl.classList.remove('compact');
+    slideEl.style.width = '';
+    slideEl.style.height = '';
+    slideEl.style.transform = '';
+    slideEl.style.transformOrigin = '';
+  }
+
+  function applyCurrentSizing() {
+    try {
+      var vw = window.innerWidth;
+      var curWrap = wrappers[current];
+      var curSlide = slides[current];
+      if (!curWrap || !curSlide) return;
+
+      // Reset the CURRENT slide clean before applying new sizing
+      curSlide.classList.remove('compact');
+      curSlide.style.width = '';
+      curSlide.style.height = '';
+      curSlide.style.transform = '';
+      curSlide.style.transformOrigin = '';
+
+      var padX = isMobile ? 10 : 32;
+      var padY = isMobile ? 0 : 80;
+      var scaleX = (vw - padX) / SLIDE_W;
+      var scaleY = (window.innerHeight - padY) / SLIDE_H;
+      var scale = Math.min(1, Math.max(0.2, Math.min(scaleX, scaleY)));
+      var effectiveW = SLIDE_W * scale;
+      var useCompact = isMobile || effectiveW < COMPACT_THRESHOLD;
+
+      if (useCompact) {
+        curSlide.classList.add('compact');
+        var avail = Math.max(COMPACT_MIN_W, Math.min(vw - (isMobile ? 8 : 20), COMPACT_MAX_W));
+        var aspect = SLIDE_H / SLIDE_W;
+        var useW = avail;
+        var useH = Math.round(useW * aspect);
+        curSlide.style.width = useW + 'px';
+        curSlide.style.height = useH + 'px';
+        curSlide.style.transform = 'none';
+        curWrap.style.setProperty('--slide-scale', '1');
+        curWrap.style.marginTop = '0px';
+      } else {
+        curWrap.style.setProperty('--slide-scale', scale);
+        var wrapperH = SLIDE_H * scale;
+        curWrap.style.marginTop = Math.max(0, (window.innerHeight - wrapperH) / 2) + 'px';
+      }
+    } catch (e) {
+      console.warn('SlideCraft sizing error:', e);
+    }
+  }
+
+  function fitSlides() {
+    rafPending = true;
+    requestAnimationFrame(function() {
+      rafPending = false;
+      var vw = window.innerWidth;
+      isMobile = vw < 800;
+
+      for (var i = 0; i < wrappers.length; i++) {
+        wrappers[i].style.display = (i === current) ? 'flex' : 'none';
+        wrappers[i].style.justifyContent = 'center';
+        wrappers[i].style.alignItems = 'center';
+      }
+
+      document.body.style.padding = '0';
+      document.body.style.overflow = isMobile ? '' : 'hidden';
+
+      applyCurrentSizing();
+      nav.style.bottom = '0';
+    });
+  }
+
+  function fitSlidesNow() {
+    var vw = window.innerWidth;
+    isMobile = vw < 800;
+
+    for (var i = 0; i < wrappers.length; i++) {
+      wrappers[i].style.display = (i === current) ? 'flex' : 'none';
+      wrappers[i].style.justifyContent = 'center';
+      wrappers[i].style.alignItems = 'center';
+    }
+
+    document.body.style.padding = '0';
+    document.body.style.overflow = isMobile ? '' : 'hidden';
+
+    applyCurrentSizing();
+    nav.style.bottom = '0';
+  }
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function() {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fitSlides, 100);
+  });
+
+  // ── Build Steps (data-step driven, speaker-paced reveal within slide) ──
+  // All .step-item start hidden (CSS). Only .step-visible makes them appear.
+  // Navigation (next/prev, keys, taps) advances steps first; only after last step
+  // does it change to another slide. On slide change, steps reset to 0.
+
+  function getStepItems(slide) {
+    if (!slide) return [];
+    return Array.from(slide.querySelectorAll('.step-item[data-step]'))
+      .sort(function(a, b) {
+        return (parseInt(a.dataset.step, 10) || 0) - (parseInt(b.dataset.step, 10) || 0);
+      });
+  }
+
+  function resetBuildSteps(slide) {
+    if (!slide) return;
+    var items = slide.querySelectorAll('.step-item');
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.remove('step-visible');
+    }
+  }
+
+  function getMaxBuildStep(slide) {
+    var items = getStepItems(slide);
+    var max = 0;
+    for (var i = 0; i < items.length; i++) {
+      var s = parseInt(items[i].dataset.step, 10) || 0;
+      if (s > max) max = s;
+    }
+    return max;
+  }
+
+  function getVisibleBuildStep(slide) {
+    var items = slide.querySelectorAll('.step-item.step-visible[data-step]');
+    var max = 0;
+    for (var i = 0; i < items.length; i++) {
+      var s = parseInt(items[i].dataset.step, 10) || 0;
+      if (s > max) max = s;
+    }
+    return max;
+  }
+
+  function setBuildStep(slide, targetStep) {
+    if (!slide) return;
+    var items = slide.querySelectorAll('.step-item[data-step]');
+    for (var i = 0; i < items.length; i++) {
+      var s = parseInt(items[i].dataset.step, 10) || 0;
+      if (s <= targetStep && targetStep > 0) {
+        items[i].classList.add('step-visible');
+      } else {
+        items[i].classList.remove('step-visible');
+      }
+    }
+  }
+
+  function advanceBuildStep(slide) {
+    var max = getMaxBuildStep(slide);
+    if (max <= 0) return false;
+    var curr = getVisibleBuildStep(slide);
+    if (curr >= max) return false;
+    setBuildStep(slide, curr + 1);
+    return true;
+  }
+
+  function rewindBuildStep(slide) {
+    var curr = getVisibleBuildStep(slide);
+    if (curr <= 0) return false;
+    setBuildStep(slide, curr - 1);
+    return true;
+  }
+
+  // ── Navigation ───────────────────────────────────────────────────
+
+  function goTo(index) {
+    var target = Math.max(0, Math.min(index, slides.length - 1));
+    if (target === current) return;
+
+    // Reset steps on the slide we are leaving (design: reset step to 0 on slide change)
+    resetBuildSteps(slides[current]);
+
+    slides[current].classList.remove('slide-active');
+    slides[current].classList.add('slide-exit');
+    
+    // New slide always starts at build-step 0 (all step-items hidden)
+    resetBuildSteps(slides[target]);
+    slides[target].classList.remove('slide-exit');
+    slides[target].classList.add('slide-active');
+    current = target;
+    updateUI();
+    
+    for (var i = 0; i < wrappers.length; i++) {
+      wrappers[i].style.display = (i === current) ? 'flex' : 'none';
+    }
+    fitSlidesNow();
+  }
+
+  function goNext() {
+    var curSlide = slides[current];
+    if (advanceBuildStep(curSlide)) {
+      // Revealed next build step within this slide (speaker controls pace).
+      // Do not advance slide until all steps on current are shown.
+      if (presenterWindow && !presenterWindow.closed) {
+        updatePresenter();
+      }
+      return;
+    }
+    goTo(current + 1);
+  }
+  function goPrev() {
+    var curSlide = slides[current];
+    if (rewindBuildStep(curSlide)) {
+      if (presenterWindow && !presenterWindow.closed) {
+        updatePresenter();
+      }
+      return;
+    }
+    goTo(current - 1);
+  }
+
+  // ── UI Update ────────────────────────────────────────────────────
+
+  function updateUI() {
+    var pct = ((current + 1) / slides.length) * 100;
+    progressBar.style.width = pct + '%';
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+
+    if (presenterWindow && !presenterWindow.closed) {
+      updatePresenter();
+    }
+  }
+
+  // ── Keyboard ─────────────────────────────────────────────────────
+
+  document.addEventListener('keydown', function(e) {
+    if (e.target.closest('input, textarea, select, [contenteditable]')) return;
+
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+      case ' ':
+        e.preventDefault();
+        goNext();
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        e.preventDefault();
+        goPrev();
+        break;
+      case 'Home':
+        e.preventDefault();
+        goTo(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        goTo(slides.length - 1);
+        break;
+      case 'f':
+      case 'F':
+        e.preventDefault();
+        toggleFullscreen();
+        break;
+      case 's':
+      case 'S':
+        e.preventDefault();
+        togglePresenter();
+        break;
+    }
+  });
+
+  // ── Mouse Wheel ──────────────────────────────────────────────────
+
+  var wheelTimeout = null;
+  document.addEventListener('wheel', function(e) {
+    if (!e.target.closest('.deck, .gamma-nav')) return;
+    if (wheelTimeout) return;
+    wheelTimeout = setTimeout(function() { wheelTimeout = null; }, 600);
+    if (e.deltaY > 0 || e.deltaX > 0) goNext();
+    else goPrev();
+  }, { passive: true });
+
+  // ── Touch / Swipe ───────────────────────────────────────────────
+
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+    touchStartTime = Date.now();
+  }, { passive: true });
+
+  document.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].screenX - touchStartX;
+    var dy = e.changedTouches[0].screenY - touchStartY;
+    var absDx = Math.abs(dx);
+    var absDy = Math.abs(dy);
+    var dt = Date.now() - touchStartTime;
+    
+    // Skip if the touch was on a nav button — those handle clicks separately.
+    // Otherwise tap + click fire twice and skip slides.
+    if (e.target && e.target.closest && e.target.closest('.gamma-nav')) return;
+    
+    // Tap: go next/prev based on which half was tapped
+    if (absDx < 30 && absDy < 30 && dt < 300) {
+      if (e.changedTouches[0].screenX < window.innerWidth * 0.4) {
+        goPrev();
+      } else if (e.changedTouches[0].screenX > window.innerWidth * 0.6) {
+        goNext();
+      }
+      return;
+    }
+    
+    // Swipe: horizontal only, min 40px
+    if (absDx > 40 && absDx > absDy * 1.5) {
+      if (dx < 0) goNext();
+      else goPrev();
+    }
+  }, { passive: true });
+
+  // ── Fullscreen ──────────────────────────────────────────────────
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(function() {});
+      fullscreen = true;
+    } else {
+      document.exitFullscreen().catch(function() {});
+      fullscreen = false;
+      setTimeout(fitSlides, 200);
+    }
+  }
+
+  // ── Presenter Mode ──────────────────────────────────────────────
+
+  function togglePresenter() {
+    if (presenterWindow && !presenterWindow.closed) {
+      presenterWindow.close();
+      presenterWindow = null;
+      return;
+    }
+    presenterWindow = window.open('', 'gamma-presenter',
+      'width=800,height=600,menubar=no,toolbar=no,location=no,status=no');
+    if (presenterWindow) {
+      presenterWindow.document.write(buildPresenterHTML());
+      presenterWindow.document.close();
+      updatePresenter();
+    }
+  }
+
+  function buildPresenterHTML() {
+    return '<!DOCTYPE html>\n<html><head><title>Gamma Presenter</title>\n<style>\n  * { margin: 0; padding: 0; box-sizing: border-box; }\n  body { font-family: system-ui, sans-serif; background: #1a1a1a; color: #eee; padding: 20px; }\n  .container { max-width: 700px; margin: 0 auto; }\n  h1 { font-size: 24px; margin-bottom: 10px; }\n  .timer { font-size: 40px; font-weight: 300; margin-bottom: 20px; font-variant-numeric: tabular-nums; }\n  .current-slide { background: #2a2a2a; border-radius: 8px; padding: 20px; margin-bottom: 16px; }\n  .current-slide h2 { font-size: 18px; color: #888; margin-bottom: 8px; }\n  .current-slide .content { font-size: 24px; line-height: 1.5; }\n  .notes { background: #333; border-radius: 8px; padding: 16px; margin-bottom: 16px; }\n  .notes h2 { font-size: 14px; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }\n  .notes .text { font-size: 18px; line-height: 1.6; color: #ddd; }\n  .next-preview { background: #222; border-radius: 8px; padding: 16px; opacity: 0.7; }\n  .next-preview h2 { font-size: 14px; color: #888; margin-bottom: 6px; text-transform: uppercase; }\n  .next-preview .content { font-size: 16px; color: #aaa; }\n  #start-btn { position: fixed; top: 20px; right: 20px; background: #6C5CE7; color: #fff; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; }\n  #start-btn:hover { background: #5A4BD1; }\n</style></head>\n<body>\n<div class="container">\n  <h1>🎤 Gamma Presenter</h1>\n  <div class="timer" id="timer">00:00</div>\n  <button id="start-btn" onclick="startTimer()">Start Timer</button>\n  <div class="current-slide">\n    <h2>Current Slide</h2>\n    <div class="content" id="current-content">—</div>\n  </div>\n  <div class="notes">\n    <h2>Speaker Notes</h2>\n    <div class="text" id="notes-text">No notes for this slide.</div>\n  </div>\n  <div class="next-preview">\n    <h2>Up Next</h2>\n    <div class="content" id="next-content">—</div>\n  </div>\n</div>\n<'+'script>\n  var startTime = null;\n  var timerInterval = null;\n  function startTimer() {\n    if (timerInterval) return;\n    startTime = Date.now();\n    timerInterval = setInterval(function() {\n      var elapsed = Math.floor((Date.now() - startTime) / 1000);\n      var m = String(Math.floor(elapsed / 60)).padStart(2, "0");\n      var s = String(elapsed % 60).padStart(2, "0");\n      document.getElementById("timer").textContent = m + ":" + s;\n    }, 500);\n  }\n  window.addEventListener("message", function(e) {\n    var d = e.data;\n    if (d.type === "slide-update") {\n      document.getElementById("current-content").textContent = d.currentTitle || "(No title)";\n      document.getElementById("notes-text").textContent = d.notes || "(No notes)";\n      document.getElementById("next-content").textContent = d.nextTitle || "(End of presentation)";\n    }\n  });\n<'+'/script>\n</body></html>';
+  }
+
+  function updatePresenter() {
+    if (!presenterWindow || presenterWindow.closed) return;
+    var slide = slides[current];
+    var nextSlide = slides[current + 1];
+    var notesEl = slide.querySelector('.notes');
+    
+    presenterWindow.postMessage({
+      type: 'slide-update',
+      currentTitle: (slide.querySelector('h1, h2') || {}).textContent || '(No title)',
+      notes: (notesEl ? notesEl.textContent : '') || '(No notes)',
+      nextTitle: (nextSlide ? nextSlide.querySelector('h1, h2') || {} : {}).textContent || '(End of presentation)'
+    }, '*');
+  }
+
+  // ── Init ─────────────────────────────────────────────────────────
+
+  // Mark first slide as active
+  for (var i = 0; i < slides.length; i++) {
+    if (i === 0) slides[i].classList.add('slide-active');
+    else slides[i].classList.remove('slide-active');
+  }
+
+  // Clean any prior inline sizing
+  for (var s = 0; s < slides.length; s++) resetSlideSizing(slides[s]);
+
+  // Ensure initial slide starts with build steps hidden (step 0)
+  if (slides[0]) resetBuildSteps(slides[0]);
+
+  fitSlides();
+  updateUI();
+
+  // Arrow button listeners
+  nav.querySelector('.gamma-prev').addEventListener('click', function(e) {
+    e.stopPropagation();
+    goPrev();
+  });
+  nav.querySelector('.gamma-next').addEventListener('click', function(e) {
+    e.stopPropagation();
+    goNext();
+  });
+
+  // Styles are now provided by slidecraft.css (gamma-nav, .slide-wrapper, compact overrides, etc.)
+  // This keeps slider.js as pure logic and safe to load via <script src>.
+
+  console.log('SlideCraft Slider loaded. ← → arrows, Home/End, F=fullscreen, S=presenter');
+
+  // ── Orientation Change ──────────────────────────────────────────
+  // On mobile, re-fit when screen rotates
+  if ('orientation' in window) {
+    window.addEventListener('orientationchange', function() {
+      setTimeout(fitSlides, 300);
+    });
+  }
+})();
