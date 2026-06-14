@@ -285,19 +285,29 @@ def verify_deck(html_path: str, ci: bool = False, report_path: str | None = None
                 for s in slide_infos:
                     idx = s["index"]
 
-                    # Force this slide active (bypasses any internal state for reliable testing)
-                    page.evaluate(f"""
-                        (function() {{
-                            const slides = document.querySelectorAll('.slide, section.slide, .deck > section');
-                            slides.forEach(s => s.classList.remove('slide-active'));
-                            const target = slides[{idx}];
-                            if (target) {{
-                                target.classList.add('slide-active');
-                                target.scrollTop = 0;  // reset any internal scroll
-                            }}
-                        }})();
-                    """)
-                    page.wait_for_timeout(280)  # allow CSS transition + layout
+                    # For mobile viewport: use actual slider navigation to trigger compact mode
+                    # (Direct DOM manipulation bypasses the slider's sizing logic)
+                    if vp.get("is_mobile"):
+                        # Navigate to this slide using keyboard (triggers slider.fitSlidesNow)
+                        if idx == 0:
+                            # Already on slide 1, just trigger sizing
+                            page.evaluate("window.dispatchEvent(new Event('resize'));")
+                        else:
+                            # Go to slide 1 first, then advance to target
+                            page.evaluate("""(function() {
+                                const slides = document.querySelectorAll('.slide, section.slide, .deck > section');
+                                slides.forEach(s => s.classList.remove('slide-active'));
+                                if (slides[0]) slides[0].classList.add('slide-active');
+                            })();""")
+                            page.wait_for_timeout(100)
+                            for step in range(idx):
+                                page.keyboard.press('ArrowRight')
+                                page.wait_for_timeout(200)
+                        page.wait_for_timeout(300)  # allow compact sizing to apply
+                    else:
+                        # Desktop: force this slide active (bypasses slider state for reliable testing)
+                        page.evaluate(f"""\n                            (function() {{\n                                const slides = document.querySelectorAll('.slide, section.slide, .deck > section');\n                                slides.forEach(s => s.classList.remove('slide-active'));\n                                const target = slides[{idx}];\n                                if (target) {{\n                                    target.classList.add('slide-active');\n                                    target.scrollTop = 0;\n                                }}\n                            }})();\n                        """)
+                        page.wait_for_timeout(280)
 
                     # === OVERFLOW DETECTION (core requirement) ===
                     overflow = page.evaluate("""
