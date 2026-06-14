@@ -84,3 +84,5 @@ jobs:
           publish_dir: ./output
           destination_dir: ./decks
           keep_files: true
+
+# CI test: verify workflow permissions 1781399556
