@@ -11,9 +11,6 @@
       "id": "s01",
       "order": 1,
       "layout": "cover",
-      "background_image": "output/his-proposal_images/slide_01.jpg",
-      "background_prompt": "Photorealistic image of a modern warm Taiwanese clinic reception area with soft beige and cream tones, friendly nurse at desk, patient using smartphone for LINE booking, warm natural lighting, clean professional environment with subtle wood elements, 16:9 aspect ratio, high detail, suitable for presentation slide background, realistic, no text",
-      "background_override": "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%)",
       "content": {
         "title": "安生診所 × Hermes AI",
         "subtitle": "HIS 智慧升級提案\n補足耀聖，打造 24hr 智慧病人體驗與精準經營",
@@ -36,9 +33,6 @@
       "id": "s02",
       "order": 2,
       "layout": "content",
-      "background_image": "output/his-proposal_images/slide_02.jpg",
-      "background_prompt": "Photorealistic image of a busy Taiwanese clinic reception with receptionist on phone looking overwhelmed, patients waiting, some paper records on desk, warm soft beige lighting, clean but traditional clinic interior, 16:9, high resolution, realistic, suitable for presentation, no text",
-      "background_override": "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%)",
       "content": {
         "title": "耀聖的極限：安生診所的日常挑戰",
         "subtitle": "健保合規穩固，但病人體驗與經營智慧仍有明顯缺口",
@@ -69,9 +63,6 @@
       "id": "s03",
       "order": 3,
       "layout": "stat-card",
-      "background_image": "output/his-proposal_images/slide_03.jpg",
-      "background_prompt": "Photorealistic image of a Taiwanese clinic manager reviewing dashboard on tablet in a warm modern office, soft beige lighting, professional yet friendly atmosphere, 16:9, realistic, high detail for presentation background",
-      "background_override": "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%)",
       "content": {
         "title": "Hermes 補足耀聖的關鍵效益",
         "subtitle": "與耀聖 API 並存，低風險智慧升級",
@@ -111,9 +102,6 @@
       "id": "s04",
       "order": 4,
       "layout": "card-list",
-      "background_image": "output/his-proposal_images/slide_04.jpg",
-      "background_prompt": "Photorealistic image of patients using LINE on phones in a warm Taiwanese clinic waiting area, soft lighting, friendly atmosphere, clean modern clinic with beige tones, 16:9, realistic, suitable for slide",
-      "background_override": "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%)",
       "content": {
         "title": "10 大模組（一）：病人體驗與臨床智慧",
         "subtitle": "耀聖限制 → Hermes 補足 → 診所效益",
@@ -142,9 +130,6 @@
       "id": "s05",
       "order": 5,
       "layout": "card-list",
-      "background_image": "output/his-proposal_images/slide_05.jpg",
-      "background_prompt": "Photorealistic image of clinic staff managing inventory and patient records on computer in warm professional Taiwanese clinic office, soft lighting, organized desk, 16:9, realistic",
-      "background_override": "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%)",
       "content": {
         "title": "10 大模組（二）：經營運營與治理合規",
         "subtitle": "耀聖限制 → Hermes 補足 → 診所效益",
@@ -173,9 +158,6 @@
       "id": "s06",
       "order": 6,
       "layout": "image-text",
-      "background_image": "output/his-proposal_images/slide_06.jpg",
-      "background_prompt": "Clean minimalist infographic diagram of Hermes AI central hub connecting LINE icons, Yao Sheng HIS, unified database, with warm beige teal medical color palette, flat vector style, Traditional Chinese labels for appointments, records, reminders, analytics, 16:9 presentation slide, clear and professional",
-      "background_override": "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%)",
       "content": {
         "title": "Hermes AI 作為中樞",
         "subtitle": "與耀聖 API 無縫整合，資料雙向同步，低風險升級",
@@ -203,9 +185,6 @@
       "id": "s07",
       "order": 7,
       "layout": "process-flow",
-      "background_image": "output/his-proposal_images/slide_07.jpg",
-      "background_prompt": "Photorealistic image of a Taiwanese clinic team in a meeting reviewing a timeline chart on screen, warm professional lighting, collaborative atmosphere, clean clinic office with beige tones, 16:9, realistic",
-      "background_override": "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%)",
       "content": {
         "title": "導入 Roadmap：三階段穩健推進",
         "subtitle": "與耀聖並存，API 整合，逐步見效",
@@ -244,9 +223,6 @@
       "id": "s08",
       "order": 8,
       "layout": "stat-card",
-      "background_image": "output/his-proposal_images/slide_08.jpg",
-      "background_prompt": "Photorealistic image of clinic director looking at positive growth charts on computer in warm office, satisfied expression, soft lighting, professional Taiwanese clinic setting, 16:9, realistic",
-      "background_override": "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%)",
       "content": {
         "title": "預期效益：數據說話",
         "subtitle": "與耀聖並存後的實際改善（估計值，依診所規模調整）",
@@ -290,9 +266,6 @@
       "id": "s09",
       "order": 9,
       "layout": "comparison",
-      "background_image": "output/his-proposal_images/slide_09.jpg",
-      "background_prompt": "Photorealistic image of two modern Taiwanese clinic managers shaking hands in front of computer showing integrated system, warm professional lighting, collaborative and trustworthy atmosphere, 16:9, realistic",
-      "background_override": "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%)",
       "content": {
         "title": "與耀聖並存，API 整合零風險",
         "subtitle": "不是取代，而是智慧升級",
@@ -334,9 +307,6 @@
       "id": "s10",
       "order": 10,
       "layout": "content",
-      "background_image": "output/his-proposal_images/slide_10.jpg",
-      "background_prompt": "Photorealistic image of clinic team in training session with Hermes consultant in warm modern meeting room, collaborative and supportive atmosphere, soft lighting, 16:9, realistic",
-      "background_override": "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%)",
       "content": {
         "title": "導入支援：我們與安生同行",
         "subtitle": "低風險、專業團隊、階段性導入",
@@ -365,9 +335,6 @@
       "id": "s11",
       "order": 11,
       "layout": "content",
-      "background_image": "output/his-proposal_images/slide_11.jpg",
-      "background_prompt": "Photorealistic image of happy Taiwanese clinic staff and patients in a bright warm modern clinic environment, smiling and professional, soft natural lighting, 16:9, realistic, uplifting mood",
-      "background_override": "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%)",
       "content": {
         "title": "安生診所的智慧未來",
         "subtitle": "與耀聖並存，Hermes 讓診所更智慧、更親近病人",
@@ -396,9 +363,6 @@
       "id": "s12",
       "order": 12,
       "layout": "transition",
-      "background_image": "output/his-proposal_images/slide_12.jpg",
-      "background_prompt": "Photorealistic image of a warm modern Taiwanese clinic entrance with welcoming staff, soft golden hour lighting, professional and inviting, 16:9, high resolution, realistic, positive and forward-looking",
-      "background_override": "linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 100%)",
       "content": {
         "title": "下一步行動",
         "subtitle": "與 Hermes 攜手，補足耀聖，開啟安生智慧新篇章",
