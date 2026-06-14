@@ -306,9 +306,8 @@ def verify_deck(html_path: str, ci: bool = False, report_path: str | None = None
                             const content = active.querySelector('.slide-content') || active;
                             const sh = content.scrollHeight || 0;
                             const ch = content.clientHeight || 0;
-                            const tolerance = 80; // mobile tolerance
-                            return {{
-                                overflows: sh > ch + tolerance,
+                            return {
+                                overflows: sh > ch + 3,   // small tolerance for subpixel / border
                                 scrollHeight: sh,
                                 clientHeight: ch
                             };
