@@ -53,6 +53,14 @@ jobs:
             fi
           fi
 
+      - name: Prepare output directory (assets)
+        run: |
+          mkdir -p output
+          cp renderers/html/slidecraft.css output/ 2>/dev/null || true
+          cp renderers/html/slider.js output/ 2>/dev/null || true
+          echo "Assets in output/:"
+          ls -la output/
+
       - name: Render DeckSpec
         if: steps.find-spec.outputs.spec != ''
         run: |
@@ -60,7 +68,7 @@ jobs:
           echo "Rendering: $SPEC"
           python cli/main.py --spec "$SPEC" --external
           echo "Output files:"
-          ls -la output/*.html 2>/dev/null || echo "No HTML output"
+          ls -la output/
 
       - name: Verify Deck Quality
         if: steps.find-spec.outputs.spec != ''
@@ -76,13 +84,10 @@ jobs:
             echo "✅ Verification PASSED for $html"
           done
 
-      - name: Deploy to GitHub Pages
-        if: steps.find-spec.outputs.spec != ''
+      - name: Deploy to GitHub Pages (assets + optional rendered deck)
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./output
           destination_dir: ./decks
           keep_files: true
-
-# CI test: verify workflow permissions 1781399556
