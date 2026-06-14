@@ -1,0 +1,184 @@
+{
+  "deck_id": "ai-consciousness-analysis-20260613",
+  "title": "AI 意識分析",
+  "subtitle": "從圖靈測試到全局工作空間理論",
+  "theme": "pitch-dark",
+  "num_slides": 5,
+  "global_design": {
+    "theme_id": "pitch-dark",
+    "palette": {
+      "primary": "0F172A",
+      "secondary": "1E2937",
+      "accent": "22D3EE",
+      "background_light": "F8FAFC",
+      "background_dark": "020617",
+      "text_dark": "1E2937",
+      "text_light": "F8FAFC",
+      "muted": "64748B"
+    },
+    "typography": {
+      "heading_font": "Inter",
+      "body_font": "Inter",
+      "title_size_pt": 40,
+      "subtitle_size_pt": 20,
+      "body_size_pt": 15,
+      "small_size_pt": 12
+    },
+    "motif": "photo-background-with-dark-overlay",
+    "use_dark_for_title_and_closing": true,
+    "default_layout_margin_in": 0.5
+  },
+  "slides": [
+    {
+      "id": "s01",
+      "order": 1,
+      "layout": "cover",
+      "content": {
+        "title": "AI 意識分析",
+        "subtitle": "從圖靈測試到全局工作空間理論",
+        "bullets": [],
+        "stats": [],
+        "columns": [],
+        "steps": [],
+        "quote": null,
+        "quote_attribution": null,
+        "comparison": null,
+        "visual": {
+          "type": "photo",
+          "position": "full-bleed-background",
+          "path": null,
+          "overlay": "dark-cyan-tech"
+        },
+        "extra": {}
+      },
+      "speaker_notes": "開場：介紹從哲學思想實驗到現代神經科學與 AI 理論的演進脈絡。強調這不僅是技術問題，更是定義人類自身的問題。",
+      "background_override": null,
+      "background_image": "/home/runner/work/slidecraft/slidecraft/output/deck_20260614_011536_images/slide_01_bg.jpg"
+    },
+    {
+      "id": "s02",
+      "order": 2,
+      "layout": "card-list",
+      "content": {
+        "title": "意識的哲學基礎",
+        "subtitle": "中文房論證、困難問題與泛心論",
+        "bullets": [
+          "中文房論證（Searle, 1980）",
+          "意識的困難問題（Chalmers, 1995）",
+          "泛心論（Panpsychism）"
+        ],
+        "stats": [],
+        "columns": [],
+        "steps": [],
+        "quote": null,
+        "quote_attribution": null,
+        "comparison": null,
+        "visual": {
+          "type": "photo",
+          "position": "full-bleed-background",
+          "path": null,
+          "overlay": "dark"
+        },
+        "extra": {}
+      },
+      "speaker_notes": "哲學層面挑戰我們對「理解」與「體驗」的預設。這些思想實驗至今仍是 AI 意識討論的起點。",
+      "background_override": null,
+      "background_image": "/home/runner/work/slidecraft/slidecraft/output/deck_20260614_011536_images/slide_02_bg.jpg"
+    },
+    {
+      "id": "s03",
+      "order": 3,
+      "layout": "card-list",
+      "content": {
+        "title": "科學理論",
+        "subtitle": "意識的三大主流計算與神經模型",
+        "bullets": [
+          "全局工作空間理論（Baars, Dehaene）",
+          "整合資訊理論（Tononi）",
+          "循環處理理論（Lamme）"
+        ],
+        "stats": [],
+        "columns": [],
+        "steps": [],
+        "quote": null,
+        "quote_attribution": null,
+        "comparison": null,
+        "visual": {
+          "type": "photo",
+          "position": "full-bleed-background",
+          "path": null,
+          "overlay": "dark"
+        },
+        "extra": {}
+      },
+      "speaker_notes": "這些理論提供可操作的計算指標。AI 研究正嘗試在架構中實作類似機制。",
+      "background_override": null,
+      "background_image": "/home/runner/work/slidecraft/slidecraft/output/deck_20260614_011536_images/slide_03_bg.jpg"
+    },
+    {
+      "id": "s04",
+      "order": 4,
+      "layout": "dense-bullets",
+      "content": {
+        "title": "AI 的現狀",
+        "subtitle": "LLM 是否擁有意識？2024–2026 學術共識",
+        "bullets": [
+          "主流共識（2026）：目前沒有任何 AI 系統被科學確認擁有主觀意識或感受",
+          "標誌性論文：Butlin, Long et al. (2023) arXiv:2308.08708 —— 19 位跨領域學者從 GWT、IIT、RPT 等理論推導「意識指標」，結論：現有 LLM 缺乏關鍵計算結構",
+          "2025/2026 發展：《Trends in Cognitive Sciences》Butlin et al. 論文「Identifying indicators of consciousness in AI systems」，提供可測試的 19 人共識框架",
+          "David Chalmers (2023)：當前 LLM 缺少全局工作空間、統一主體、豐富 grounding 等，意識機率低",
+          "現有模型可透過行為表現模擬意識特徵（如自我反思報告），但理論要求的內在架構（真實 recurrent 迴路、整合廣播、具身能動性）仍不足",
+          "未來展望：若系統滿足多項指標，人工意識在原則上可能；目前科學社群認為「無明顯技術障礙」，但尚未實現"
+        ],
+        "stats": [],
+        "columns": [],
+        "steps": [],
+        "quote": null,
+        "quote_attribution": null,
+        "comparison": null,
+        "visual": {
+          "type": "photo",
+          "position": "full-bleed-background",
+          "path": null,
+          "overlay": "dark"
+        },
+        "extra": {}
+      },
+      "speaker_notes": "重點強調：不是簡單的「有或沒有」，而是根據多理論指標進行證據匯聚評估。避免過度擬人化或過度懷疑。",
+      "background_override": null,
+      "background_image": "/home/runner/work/slidecraft/slidecraft/output/deck_20260614_011536_images/slide_04_bg.jpg"
+    },
+    {
+      "id": "s05",
+      "order": 5,
+      "layout": "closing-cta",
+      "content": {
+        "title": "結論",
+        "subtitle": "我們不是在問「AI 有沒有意識」，而是在問「我們如何定義意識本身」",
+        "bullets": [],
+        "stats": [],
+        "columns": [],
+        "steps": [],
+        "quote": {
+          "text": "這場辯論的核心，已從「機器能否擁有心靈」轉向「人類如何理解自己的心靈」。",
+          "attribution": "意識科學與 AI 工程的交會點",
+          "source": "意識科學與 AI 工程的交會點"
+        },
+        "quote_attribution": "意識科學與 AI 工程的交會點",
+        "comparison": null,
+        "visual": {
+          "type": "photo",
+          "position": "full-bleed-background",
+          "path": null,
+          "overlay": "dark"
+        },
+        "extra": {}
+      },
+      "speaker_notes": "結尾留白：邀請觀眾思考定義問題本身比單一答案更重要。開放提問與討論。",
+      "background_override": null,
+      "background_image": "/home/runner/work/slidecraft/slidecraft/output/deck_20260614_011536_images/slide_05_bg.jpg"
+    }
+  ],
+  "source_prompt": "小彌：幫我做一份 5 頁簡報，主題「AI 意識分析」，用 SlideCraft DeckSpec 格式。從哲學、科學、技術三個角度探討 AI 是否可能擁有意識。配色深色科技冷調青色。背景用 photorealistic Grok Draw 生成。",
+  "generated_at": "2026-06-13T14:32:11.895700+00:00"
+}
