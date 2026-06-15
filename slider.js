@@ -42,6 +42,7 @@
     '<div class="gamma-counter"></div>',
     '<div class="gamma-arrows">',
     '  <button class="gamma-arrow gamma-prev" title="Previous (←)">‹</button>',
+    '  <button class="gamma-arrow gamma-fs" title="Fullscreen (F)">⛶</button>',
     '  <button class="gamma-arrow gamma-next" title="Next (→)">›</button>',
     '</div>',
   ].join('');
@@ -79,8 +80,8 @@
       curSlide.style.transform = '';
       curSlide.style.transformOrigin = '';
 
-      var padX = isMobile ? 10 : 32;
-      var padY = isMobile ? 0 : 80;
+      var padX = fullscreen ? 0 : (isMobile ? 10 : 32);
+      var padY = fullscreen ? 0 : (isMobile ? 0 : 80);
       var scaleX = (vw - padX) / SLIDE_W;
       var scaleY = (window.innerHeight - padY) / SLIDE_H;
       var scale = Math.min(1, Math.max(0.2, Math.min(scaleX, scaleY)));
@@ -373,6 +374,7 @@
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(function() {});
       fullscreen = true;
+      setTimeout(fitSlides, 200);
     } else {
       document.exitFullscreen().catch(function() {});
       fullscreen = false;
@@ -426,8 +428,8 @@
   // Clean any prior inline sizing
   for (var s = 0; s < slides.length; s++) resetSlideSizing(slides[s]);
 
-  // Ensure initial slide starts with build steps hidden (step 0)
-  if (slides[0]) resetBuildSteps(slides[0]);
+  // Ensure initial slide starts with build step 1 visible (so first slide isn't blank)
+  if (slides[0]) setBuildStep(slides[0], 1);
 
   fitSlides();
   updateUI();
@@ -436,6 +438,10 @@
   nav.querySelector('.gamma-prev').addEventListener('click', function(e) {
     e.stopPropagation();
     goPrev();
+  });
+  nav.querySelector('.gamma-fs').addEventListener('click', function(e) {
+    e.stopPropagation();
+    toggleFullscreen();
   });
   nav.querySelector('.gamma-next').addEventListener('click', function(e) {
     e.stopPropagation();
