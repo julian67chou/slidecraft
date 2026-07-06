@@ -52,13 +52,13 @@ jobs:
           if [ -n "${{ github.event.inputs.spec }}" ]; then
             echo "specs=${{ github.event.inputs.spec }}" >> $GITHUB_OUTPUT
           else
-            # Find ALL recently changed .json specs (not just the latest)
-            CHANGED=$(git log --name-only --pretty=format: -10 -- 'deckspec/*.json' 'templates/*.json' | grep '\\.json$' | grep -v '_skeleton\\|README' | sort -u | tr '\n' ' ')
+            # Find ALL recently changed deck specs (only deckspec/*.json — templates/ are skeletons)
+            CHANGED=$(git log --name-only --pretty=format: -10 -- 'deckspec/*.json' | grep '\.json$' | grep -iv '_skeleton\|readme' | sort -u | tr '\n' ' ')
             if [ -n "$CHANGED" ]; then
               echo "specs=$CHANGED" >> $GITHUB_OUTPUT
             else
-              # Fallback: render all existing specs
-              ALL=$(ls deckspec/*.json templates/*.json 2>/dev/null | grep -v '_skeleton\\|README' | tr '\n' ' ')
+              # Fallback: render all existing specs from deckspec/ only
+              ALL=$(ls deckspec/*.json 2>/dev/null | grep -iv '_skeleton\|readme' | tr '\n' ' ')
               if [ -n "$ALL" ]; then
                 echo "specs=$ALL" >> $GITHUB_OUTPUT
               else
@@ -69,14 +69,11 @@ jobs:
 
       - name: Render all DeckSpecs
         if: steps.find-specs.outputs.specs != ''
+        shell: bash
         run: |
           for SPEC in ${{ steps.find-specs.outputs.specs }}; do
             echo "=== Rendering: $SPEC ==="
-            python cli/main.py --spec "$SPEC" --external
-            RC=$?
-            if [ $RC -ne 0 ]; then
-              echo "⚠️  Render failed for $SPEC (rc=$RC), continuing..."
-            fi
+            python cli/main.py --spec "$SPEC" --external || echo "⚠️  Render failed for $SPEC, continuing..."
           done
           echo "=== All renders complete ==="
           echo "Output files:"
