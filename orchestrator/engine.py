@@ -11,13 +11,13 @@ Flow:
 import json
 import os
 import re
+import shutil
 import yaml
 from pathlib import Path
 from typing import Optional, Union, Any
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from copy import deepcopy
-from pathlib import Path  # ensure Path available (already imported in some contexts)
 
 
 # ─── Project paths ─────────────────────────────────────────────────────
@@ -55,8 +55,12 @@ def _generate_images(slides: list[dict]) -> None:
             print(f"  ⚠️  Slide {s.get('order', '?')} image failed: {e}")
 
     with ThreadPoolExecutor(max_workers=3) as pool:
-        for item in needs_image:
-            gen(item)
+        futures = [pool.submit(gen, item) for item in needs_image]
+        for f in as_completed(futures):
+            try:
+                f.result()
+            except Exception as e:
+                print(f"  ⚠️  Image generation failed: {e}")
 
 
 def _generate_background_image(prompt: str, theme_colors: dict = None) -> str:
@@ -155,13 +159,16 @@ def generate(
             except Exception as e:
                 print(f"  ⚠️  Slide {s.get('order', '?')} background failed: {e}")
         with ThreadPoolExecutor(max_workers=3) as pool:
-            for item in bg_needs:
-                gen_bg(item)
+            futures = [pool.submit(gen_bg, item) for item in bg_needs]
+            for f in as_completed(futures):
+                try:
+                    f.result()
+                except Exception as e:
+                    print(f"  ⚠️  Background generation failed: {e}")
 
     # Copy all image assets (visuals + backgrounds) to output/<name>_images for self-contained delivery
     images_dir = OUTPUT_DIR / f"{output_name}_images"
     images_dir.mkdir(exist_ok=True)
-    import shutil
     for s in slides:
         order = s.get("order", 0)
         # Visual / content image

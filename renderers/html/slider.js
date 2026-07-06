@@ -36,19 +36,19 @@
   // ── UI Elements ──────────────────────────────────────────────────
 
   const nav = document.createElement('div');
-  nav.className = 'gamma-nav';
+  nav.className = 'slidecraft-nav';
   nav.innerHTML = [
-    '<div class="gamma-progress"><div class="gamma-progress-bar"></div></div>',
-    '<div class="gamma-counter"></div>',
-    '<div class="gamma-arrows">',
-    '  <button class="gamma-arrow gamma-prev" title="Previous (←)">‹</button>',
-    '  <button class="gamma-arrow gamma-next" title="Next (→)">›</button>',
+    '<div class="slidecraft-progress"><div class="slidecraft-progress-bar"></div></div>',
+    '<div class="slidecraft-counter"></div>',
+    '<div class="slidecraft-arrows">',
+    '  <button class="slidecraft-arrow slidecraft-prev" title="Previous (←)">‹</button>',
+    '  <button class="slidecraft-arrow slidecraft-next" title="Next (→)">›</button>',
     '</div>',
   ].join('');
   document.body.appendChild(nav);
 
-  const progressBar = nav.querySelector('.gamma-progress-bar');
-  const counter = nav.querySelector('.gamma-counter');
+  const progressBar = nav.querySelector('.slidecraft-progress-bar');
+  const counter = nav.querySelector('.slidecraft-counter');
 
   // ── Responsive Fit ──────────────────────────────────────────────
 
@@ -325,7 +325,7 @@
 
   var wheelTimeout = null;
   document.addEventListener('wheel', function(e) {
-    if (!e.target.closest('.deck, .gamma-nav')) return;
+    if (!e.target.closest('.deck, .slidecraft-nav')) return;
     if (wheelTimeout) return;
     wheelTimeout = setTimeout(function() { wheelTimeout = null; }, 600);
     if (e.deltaY > 0 || e.deltaX > 0) goNext();
@@ -349,7 +349,7 @@
     
     // Skip if the touch was on a nav button — those handle clicks separately.
     // Otherwise tap + click fire twice and skip slides.
-    if (e.target && e.target.closest && e.target.closest('.gamma-nav')) return;
+    if (e.target && e.target.closest && e.target.closest('.slidecraft-nav')) return;
     
     // Tap: go next/prev based on which half was tapped
     if (absDx < 30 && absDy < 30 && dt < 300) {
@@ -389,7 +389,7 @@
       presenterWindow = null;
       return;
     }
-    presenterWindow = window.open('', 'gamma-presenter',
+    presenterWindow = window.open('', 'slidecraft-presenter',
       'width=800,height=600,menubar=no,toolbar=no,location=no,status=no');
     if (presenterWindow) {
       presenterWindow.document.write(buildPresenterHTML());
@@ -399,7 +399,7 @@
   }
 
   function buildPresenterHTML() {
-    return '<!DOCTYPE html>\n<html><head><title>Gamma Presenter</title>\n<style>\n  * { margin: 0; padding: 0; box-sizing: border-box; }\n  body { font-family: system-ui, sans-serif; background: #1a1a1a; color: #eee; padding: 20px; }\n  .container { max-width: 700px; margin: 0 auto; }\n  h1 { font-size: 24px; margin-bottom: 10px; }\n  .timer { font-size: 40px; font-weight: 300; margin-bottom: 20px; font-variant-numeric: tabular-nums; }\n  .current-slide { background: #2a2a2a; border-radius: 8px; padding: 20px; margin-bottom: 16px; }\n  .current-slide h2 { font-size: 18px; color: #888; margin-bottom: 8px; }\n  .current-slide .content { font-size: 24px; line-height: 1.5; }\n  .notes { background: #333; border-radius: 8px; padding: 16px; margin-bottom: 16px; }\n  .notes h2 { font-size: 14px; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }\n  .notes .text { font-size: 18px; line-height: 1.6; color: #ddd; }\n  .next-preview { background: #222; border-radius: 8px; padding: 16px; opacity: 0.7; }\n  .next-preview h2 { font-size: 14px; color: #888; margin-bottom: 6px; text-transform: uppercase; }\n  .next-preview .content { font-size: 16px; color: #aaa; }\n  #start-btn { position: fixed; top: 20px; right: 20px; background: #6C5CE7; color: #fff; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; }\n  #start-btn:hover { background: #5A4BD1; }\n</style></head>\n<body>\n<div class="container">\n  <h1>🎤 Gamma Presenter</h1>\n  <div class="timer" id="timer">00:00</div>\n  <button id="start-btn" onclick="startTimer()">Start Timer</button>\n  <div class="current-slide">\n    <h2>Current Slide</h2>\n    <div class="content" id="current-content">—</div>\n  </div>\n  <div class="notes">\n    <h2>Speaker Notes</h2>\n    <div class="text" id="notes-text">No notes for this slide.</div>\n  </div>\n  <div class="next-preview">\n    <h2>Up Next</h2>\n    <div class="content" id="next-content">—</div>\n  </div>\n</div>\n<'+'script>\n  var startTime = null;\n  var timerInterval = null;\n  function startTimer() {\n    if (timerInterval) return;\n    startTime = Date.now();\n    timerInterval = setInterval(function() {\n      var elapsed = Math.floor((Date.now() - startTime) / 1000);\n      var m = String(Math.floor(elapsed / 60)).padStart(2, "0");\n      var s = String(elapsed % 60).padStart(2, "0");\n      document.getElementById("timer").textContent = m + ":" + s;\n    }, 500);\n  }\n  window.addEventListener("message", function(e) {\n    var d = e.data;\n    if (d.type === "slide-update") {\n      document.getElementById("current-content").textContent = d.currentTitle || "(No title)";\n      document.getElementById("notes-text").textContent = d.notes || "(No notes)";\n      document.getElementById("next-content").textContent = d.nextTitle || "(End of presentation)";\n    }\n  });\n<'+'/script>\n</body></html>';
+    return '<!DOCTYPE html>\n<html><head><title>SlideCraft Presenter</title>\n<style>\n  * { margin: 0; padding: 0; box-sizing: border-box; }\n  body { font-family: system-ui, sans-serif; background: #1a1a1a; color: #eee; padding: 20px; }\n  .container { max-width: 700px; margin: 0 auto; }\n  h1 { font-size: 24px; margin-bottom: 10px; }\n  .timer { font-size: 40px; font-weight: 300; margin-bottom: 20px; font-variant-numeric: tabular-nums; }\n  .current-slide { background: #2a2a2a; border-radius: 8px; padding: 20px; margin-bottom: 16px; }\n  .current-slide h2 { font-size: 18px; color: #888; margin-bottom: 8px; }\n  .current-slide .content { font-size: 24px; line-height: 1.5; }\n  .notes { background: #333; border-radius: 8px; padding: 16px; margin-bottom: 16px; }\n  .notes h2 { font-size: 14px; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }\n  .notes .text { font-size: 18px; line-height: 1.6; color: #ddd; }\n  .next-preview { background: #222; border-radius: 8px; padding: 16px; opacity: 0.7; }\n  .next-preview h2 { font-size: 14px; color: #888; margin-bottom: 6px; text-transform: uppercase; }\n  .next-preview .content { font-size: 16px; color: #aaa; }\n  #start-btn { position: fixed; top: 20px; right: 20px; background: #6C5CE7; color: #fff; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; }\n  #start-btn:hover { background: #5A4BD1; }\n</style></head>\n<body>\n<div class="container">\n  <h1>🎤 SlideCraft Presenter</h1>\n  <div class="timer" id="timer">00:00</div>\n  <button id="start-btn" onclick="startTimer()">Start Timer</button>\n  <div class="current-slide">\n    <h2>Current Slide</h2>\n    <div class="content" id="current-content">—</div>\n  </div>\n  <div class="notes">\n    <h2>Speaker Notes</h2>\n    <div class="text" id="notes-text">No notes for this slide.</div>\n  </div>\n  <div class="next-preview">\n    <h2>Up Next</h2>\n    <div class="content" id="next-content">—</div>\n  </div>\n</div>\n<'+'script>\n  var startTime = null;\n  var timerInterval = null;\n  function startTimer() {\n    if (timerInterval) return;\n    startTime = Date.now();\n    timerInterval = setInterval(function() {\n      var elapsed = Math.floor((Date.now() - startTime) / 1000);\n      var m = String(Math.floor(elapsed / 60)).padStart(2, "0");\n      var s = String(elapsed % 60).padStart(2, "0");\n      document.getElementById("timer").textContent = m + ":" + s;\n    }, 500);\n  }\n  window.addEventListener("message", function(e) {\n    var d = e.data;\n    if (d.type === "slide-update") {\n      document.getElementById("current-content").textContent = d.currentTitle || "(No title)";\n      document.getElementById("notes-text").textContent = d.notes || "(No notes)";\n      document.getElementById("next-content").textContent = d.nextTitle || "(End of presentation)";\n    }\n  });\n<'+'/script>\n</body></html>';
   }
 
   function updatePresenter() {
@@ -434,16 +434,16 @@
   updateUI();
 
   // Arrow button listeners
-  nav.querySelector('.gamma-prev').addEventListener('click', function(e) {
+  nav.querySelector('.slidecraft-prev').addEventListener('click', function(e) {
     e.stopPropagation();
     goPrev();
   });
-  nav.querySelector('.gamma-next').addEventListener('click', function(e) {
+  nav.querySelector('.slidecraft-next').addEventListener('click', function(e) {
     e.stopPropagation();
     goNext();
   });
 
-  // Styles are now provided by slidecraft.css (gamma-nav, .slide-wrapper, compact overrides, etc.)
+  // Styles are now provided by slidecraft.css (slidecraft-nav, .slide-wrapper, compact overrides, etc.)
   // This keeps slider.js as pure logic and safe to load via <script src>.
 
   console.log('SlideCraft Slider loaded. ← → arrows, Home/End, F=fullscreen, S=presenter');

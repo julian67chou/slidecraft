@@ -157,10 +157,31 @@ def deploy(deck_names: list[str] = None, all_decks: bool = False, latest: bool =
 
     print(f"📦 Deploying {len(selected)} deck(s) to GitHub Pages...")
 
-    # Create a temp directory for the gh-pages content
+    # Create a temp directory and clone existing gh-pages branch
     with tempfile.TemporaryDirectory() as tmp:
         pages_dir = Path(tmp) / "pages"
-        pages_dir.mkdir()
+        
+        # Clone existing gh-pages branch (shallow, preserve existing files like landing page)
+        clone = subprocess.run(
+            ["git", "clone", "--depth", "1", "--branch", "gh-pages",
+             f"git@github.com:{REPO}.git", str(pages_dir)],
+            capture_output=True, text=True, timeout=30,
+        )
+        
+        if clone.returncode != 0 and "couldn't find remote ref" not in clone.stderr:
+            # If branch doesn't exist yet, create fresh
+            print("  ⚠️  gh-pages branch not found, creating fresh...")
+            pages_dir.mkdir(parents=True, exist_ok=True)
+            subprocess.run(["git", "init"], cwd=str(pages_dir), capture_output=True)
+            subprocess.run(["git", "checkout", "-b", "gh-pages"], cwd=str(pages_dir), capture_output=True)
+        elif clone.returncode != 0:
+            # "couldn't find remote ref" = new repo, create fresh
+            print("  ⚠️  gh-pages branch not found, creating fresh...")
+            pages_dir.mkdir(parents=True, exist_ok=True)
+            subprocess.run(["git", "init"], cwd=str(pages_dir), capture_output=True)
+            subprocess.run(["git", "checkout", "-b", "gh-pages"], cwd=str(pages_dir), capture_output=True)
+        else:
+            print(f"  ✅ Cloned existing gh-pages branch")
 
         # Copy HTML files and images (only selected ones)
         for d in selected:
@@ -184,39 +205,42 @@ def deploy(deck_names: list[str] = None, all_decks: bool = False, latest: bool =
                 shutil.copytree(str(src_images), str(dest), dirs_exist_ok=True)
                 print(f"  ✅ {name}_images/")
 
-        # Write index page (only list actually deployed decks)
-        index = build_index_page(selected)
+        # Rebuild full index from ALL decks, not just selected ones
+        all_decks_list = get_decks()
+        index = build_index_page(all_decks_list)
         (pages_dir / "index.html").write_text(index)
 
-        # Create gh-pages branch and push
+        # Add, commit and push (no force: preserve existing files)
         orig_dir = os.getcwd()
-        os.chdir(str(pages_dir))
-
-        # Init git in temp dir
-        subprocess.run(["git", "init"], capture_output=True)
-        subprocess.run(["git", "checkout", "-b", "gh-pages"], capture_output=True)
-        subprocess.run(["git", "add", "-A"], capture_output=True)
+        subprocess.run(["git", "add", "-A"], cwd=str(pages_dir), capture_output=True)
         subprocess.run(
             ["git", "commit", "-m", f"deploy: {len(selected)} deck(s)"],
-            capture_output=True,
+            cwd=str(pages_dir), capture_output=True,
         )
 
-        # Push to GitHub
-        result = subprocess.run(
-            ["git", "remote", "add", "origin", f"git@github.com:{REPO}.git"],
-            capture_output=True, text=True,
-        )
+        # If repo was init'd fresh, add remote
+        if clone.returncode != 0:
+            subprocess.run(
+                ["git", "remote", "add", "origin", f"git@github.com:{REPO}.git"],
+                cwd=str(pages_dir), capture_output=True, text=True,
+            )
+
         push = subprocess.run(
-            ["git", "push", "-f", "origin", "gh-pages"],
-            capture_output=True, text=True, timeout=30,
+            ["git", "push", "origin", "gh-pages"],
+            cwd=str(pages_dir), capture_output=True, text=True, timeout=30,
         )
-
-        os.chdir(orig_dir)
+        # If non-fast-forward (e.g. concurrent changes), fall back to --force
+        if push.returncode != 0 and "non-fast-forward" in push.stderr:
+            print("  ⚠️  Non-fast-forward push, retrying with --force...")
+            push = subprocess.run(
+                ["git", "push", "--force", "origin", "gh-pages"],
+                cwd=str(pages_dir), capture_output=True, text=True, timeout=30,
+            )
 
         if push.returncode != 0:
             return f"Push failed: {push.stderr[:300]}"
 
-    url = f"https://julian67chou.github.io/gamma-ppt/"
+    url = f"https://julian67chou.github.io/slidecraft/"
     print(f"\n🌐 Published: {url}")
     return url
 

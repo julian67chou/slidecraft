@@ -1,4 +1,4 @@
-# Gamma PPT Generator — Requirements
+# SlideCraft — Requirements
 pydantic>=2.0
 python-pptx>=0.6.21
 pyyaml>=6.0

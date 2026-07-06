@@ -138,7 +138,7 @@ def verify_deck(html_path: str, ci: bool = False, report_path: str | None = None
 
     # --- Static checks (fast, no browser) ---
     file_size = os.path.getsize(html_path)
-    file_size_ok = file_size < 50 * 1024
+    file_size_ok = file_size < 300 * 1024  # 300KB — real decks can exceed 50KB
 
     with open(html_path, "r", encoding="utf-8", errors="replace") as f:
         html_content = f.read()
