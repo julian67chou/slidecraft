@@ -104,6 +104,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./output
+          destination_dir: ./decks
           keep_files: true
 
 # CI test: verify workflow permissions

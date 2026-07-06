@@ -41,7 +41,7 @@ def generate(output_dir: str = "output"):
             badges.append('<span class="badge img">🖼️</span>')
         date_str = (d["date"] or "")[:10]
         cards.append(f"""
-    <a href="{d["name"]}.html" class="deck-card">
+    <a href="decks/{d["name"]}.html" class="deck-card">
         <h2>{d["title"]}</h2>
         <div class="meta">
             <span>{d["slides"]} slides</span>
