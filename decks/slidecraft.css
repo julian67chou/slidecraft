@@ -545,27 +545,27 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
 }
 
 /* ==========================================================================
-   Gamma Nav (progress, counter, arrows) + Slide Wrapper scaling
+   SlideCraft Nav (progress, counter, arrows) + Slide Wrapper scaling
    These were previously injected by slider.js at runtime.
    ========================================================================== */
 
-.gamma-nav {
+.slidecraft-nav {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
   pointer-events: none;
 }
-.gamma-nav * { pointer-events: auto; }
+.slidecraft-nav * { pointer-events: auto; }
 
-.gamma-progress {
+.slidecraft-progress {
   position: fixed; top: 0; left: 0; right: 0; height: 3px;
   background: rgba(255,255,255,0.1); z-index: 1001;
 }
-.gamma-progress-bar {
+.slidecraft-progress-bar {
   height: 100%;
   background: linear-gradient(90deg, var(--accent, #6C5CE7), var(--accent2, #00D2D3));
   transition: width 0.3s ease; width: 0%;
 }
 
-.gamma-counter {
+.slidecraft-counter {
   position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
   font-size: 13px; color: rgba(255,255,255,0.5);
   font-family: system-ui, sans-serif; letter-spacing: 1px;
@@ -574,19 +574,19 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
   white-space: nowrap; z-index: 1002;
 }
 
-.gamma-arrows {
+.slidecraft-arrows {
   position: fixed; bottom: 16px; right: 16px;
   display: flex; gap: 8px; z-index: 1002;
 }
-.gamma-arrow {
+.slidecraft-arrow {
   width: 44px; height: 44px; border-radius: 50%; border: none;
   background: rgba(0,0,0,0.55); color: #fff; cursor: pointer;
   font-size: 24px; display: flex; align-items: center; justify-content: center;
   backdrop-filter: blur(4px); transition: background 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
-.gamma-arrow:hover { background: rgba(0,0,0,0.6); }
-.gamma-arrow:active { transform: scale(0.88); }
+.slidecraft-arrow:hover { background: rgba(0,0,0,0.6); }
+.slidecraft-arrow:active { transform: scale(0.88); }
 
 /* Slide Wrapper — handles responsive scaling for deck presentation */
 .slide-wrapper {
@@ -607,10 +607,10 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
 
 /* Mobile nav tweaks */
 @media (max-width: 800px) {
-  .gamma-counter { bottom: 14px; font-size: 12px; padding: 3px 12px; }
-  .gamma-arrows { bottom: 10px; right: 10px; gap: 10px; }
-  .gamma-arrow { width: 48px; height: 48px; font-size: 26px; }
-  .gamma-progress { height: 2px; }
+  .slidecraft-counter { bottom: 14px; font-size: 12px; padding: 3px 12px; }
+  .slidecraft-arrows { bottom: 10px; right: 10px; gap: 10px; }
+  .slidecraft-arrow { width: 48px; height: 48px; font-size: 26px; }
+  .slidecraft-progress { height: 2px; }
 }
 
 /* Fullscreen */
