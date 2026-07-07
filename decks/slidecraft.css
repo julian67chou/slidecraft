@@ -588,20 +588,63 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
 .slidecraft-arrow:hover { background: rgba(0,0,0,0.6); }
 .slidecraft-arrow:active { transform: scale(0.88); }
 
-/* Slide Wrapper — handles responsive scaling for deck presentation */
+/* ─── Slide Transitions ──────────────────────────────────────
+   Transitions fire on both .slide elements AND .slide-wrapper,
+   supporting crossfade during slide changes.
+   Non-visible wrappers are position:absolute so they stack over
+   the current slide during crossfade without affecting layout.
+   ─────────────────────────────────────────────────────────── */
+.deck {
+  position: relative;
+}
+
+/* All wrappers always display:flex; non-visible are absolute-stacked */
 .slide-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   flex-shrink: 0;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  will-change: opacity, transform;
 }
+
+/* Non-visible: stacked on top of the visible slide (for crossfade) */
+.slide-wrapper.slide-wrapper-exit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Invisible elsewhere: hidden, no interaction */
+.slide-wrapper:not(.slide-wrapper-visible):not(.slide-wrapper-exit) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Current visible slide: contributes to deck layout */
+.slide-wrapper.slide-wrapper-visible {
+  position: relative;
+  opacity: 1;
+  z-index: 3;
+}
+
+/* .slide element transitions (inner fade — crossfade layer) */
 .slide-wrapper section.slide {
   transform-origin: center center;
   transform: scale(var(--slide-scale, 1));
-  transition: opacity 0.4s ease;
+  transition: opacity 0.35s ease;
 }
-.slide-wrapper section.slide:not(.slide-active) { opacity: 0.15; }
+.slide-wrapper section.slide:not(.slide-active) { opacity: 0; }
 .slide-wrapper section.slide.slide-active { opacity: 1; }
 .slide-wrapper section.slide.slide-exit { opacity: 0; }
 

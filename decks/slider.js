@@ -32,6 +32,8 @@
   let touchStartTime = 0;
   let isMobile = false;
   let rafPending = false;
+  let _transitioning = false;
+  let _transitionTimer = null;
 
   // ── UI Elements ──────────────────────────────────────────────────
 
@@ -117,9 +119,8 @@
       isMobile = vw < 800;
 
       for (var i = 0; i < wrappers.length; i++) {
-        wrappers[i].style.display = (i === current) ? 'flex' : 'none';
-        wrappers[i].style.justifyContent = 'center';
-        wrappers[i].style.alignItems = 'center';
+        wrappers[i].classList.toggle('slide-wrapper-visible', i === current);
+        wrappers[i].classList.remove('slide-wrapper-exit');
       }
 
       document.body.style.padding = '0';
@@ -135,9 +136,8 @@
     isMobile = vw < 800;
 
     for (var i = 0; i < wrappers.length; i++) {
-      wrappers[i].style.display = (i === current) ? 'flex' : 'none';
-      wrappers[i].style.justifyContent = 'center';
-      wrappers[i].style.alignItems = 'center';
+      wrappers[i].classList.toggle('slide-wrapper-visible', i === current);
+      wrappers[i].classList.remove('slide-wrapper-exit');
     }
 
     document.body.style.padding = '0';
@@ -227,25 +227,49 @@
 
   function goTo(index) {
     var target = Math.max(0, Math.min(index, slides.length - 1));
-    if (target === current) return;
+    if (target === current || _transitioning) return;
 
-    // Reset steps on the slide we are leaving (design: reset step to 0 on slide change)
-    resetBuildSteps(slides[current]);
+    _transitioning = true;
+    var prev = current;
 
-    slides[current].classList.remove('slide-active');
-    slides[current].classList.add('slide-exit');
-    
-    // New slide always starts at build-step 0 (all step-items hidden)
+    // Cancel any pending clean-up timer
+    if (_transitionTimer) {
+      clearTimeout(_transitionTimer);
+      _transitionTimer = null;
+    }
+
+    // Phase 1: Start exit on current slide
+    resetBuildSteps(slides[prev]);
+    slides[prev].classList.remove('slide-active');
+    slides[prev].classList.add('slide-exit');
+
+    // Set up target slide (hidden initially via CSS)
     resetBuildSteps(slides[target]);
     slides[target].classList.remove('slide-exit');
     slides[target].classList.add('slide-active');
+
+    // Show target wrapper (position:relative). Keep prev wrapper
+    // rendered as position:absolute for crossfade.
+    wrappers[target].classList.add('slide-wrapper-visible');
+    wrappers[prev].classList.remove('slide-wrapper-visible');
+    wrappers[prev].classList.add('slide-wrapper-exit');
+
     current = target;
     updateUI();
-    
-    for (var i = 0; i < wrappers.length; i++) {
-      wrappers[i].style.display = (i === current) ? 'flex' : 'none';
-    }
-    fitSlidesNow();
+
+    // Do sizing + body state (without triggering fitSlidesNow which resets all classes)
+    isMobile = window.innerWidth < 800;
+    document.body.style.padding = '0';
+    document.body.style.overflow = isMobile ? '' : 'hidden';
+    applyCurrentSizing();
+    nav.style.bottom = '0';
+
+    // Phase 2: After transition completes, clean up departed slide
+    _transitionTimer = setTimeout(function() {
+      wrappers[prev].classList.remove('slide-wrapper-exit');
+      _transitioning = false;
+      _transitionTimer = null;
+    }, 400);
   }
 
   function goNext() {
