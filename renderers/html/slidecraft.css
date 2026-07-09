@@ -208,13 +208,93 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
     margin-bottom: var(--space-lg);
 }
 
-/* Cards use fixed 16px padding (per layout rules) */
+/* ─── Signature Cards (SlideCraft brand identity) ────────────────
+   Cards get a right-edge accent ring and a top-left content type
+   badge. The accent ring replaces the generic 1px border as the
+   primary card signature — brands each card without touching layout.
+   ───────────────────────────────────────────────────────────── */
 .slide .card {
     background: var(--surface);
     border-radius: var(--radius-card);
-    padding: 16px;
-    box-shadow: var(--shadow-card, none);
+    padding: 16px 20px 16px 16px;  /* extra right padding for ring */
+    box-shadow: var(--shadow-card, 0 1px 3px rgba(0,0,0,0.06));
     border: 1px solid var(--border);
+    position: relative;
+    transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+/* Right-edge accent ring — SlideCraft card signature */
+.slide .card::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    bottom: 3px;
+    width: 3px;
+    background: var(--accent);
+    border-radius: 4px;
+    opacity: 0.65;
+    transition: opacity 0.2s ease, width 0.2s ease;
+}
+
+/* Hover: ring intensifies, card lifts */
+.slide .card:hover {
+    box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--border), var(--accent) 30%);
+}
+.slide .card:hover::after {
+    opacity: 1;
+    width: 4px;
+}
+
+/* Content-type badge (top-left pill) — auto-assigned by layout */
+.slide .card::before {
+    /* position & shape */
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    z-index: 3;
+    /* icon centering */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    line-height: 1;
+    color: var(--accent);
+    /* animation */
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.25s ease;
+}
+/* Hover: badge retreats slightly with glow */
+.slide .card:hover::before {
+    transform: scale(0.75);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+/* ─── Layout Badge Icons ───────────────────────────────────────
+   Each layout assigns a unicode/emoji icon to the card badge.
+   Cards inside these layout sections auto-show the right icon.
+   For layouts without cards, the badge rules are harmless no-ops.
+   ───────────────────────────────────────────────────────────── */
+.layout-card-list .card::before    { content: '📋'; }
+.layout-grid .card::before         { content: '⊞';  }
+.layout-stat-card .card::before    { content: '📊'; }
+.layout-comparison .card::before   { content: '⇌';  }
+.layout-team .card::before         { content: '👥'; }
+.layout-process-flow .card::before { content: '↻';  }
+.layout-timeline .card::before     { content: '↕';  }
+.layout-two-column .card::before   { content: '‖';  }
+.layout-image-text .card::before   { content: '🖼'; }
+/* Cards in comparison winner get an extra highlight */
+.layout-comparison .card[style*="accent"]::after {
+    opacity: 1;
+    width: 5px;
 }
 
 /* ─── Layout: Cover ─── */
@@ -333,8 +413,27 @@ section.slide[data-has-dark-bg] .text-side .subtitle {
 .layout-two-column .two-col-grid .col {
     background: var(--surface);
     border-radius: var(--radius-card);
-    padding: 16px;
+    padding: 16px 20px 16px 16px;
     border: 1px solid var(--border);
+    position: relative;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.layout-two-column .two-col-grid .col::after {
+    content: '';
+    position: absolute;
+    top: 3px; right: 3px; bottom: 3px;
+    width: 3px;
+    background: var(--accent);
+    border-radius: 4px;
+    opacity: 0.65;
+    transition: opacity 0.2s ease;
+}
+.layout-two-column .two-col-grid .col:hover {
+    box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+    transform: translateY(-2px);
+}
+.layout-two-column .two-col-grid .col:hover::after {
+    opacity: 1;
 }
 .layout-two-column .two-col-grid .col ul {
     margin: 0;
