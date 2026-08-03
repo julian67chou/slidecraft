@@ -202,6 +202,10 @@ def generate(
     use_css_path = css_path if css_path is not None else g.get("css_path")
     use_js_path = js_path if js_path is not None else g.get("js_path")
     html_title = spec.get("title", "Presentation")
+    # Bento-style: embed the DeckSpec in the HTML (single source of truth
+    # travels with the deck). Disable via global_design.embed_spec=false
+    # (e.g. public deployment where the spec contains sensitive fields).
+    embed_spec = g.get("embed_spec", True)
     html_content = html_render(
         slides, tokens,
         output_dir=str(OUTPUT_DIR),
@@ -210,6 +214,8 @@ def generate(
         css_path=use_css_path,
         js_path=use_js_path,
         title=html_title,
+        spec=spec,
+        embed_spec=embed_spec,
     )
     html_path = OUTPUT_DIR / f"{output_name}.html"
     with open(html_path, "w", encoding="utf-8") as f:

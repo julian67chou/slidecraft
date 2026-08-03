@@ -31,6 +31,19 @@ generate(spec, 'my-deck')
 # (Grok automatically generates visuals for slides with visual.prompt)
 ```
 
+## DeckSpec 內嵌（AI-friendly，Bento-style）
+
+生成的 HTML 會把原始 DeckSpec 以 JSON 內嵌在檔案底部（`<script type="application/json" id="deck-spec">`），讓 deck 自帶單一真相來源：
+
+- **AI 微調**：agent 直接讀/改 HTML 裡的 JSON（`document.getElementById('deck-spec').textContent`），不用重跑整條 pipeline
+- **雙重真相定義**：內嵌 spec = render 時的 snapshot（記錄這份 deck 從哪來）；外部 `output/<name>.spec.json` = 工作版
+- **`</script>` 安全**：JSON 內的 `<` 自動 escape 成 `\u003c`（合法 JSON 逸出），spec 內容含 `</script>` 也不會破壞 HTML
+- **關閉內嵌**：`global_design.embed_spec: false`（公開部署、spec 含敏感欄位時）
+
+```json
+{ "global_design": { "theme_id": "clinic-warm", "embed_spec": false } }
+```
+
 ## Output
 
 Generated decks are in `output/`. Open `.html` files directly in browser.

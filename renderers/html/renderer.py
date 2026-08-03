@@ -10,6 +10,7 @@ HTML Renderer — renders slides from design tokens + SlideSpec.
 import yaml
 import os
 import re
+import json
 from pathlib import Path
 from typing import Optional
 
@@ -97,6 +98,28 @@ def _inline_slider() -> str:
         js = _SLIDER_JS_PATH.read_text(encoding="utf-8")
         return f"<script>\n{js}\n</script>"
     return ""
+
+
+def _embed_spec_block(spec: Optional[dict]) -> str:
+    """Embed the DeckSpec as a JSON block inside the HTML (Bento-style).
+
+    - Plain JSON in a <script type="application/json" id="deck-spec"> block at the
+      end of body, so AI agents / humans can read the exact spec this deck was
+      rendered from (single source of truth travels with the deck).
+    - '<' is escaped as \\u003c (valid JSON escape), so spec content containing
+      '</script>' cannot prematurely terminate the block — XSS-safe by
+      construction. This is the #1 pitfall when inlining JSON into HTML.
+    - Returns '' when spec is None (embedding disabled).
+    """
+    if not spec:
+        return ""
+    raw = json.dumps(spec, ensure_ascii=False, separators=(",", ":"))
+    safe = raw.replace("<", "\\u003c")
+    return (
+        '\n<script type="application/json" id="deck-spec">\n'
+        f"{safe}\n"
+        "</script>"
+    )
 
 
 def _load_template(template_path: Optional[str] = None) -> str:
@@ -595,6 +618,8 @@ def render_deck(
     js_path: Optional[str] = None,
     template_path: Optional[str] = None,
     title: str = "Presentation",
+    spec: Optional[dict] = None,
+    embed_spec: bool = True,
 ) -> str:
     """
     Render all slides as a complete HTML document.
@@ -622,9 +647,14 @@ def render_deck(
         template_path: Custom template file (full path or name in templates/)
         title: Document <title>
     """
+    # Bento-style: embed the DeckSpec as JSON in the document (single source
+    # of truth travels with the deck). Computed BEFORE the slide loop — the
+    # loop uses `slide_spec` so it never shadows the `spec` parameter.
+    spec_block = _embed_spec_block(spec) if embed_spec else ""
+
     slide_htmls = []
-    for spec in slides:
-        slide_htmls.append(f'<div class="slide-wrapper">{render_slide(spec, tokens, output_dir, build_steps)}</div>')
+    for slide_spec in slides:
+        slide_htmls.append(f'<div class="slide-wrapper">{render_slide(slide_spec, tokens, output_dir, build_steps)}</div>')
     deck_content = "".join(slide_htmls)
 
     css_vars = tokens_to_css(tokens)
@@ -650,13 +680,15 @@ def render_deck(
 
     tmpl = _load_template(template_path)
 
+    js_block_final = js_block + spec_block
+
     # Prefer .format; fall back to replace for legacy/custom templates
     try:
         return tmpl.format(
             title=title,
             css_block=css_block,
             deck_content=deck_content,
-            js_block=js_block,
+            js_block=js_block_final,
         )
     except (KeyError, ValueError):
         # legacy fallback support {css_vars} etc + our new keys
@@ -665,7 +697,7 @@ def render_deck(
         html = tmpl.replace("{title}", title)
         html = html.replace("{css_block}", css_block)
         html = html.replace("{deck_content}", deck_content)
-        html = html.replace("{js_block}", js_block)
+        html = html.replace("{js_block}", js_block_final)
         # legacy
         html = html.replace("{css_vars}", css_vars)
         html = html.replace("{css_href}", c_href if not standalone else "")
