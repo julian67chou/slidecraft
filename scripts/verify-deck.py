@@ -312,15 +312,18 @@ def run_contrast_verification(html_path: str, page: Any = None) -> dict:
         }
 
 
-def check_font_declaration(html_content: str) -> dict:
+def check_font_declaration(html_content: str, html_path: str = "", repo_root: str | None = None) -> dict:
     """L3.5 — 字型宣告檢查（靜態，不依賴瀏覽器環境）。
 
     檢查兩件事：
     1. font-family 是否包含 CJK 字型（Noto Sans TC / 思源黑體 / 微軟正黑體 等）
-    2. 是否有字型載入來源（Google Fonts link / @font-face / 本地 woff2/ttf）
+    2. 是否有字型載入來源（Google Fonts link / @font-face / 本地 woff2/ttf / 外部 CSS 檔）
 
     背景：2026-08-15 老公實測抓到 V3 中文全變方塊（tofu）——
     CSS 宣告 'Noto Sans TC' 但從未載入，無中文字型的環境全部 fallback 成方塊。
+
+    補充：external 模式（--external）HTML 用 <link rel="stylesheet" href="slidecraft.css">，
+    @import 在外部 CSS——檢查需讀取該 CSS 檔確認字型來源。
     """
     issues = []
 
@@ -338,24 +341,50 @@ def check_font_declaration(html_content: str) -> dict:
             "reason": "font-family 未宣告任何 CJK 中文字型（如 Noto Sans TC / 微軟正黑體）——無中文字型環境會顯示方塊（tofu）"
         })
 
-    # 2. 字型載入來源
+    # 2. 字型載入來源（含外部 CSS 檔）
     has_font_source = False
+    source = "無"
     if "fonts.googleapis.com" in html_content or "fonts.gstatic.com" in html_content:
         has_font_source = True
-        source = "Google Fonts"
+        source = "Google Fonts (inline)"
     elif "@font-face" in html_content:
         has_font_source = True
-        source = "@font-face"
+        source = "@font-face (inline)"
     elif re.search(r'\.(woff2?|ttf|otf)', html_content):
         has_font_source = True
         source = "本地字型檔"
     else:
-        source = "無"
+        # external 模式：讀外部 CSS 檔
+        ext_css = re.findall(r'<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"', html_content)
+        for css_href in ext_css:
+            css_text = ""
+            if css_href.startswith("http"):
+                # 遠端 CSS 無法靜態讀取 → 視為潛在來源（寬鬆）
+                has_font_source = True
+                source = f"外部 CSS: {css_href}"
+                break
+            else:
+                # 本地 CSS：嘗試解析路徑
+                css_path = None
+                if html_path:
+                    p = Path(html_path).resolve().parent / css_href
+                    if p.exists():
+                        css_path = p
+                if css_path is None and repo_root:
+                    p = Path(repo_root).resolve() / css_href
+                    if p.exists():
+                        css_path = p
+                if css_path:
+                    css_text = css_path.read_text(encoding="utf-8", errors="replace")
+                    if "fonts.googleapis.com" in css_text or "@font-face" in css_text or "fonts.gstatic.com" in css_text:
+                        has_font_source = True
+                        source = f"外部 CSS {css_href} 含字型來源"
+                        break
 
     if declared_cjk and not has_font_source:
         issues.append({
             "ref": "html", "severity": "error",
-            "reason": f"font-family 宣告了 CJK 字型（{declared_cjk[0]}）但沒有任何載入來源（Google Fonts/@font-face/本地檔）——字型宣告了卻不會被載入"
+            "reason": f"font-family 宣告了 CJK 字型（{declared_cjk[0]}）但沒有任何載入來源（Google Fonts/@font-face/本地檔/外部 CSS）——字型宣告了卻不會被載入"
         })
     if not declared_cjk and not has_font_source:
         issues.append({
@@ -711,7 +740,7 @@ def verify_deck(html_path: str, ci: bool = False, report_path: str | None = None
                 # ── L3.5: 字型宣告檢查（tofu 方塊防護）──
                 # 註：改為靜態檢查（check_font_declaration），不依賴瀏覽器環境字型
                 if "font_declaration" not in report:
-                    font_result = check_font_declaration(html_content)
+                    font_result = check_font_declaration(html_content, html_path=html_path, repo_root=repo_root)
                     report["font_declaration"] = font_result
                     if not font_result.get("ok", False):
                         all_passed = False
