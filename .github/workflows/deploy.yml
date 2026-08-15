@@ -82,7 +82,8 @@ jobs:
         run: |
           for SPEC in ${{ steps.find-specs.outputs.specs }}; do
             echo "=== Rendering: $SPEC ==="
-            python cli/main.py --spec "$SPEC" --external || echo "⚠️  Render failed for $SPEC, continuing..."
+            # standalone（預設）: 內嵌 CSS/JS 到單檔 HTML，子目錄部署時相對路徑不會斷
+            python cli/main.py --spec "$SPEC" || echo "⚠️  Render failed for $SPEC, continuing..."
           done
           echo "=== All renders complete ==="
           echo "Output files:"

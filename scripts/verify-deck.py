@@ -804,6 +804,14 @@ def verify_deck(html_path: str, ci: bool = False, report_path: str | None = None
 
     report["console_errors"] = console_errors[:15]
 
+    # v2.1: console error / pageerror = 硬性失敗（2026-08-15 教訓：
+    # V3 內嵌 slider JS syntax error 導致 10 張 slide 全堆疊，
+    # 舊版 console_errors 只記錄不 fail → 驗證全綠但實際壞）
+    if console_errors:
+        all_passed = False
+        for ce in console_errors[:10]:
+            report["errors"].append(f"[L1技術] console/page error: {ce[:150]}")
+
     # 最終判定：所有層都過 + 沒有 error
     report["passed"] = bool(all_passed and not any("L2資源" in e or "L3內容" in e or "L4對比" in e for e in report["errors"]))
 
