@@ -260,17 +260,18 @@ def run_contrast_verification(html_path: str, page: Any = None) -> dict:
                         // 背景：往上找第一個有背景色/背景圖的元素
                         let bgEl = el;
                         let bg = null;
+                        let bgColor = null;
                         while (bgEl) {
                             const cs2 = getComputedStyle(bgEl);
                             if (cs2.backgroundColor && cs2.backgroundColor !== 'rgba(0, 0, 0, 0)') {
                                 bg = parseColor(cs2.backgroundColor);
-                                if (bg) break;
+                                if (bg) { bgColor = cs2.backgroundColor; break; }
                             }
                             bgEl = bgEl.parentElement;
                         }
                         if (fg && bg) {
                             const ratio = contrast(fg, bg);
-                            if (!worst || ratio < worst.ratio) worst = {ratio, el: el.tagName, fg: cs.color, bg: cs2.backgroundColor};
+                            if (!worst || ratio < worst.ratio) worst = {ratio, el: el.tagName, fg: cs.color, bg: bgColor};
                         }
                     });
                     const id = slide.getAttribute('data-slide-id') || 's' + (i+1);
