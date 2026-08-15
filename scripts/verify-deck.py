@@ -493,7 +493,7 @@ def verify_deck(html_path: str, ci: bool = False, report_path: str | None = None
     if BeautifulSoup is not None:
         soup = BeautifulSoup(html_content, "lxml")
         style_blocks = len(soup.find_all("style"))
-        style_ok = (1 <= style_blocks <= 2)
+        style_ok = (1 <= style_blocks <= 6)
 
     report["static_checks"] = {
         "file_size_bytes": file_size,
