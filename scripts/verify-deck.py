@@ -312,57 +312,65 @@ def run_contrast_verification(html_path: str, page: Any = None) -> dict:
         }
 
 
-def run_font_render_check(page: Any = None) -> dict:
-    """L3.5 — 字型渲染檢查：量測中文渲染寬度，偵測 tofu 方塊（字型未載入）。
+def check_font_declaration(html_content: str) -> dict:
+    """L3.5 — 字型宣告檢查（靜態，不依賴瀏覽器環境）。
 
-    tofu 特徵：所有不同中文字元渲染寬度幾乎相同（fallback 方塊），
-    且與字型大小比值接近 1.0（方塊寬 = font-size）。
+    檢查兩件事：
+    1. font-family 是否包含 CJK 字型（Noto Sans TC / 思源黑體 / 微軟正黑體 等）
+    2. 是否有字型載入來源（Google Fonts link / @font-face / 本地 woff2/ttf）
+
+    背景：2026-08-15 老公實測抓到 V3 中文全變方塊（tofu）——
+    CSS 宣告 'Noto Sans TC' 但從未載入，無中文字型的環境全部 fallback 成方塊。
     """
-    if page is None:
-        return {"ok": False, "tool": "not_verified",
-                "message": "字型渲染檢查需要瀏覽器頁面（未提供）——此為未驗證，不是通過！"}
+    issues = []
 
-    try:
-        result = page.evaluate("""
-            () => {
-                const chars = ["測", "試", "文", "字", "溝", "通", "文", "化", "團", "隊", "步", "驟", "體", "能", "價"];
-                const probe = document.createElement("span");
-                probe.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap;font-size:16px;font-family:inherit;";
-                document.body.appendChild(probe);
-                const widths = [];
-                for (const c of chars) {
-                    probe.textContent = c;
-                    widths.push(probe.getBoundingClientRect().width);
-                }
-                document.body.removeChild(probe);
-                // tofu 特徵：寬度變異極小
-                const min = Math.min(...widths), max = Math.max(...widths);
-                const avg = widths.reduce((a,b)=>a+b,0) / widths.length;
-                const spread = max - min;
-                // 正常中文字型：不同字寬略有差異（spread > 0.5px）
-                // tofu：全部相同寬度（spread ~ 0）
-                return { widths, min, max, avg, spread };
-            }
-        """)
-        spread = result.get("spread", 0)
-        avg = result.get("avg", 0)
-        is_tofu = spread < 0.5 and avg > 0
-        issues = []
-        if is_tofu:
-            issues.append({
-                "ref": "html", "severity": "error",
-                "reason": f"字型未載入（tofu 方塊）: 中文渲染寬度全相同（spread={spread:.2f}px, avg={avg:.1f}px）——"
-                          "檢查是否有 Google Fonts / @font-face 載入 CJK 字型（Noto Sans TC 等）"
-            })
-        ok = not is_tofu
-        return {
-            "ok": ok,
-            "tool": "font-render-check",
-            "message": f"中文渲染寬度 spread={spread:.2f}px" + ("（正常）" if ok else "（tofu！）"),
-            "details": {"spread": spread, "avg": avg, "widths": result.get("widths", [])},
-        }
-    except Exception as e:
-        return {"ok": False, "tool": "error", "message": f"字型檢查失敗: {str(e)[:200]}", "details": {}}
+    # 1. font-family 是否含 CJK 字型
+    cjk_fonts = [
+        "Noto Sans TC", "Noto Sans CJK", "Noto Serif TC", "PingFang",
+        "Microsoft JhengHei", "微软雅黑", "微軟正黑", "Source Han", "思源",
+        "Taipei", "cwTeX", "jf-openhuninn", "WenQuanYi", "文泉驛",
+        "Yu Gothic", "Hiragino",
+    ]
+    declared_cjk = [f for f in cjk_fonts if f.lower() in html_content.lower()]
+    if not declared_cjk:
+        issues.append({
+            "ref": "html", "severity": "error",
+            "reason": "font-family 未宣告任何 CJK 中文字型（如 Noto Sans TC / 微軟正黑體）——無中文字型環境會顯示方塊（tofu）"
+        })
+
+    # 2. 字型載入來源
+    has_font_source = False
+    if "fonts.googleapis.com" in html_content or "fonts.gstatic.com" in html_content:
+        has_font_source = True
+        source = "Google Fonts"
+    elif "@font-face" in html_content:
+        has_font_source = True
+        source = "@font-face"
+    elif re.search(r'\.(woff2?|ttf|otf)', html_content):
+        has_font_source = True
+        source = "本地字型檔"
+    else:
+        source = "無"
+
+    if declared_cjk and not has_font_source:
+        issues.append({
+            "ref": "html", "severity": "error",
+            "reason": f"font-family 宣告了 CJK 字型（{declared_cjk[0]}）但沒有任何載入來源（Google Fonts/@font-face/本地檔）——字型宣告了卻不會被載入"
+        })
+    if not declared_cjk and not has_font_source:
+        issues.append({
+            "ref": "html", "severity": "warning",
+            "reason": "無 CJK 字型宣告且無載入來源——中文內容在無中文字型環境會顯示方塊"
+        })
+
+    ok = not any(i["severity"] == "error" for i in issues)
+    return {
+        "ok": ok,
+        "tool": "font-declaration-check",
+        "message": f"CJK 字型: {', '.join(declared_cjk) if declared_cjk else '無'} | 載入來源: {source}",
+        "issues": issues,
+        "details": {"declared_cjk": declared_cjk, "font_source": source},
+    }
 
 
 # =============================================================================
@@ -700,18 +708,14 @@ def verify_deck(html_path: str, ci: bool = False, report_path: str | None = None
                         else:
                             report["errors"].append(f"[L4對比] {contrast_result.get('message', '未驗證')}")
 
-                # ── L3.5: 字型渲染檢查（tofu 方塊偵測）──
-                if "font_render" not in report:
-                    font_result = run_font_render_check(page=page)
-                    report["font_render"] = font_result
+                # ── L3.5: 字型宣告檢查（tofu 方塊防護）──
+                # 註：改為靜態檢查（check_font_declaration），不依賴瀏覽器環境字型
+                if "font_declaration" not in report:
+                    font_result = check_font_declaration(html_content)
+                    report["font_declaration"] = font_result
                     if not font_result.get("ok", False):
                         all_passed = False
-                        # issues 在頂層（run_font_render_check 回傳結構）
-                        font_issues = font_result.get("issues", [])
-                        if not font_issues:
-                            font_issues = [{"ref": "html", "severity": "error",
-                                            "reason": font_result.get("message", "字型檢查失敗")}]
-                        for fi in font_issues:
+                        for fi in font_result.get("issues", []):
                             if fi["severity"] == "error":
                                 report["errors"].append(f"[L3.5字型] {fi['ref']}: {fi['reason']}")
 
