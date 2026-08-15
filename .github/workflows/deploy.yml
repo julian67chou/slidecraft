@@ -9,6 +9,15 @@ on:
       - 'renderers/**'
       - 'design-tokens/**'
       - 'scripts/*'
+      - 'output/**'
+      - '.github/workflows/*'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'deckspec/*.json'
+      - 'renderers/**'
+      - 'scripts/*'
+      - 'output/**'
       - '.github/workflows/*'
   workflow_dispatch:
     inputs:
@@ -79,18 +88,23 @@ jobs:
           echo "Output files:"
           ls -la output/
 
-      - name: Verify all decks
+      - name: Verify all decks (quality gate — FAIL blocks deploy)
         if: steps.find-specs.outputs.specs != ''
         run: |
           FAILED=0
           for html in output/*.html; do
             echo "=== Verifying: $html ==="
-            python scripts/verify-deck.py --html "$html" --ci --report "verify-output/$(basename $html .html).json" || {
-              echo "⚠️  Verification WARNING for $html (continuing anyway)"
-            }
-            echo "✅ Verified: $html"
+            if python scripts/verify-deck.py --html "$html" --ci --repo-root . --report "verify-output/$(basename $html .html).json"; then
+              echo "✅ Verified: $html"
+            else
+              echo "❌ VERIFICATION FAILED: $html — deploy BLOCKED"
+              FAILED=1
+            fi
           done
-          exit $FAILED
+          if [ $FAILED -ne 0 ]; then
+            echo "::error::One or more decks failed verification. Deploy blocked."
+            exit 1
+          fi
 
       - name: Generate landing page
         if: steps.find-specs.outputs.specs != ''

@@ -1,0 +1,61 @@
+name: SlideCraft Verify (quality gate)
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'deckspec/*.json'
+      - 'renderers/**'
+      - 'scripts/*'
+      - 'output/**'
+  push:
+    branches: [main]
+    paths:
+      - 'deckspec/*.json'
+      - 'renderers/**'
+      - 'scripts/*'
+      - 'output/**'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install chromium --with-deps
+
+      - name: Verify all decks (L1-L4 quality gate)
+        run: |
+          FAILED=0
+          for html in output/*.html; do
+            echo "=== Verifying: $html ==="
+            if python scripts/verify-deck.py --html "$html" --ci --repo-root . --report "verify-output/$(basename $html .html).json"; then
+              echo "✅ Verified: $html"
+            else
+              echo "❌ FAILED: $html"
+              FAILED=1
+            fi
+          done
+          if [ $FAILED -ne 0 ]; then
+            echo "::error::Deck verification failed (L1-L4). Fix issues before merge."
+            exit 1
+          fi
+          echo "::notice::All decks passed verification (L1-L4)."
+
+      - name: Upload verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-reports
+          path: verify-output/
+          if-no-files-found: ignore
