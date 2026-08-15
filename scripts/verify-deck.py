@@ -312,6 +312,59 @@ def run_contrast_verification(html_path: str, page: Any = None) -> dict:
         }
 
 
+def run_font_render_check(page: Any = None) -> dict:
+    """L3.5 — 字型渲染檢查：量測中文渲染寬度，偵測 tofu 方塊（字型未載入）。
+
+    tofu 特徵：所有不同中文字元渲染寬度幾乎相同（fallback 方塊），
+    且與字型大小比值接近 1.0（方塊寬 = font-size）。
+    """
+    if page is None:
+        return {"ok": False, "tool": "not_verified",
+                "message": "字型渲染檢查需要瀏覽器頁面（未提供）——此為未驗證，不是通過！"}
+
+    try:
+        result = page.evaluate("""
+            () => {
+                const chars = ["測", "試", "文", "字", "溝", "通", "文", "化", "團", "隊", "步", "驟", "體", "能", "價"];
+                const probe = document.createElement("span");
+                probe.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap;font-size:16px;font-family:inherit;";
+                document.body.appendChild(probe);
+                const widths = [];
+                for (const c of chars) {
+                    probe.textContent = c;
+                    widths.push(probe.getBoundingClientRect().width);
+                }
+                document.body.removeChild(probe);
+                // tofu 特徵：寬度變異極小
+                const min = Math.min(...widths), max = Math.max(...widths);
+                const avg = widths.reduce((a,b)=>a+b,0) / widths.length;
+                const spread = max - min;
+                // 正常中文字型：不同字寬略有差異（spread > 0.5px）
+                // tofu：全部相同寬度（spread ~ 0）
+                return { widths, min, max, avg, spread };
+            }
+        """)
+        spread = result.get("spread", 0)
+        avg = result.get("avg", 0)
+        is_tofu = spread < 0.5 and avg > 0
+        issues = []
+        if is_tofu:
+            issues.append({
+                "ref": "html", "severity": "error",
+                "reason": f"字型未載入（tofu 方塊）: 中文渲染寬度全相同（spread={spread:.2f}px, avg={avg:.1f}px）——"
+                          "檢查是否有 Google Fonts / @font-face 載入 CJK 字型（Noto Sans TC 等）"
+            })
+        ok = not is_tofu
+        return {
+            "ok": ok,
+            "tool": "font-render-check",
+            "message": f"中文渲染寬度 spread={spread:.2f}px" + ("（正常）" if ok else "（tofu！）"),
+            "details": {"spread": spread, "avg": avg, "widths": result.get("widths", [])},
+        }
+    except Exception as e:
+        return {"ok": False, "tool": "error", "message": f"字型檢查失敗: {str(e)[:200]}", "details": {}}
+
+
 # =============================================================================
 # LOCAL HTTP SERVER
 # =============================================================================
@@ -646,6 +699,21 @@ def verify_deck(html_path: str, ci: bool = False, report_path: str | None = None
                                     report["errors"].append(f"[L4對比] {ci['ref']}: {ci['reason']}")
                         else:
                             report["errors"].append(f"[L4對比] {contrast_result.get('message', '未驗證')}")
+
+                # ── L3.5: 字型渲染檢查（tofu 方塊偵測）──
+                if "font_render" not in report:
+                    font_result = run_font_render_check(page=page)
+                    report["font_render"] = font_result
+                    if not font_result.get("ok", False):
+                        all_passed = False
+                        # issues 在頂層（run_font_render_check 回傳結構）
+                        font_issues = font_result.get("issues", [])
+                        if not font_issues:
+                            font_issues = [{"ref": "html", "severity": "error",
+                                            "reason": font_result.get("message", "字型檢查失敗")}]
+                        for fi in font_issues:
+                            if fi["severity"] == "error":
+                                report["errors"].append(f"[L3.5字型] {fi['ref']}: {fi['reason']}")
 
                 if ci:
                     os.makedirs("verify-output", exist_ok=True)
